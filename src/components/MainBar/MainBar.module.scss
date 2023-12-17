@@ -1,0 +1,8 @@
+
+.label {
+    flex-grow: 1;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: var(--spacer);
+}
