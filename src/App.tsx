@@ -1,7 +1,8 @@
-import "./App.css";
 import { Box } from "@mui/material";
-import MainBar from "./components/MainBar/MainBar";
 import { Route, Routes } from "react-router-dom";
+
+import "./App.css";
+import MainBar from "./components/MainBar/MainBar";
 import AppLoading from "./views/AppLoading/AppLoading";
 
 function App() {

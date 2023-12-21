@@ -1,9 +1,7 @@
-import React from "react";
-
-import { AppBar, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import MapIcon from "@mui/icons-material/Map";
-
+import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
+import React from "react";
 import { useSelector } from "react-redux";
 import { TRootState } from "src/store/types";
 
