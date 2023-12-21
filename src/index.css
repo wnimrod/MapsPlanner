@@ -1,3 +1,12 @@
 :root {
   --spacer: 1rem;
+
+  /* Z-indices */
+  --backdrop-z-index: 5000;
+  background-color: var(--mui-palette-grey-50);
+
+}
+
+body {
+  margin: 0;
 }

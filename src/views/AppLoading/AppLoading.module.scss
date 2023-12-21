@@ -1,0 +1,15 @@
+.backdrop {
+    z-index: var(--backdrop-z-index);
+    background-color: var(--mui-palette-common-background) !important;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: calc(2 * var(--spacer));
+        
+        .label {
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+    }
+}

@@ -13,7 +13,7 @@ export default function MainBar() {
   const user = useSelector((state: TRootState) => state.user);
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="sticky">
       <Toolbar>
         <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <MenuIcon />
