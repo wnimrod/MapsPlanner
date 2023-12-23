@@ -10,7 +10,7 @@
   "trailingComma": "none",
 
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
-  "importOrder": ["^components/(.*)$", "^[./]"],
+  "importOrder": ["react", "^components/(.*)$", "^[./]"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }

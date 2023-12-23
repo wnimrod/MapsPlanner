@@ -1,15 +1,16 @@
 import { Backdrop, Box, LinearProgress, Typography } from "@mui/material";
+import { TRootState } from "src/store/types";
+
+import { useSelector } from "react-redux";
 
 import style from "./AppLoading.module.scss";
 
-type TProps = {
-  isOpen: boolean;
-};
+export default function AppLoading() {
+  const isAppReady = useSelector((state: TRootState) => state.global.isAppReady);
 
-export default function AppLoading({ isOpen }: TProps) {
   return (
     <Backdrop
-      open={isOpen}
+      open={!isAppReady}
       className={style.backdrop}
       transitionDuration={{ appear: 0, exit: 500 }}
     >

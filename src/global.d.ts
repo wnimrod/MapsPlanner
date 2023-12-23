@@ -1,7 +1,8 @@
-declare type TUser = {
-  id: string;
-  email: string;
+declare interface IAPIUser {
+  id: number;
   firstName: string;
   lastName: string;
-  profilePicture: string | null;
-};
+  email: string;
+  profilePicture: string; // as url
+  isActive: boolean;
+}

@@ -1,0 +1,22 @@
+.container {
+    margin-top: 10%;
+    background-color: var(--mui-palette-background);
+    border:1px solid var(--mui-palette-primary-main);
+    border-radius: 5px;
+    padding: var(--spacer);
+    display: flex !important;
+    flex-direction: column;
+    justify-content:  center;
+    align-items: center;
+    gap: var(--spacer);
+
+    h5 {
+        text-transform: capitalize;
+        font-weight: bold;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    hr {
+        width: 100%;
+    }
+}

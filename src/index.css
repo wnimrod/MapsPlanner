@@ -3,8 +3,14 @@
 
   /* Z-indices */
   --backdrop-z-index: 5000;
+  --body-background: initial;
   background-color: var(--mui-palette-grey-50);
 
+}
+
+html, body, #root {
+  background: var(--body-background);
+  height: 100%;
 }
 
 body {
