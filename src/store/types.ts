@@ -10,6 +10,7 @@ export type TGlobalState = {
     message: string;
     severity: AlertProps["severity"];
   };
+  isSideMenuOpen: boolean;
 };
 
 export type TRootState = {

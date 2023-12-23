@@ -6,6 +6,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import "./App.css";
 import MainBar from "./components/MainBar/MainBar";
+import SideMenu from "./components/SideMenu/SideMenu";
 import SystemAlert from "./components/SystemAlert/SystemAlert";
 import { setIsAppReady } from "./store/global";
 import { AppDispatch } from "./store/store";
@@ -44,6 +45,7 @@ function App() {
       <AppLoading />
       <SystemAlert />
       <MainBar />
+      <SideMenu />
       <Routes>
         <Route path="/" Component={() => <div>Hello world</div>}></Route>
         <Route path="/login" Component={LoginPage} />

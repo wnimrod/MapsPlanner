@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { TGlobalState, TUserState } from "./types";
+import { TGlobalState } from "./types";
 
 export const SLICE_NAME = "global";
 
@@ -10,7 +10,8 @@ const initialState: TGlobalState = {
     isOpen: false,
     message: "",
     severity: undefined
-  }
+  },
+  isSideMenuOpen: false
 };
 
 export const slice = createSlice({
@@ -28,9 +29,12 @@ export const slice = createSlice({
     },
     dismissAlert(state: TGlobalState) {
       state.alert = initialState.alert;
+    },
+    setIsSideMenuOpen: (state: TGlobalState, { payload: isOpen }: PayloadAction<boolean>) => {
+      state.isSideMenuOpen = isOpen;
     }
   }
 });
 
-export const { setIsAppReady, setAlert, dismissAlert } = slice.actions;
+export const { setIsAppReady, setAlert, dismissAlert, setIsSideMenuOpen } = slice.actions;
 export default slice.reducer;
