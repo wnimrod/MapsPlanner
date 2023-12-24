@@ -6,6 +6,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import "./App.css";
 import MainBar from "./components/MainBar/MainBar";
+import Map from "./components/Map/Map";
 import SideMenu from "./components/SideMenu/SideMenu";
 import SystemAlert from "./components/SystemAlert/SystemAlert";
 import { setIsAppReady } from "./store/global";
@@ -48,6 +49,7 @@ function App() {
       <SideMenu />
       <Routes>
         <Route path="/" Component={() => <div>Hello world</div>}></Route>
+        <Route path="/map/:id" Component={Map} />
         <Route path="/login" Component={LoginPage} />
       </Routes>
     </Box>

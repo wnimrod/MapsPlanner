@@ -8,7 +8,13 @@ export default function GoogleLoginButton({ ...buttonProps }: TGoogleLoginButton
   const { redirect } = useGoogleAuth();
 
   return (
-    <Button startIcon={<GoogleIcon />} variant="contained" {...buttonProps} onClick={redirect}>
+    <Button
+      startIcon={<GoogleIcon />}
+      variant="contained"
+      color="inherit"
+      {...buttonProps}
+      onClick={redirect}
+    >
       Login With Google
     </Button>
   );

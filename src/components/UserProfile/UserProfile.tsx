@@ -1,13 +1,18 @@
 import { AccountCircle } from "@mui/icons-material";
-import { Avatar, IconButton, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import { Avatar, IconButton, Menu, MenuItem, SvgIcon, Typography } from "@mui/material";
 import { TRootState } from "src/store/types";
 
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { To, useNavigate } from "react-router-dom";
 
+import ThemeSwtich from "../ThemeSwitch/ThemeSwitch";
+import style from "./UserProfile.module.scss";
+
 type TProfileSettingsEntry = {
   label: string;
+  icon: typeof SvgIcon;
   to: To;
 };
 
@@ -30,7 +35,8 @@ export default function UserProfile() {
 
   const settingsMenuEntries: TProfileSettingsEntry[] = [
     {
-      label: "Edit Profile",
+      label: "Profile",
+      icon: PersonIcon,
       to: "/settings/profile"
     }
   ];
@@ -62,10 +68,18 @@ export default function UserProfile() {
         onClose={() => handleMenuItemSelected()}
       >
         {settingsMenuEntries.map((settingsEntry) => (
-          <MenuItem key={settingsEntry.label} onClick={() => handleMenuItemSelected(settingsEntry)}>
+          <MenuItem
+            key={settingsEntry.label}
+            onClick={() => handleMenuItemSelected(settingsEntry)}
+            className={style["menu-item"]}
+          >
+            <settingsEntry.icon />
             <Typography textAlign="center">{settingsEntry.label}</Typography>
           </MenuItem>
         ))}
+        <MenuItem key="switch-theme">
+          <ThemeSwtich />
+        </MenuItem>
       </Menu>
     </>
   );

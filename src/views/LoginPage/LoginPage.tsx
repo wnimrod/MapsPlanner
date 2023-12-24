@@ -19,10 +19,15 @@ export default function LoginPage() {
   }, [user?.isLoggedIn]);
 
   return (
-    <Container className={style.container} maxWidth="sm">
-      <Typography variant="h5">Please log-in or sign-up</Typography>
-      <Divider />
-      <GoogleLoginButton />
-    </Container>
+    <div className={style.container}>
+      <div className={style.header} />
+      <Container maxWidth="sm">
+        <div className={style["login-container"]}>
+          <Typography variant="h5">Please log-in or sign-up</Typography>
+          <Divider />
+          <GoogleLoginButton />
+        </div>
+      </Container>
+    </div>
   );
 }

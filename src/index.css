@@ -8,6 +8,15 @@
 
 }
 
+html {
+  &[data-mui-color-scheme=light] {
+    --login-background-image: url("maps-background-light.jpg")
+  }
+  &[data-mui-color-scheme=dark] {
+    --login-background-image: url("maps-background-dark.jpg")
+  }
+  
+}
 html, body, #root {
   background: var(--body-background);
   height: 100%;

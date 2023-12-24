@@ -7,7 +7,7 @@ import { AppDispatch } from "src/store/store";
 import { useDispatch } from "react-redux";
 
 import style from "./MainBar.module.scss";
-import UserProfile from "./UserProfile";
+import UserProfile from "../UserProfile/UserProfile";
 
 export default function MainBar() {
   const dispatch: AppDispatch = useDispatch();

@@ -15,6 +15,7 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.15.0",
     "@mui/material": "^5.15.0",
+    "@react-google-maps/api": "^2.19.2",
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.2",
     "axios-case-converter": "^1.1.0",
@@ -23,7 +24,8 @@
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.1",
     "swr": "^2.2.4",
-    "use-async-memo": "^1.2.5"
+    "use-async-memo": "^1.2.5",
+    "use-places-autocomplete": "^4.0.1"
   },
   "devDependencies": {
     "@storybook/builder-vite": "^7.6.5",
