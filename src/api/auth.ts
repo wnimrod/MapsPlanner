@@ -15,7 +15,7 @@ export const useGoogleAuth = () => {
   const redirect = async () => {
     try {
       const response = await api.get<TAuthResponse>("/auth/google");
-      window.open(response.data.url);
+      window.location.href = response.data.url;
     } catch (error) {
       dispatch(
         setAlert({

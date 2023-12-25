@@ -20,7 +20,6 @@ export const slice = createSlice({
     builder.addCase(
       fetchCurrentUserThunk.fulfilled,
       (state, { payload: user }: { payload: IAPIUser | null }): TUserState => {
-        console.log("Fullfilled with", user);
         if (user === null) {
           return { isLoggedIn: false };
         } else {

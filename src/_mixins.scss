@@ -1,0 +1,14 @@
+@mixin specificity() {
+    :global(#body) #{if(&, '&', '')} {
+      @content;
+    }
+  }
+
+
+
+@mixin trancute-multiline($max-lines) {
+    display: -webkit-box;
+    -webkit-line-clamp: $max-lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

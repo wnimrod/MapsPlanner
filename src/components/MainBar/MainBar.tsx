@@ -1,6 +1,6 @@
 import MapIcon from "@mui/icons-material/Map";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
+import { AppBar, Container, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
 import { setIsSideMenuOpen } from "src/store/global";
 import { AppDispatch } from "src/store/store";
 
@@ -14,6 +14,7 @@ export default function MainBar() {
 
   return (
     <AppBar position="sticky">
+      <Container maxWidth="lg">
       <Toolbar>
         <IconButton
           size="large"
@@ -31,6 +32,7 @@ export default function MainBar() {
         </Typography>
         <UserProfile />
       </Toolbar>
+      </Container>
     </AppBar>
   );
 }

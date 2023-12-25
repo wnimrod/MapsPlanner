@@ -15,7 +15,12 @@ export default ({ mode }) => {
 
   return defineConfig({
     define: Object.entries(env).reduce(buildEnvObj, {}),
-    plugins: [react(), tsconfigPaths()]
+    plugins: [react(), tsconfigPaths()],
+    resolve: {
+      alias: {
+        src: "/src",
+        mapsplanner: "/src"
+      }
+    }
   });
 };
-

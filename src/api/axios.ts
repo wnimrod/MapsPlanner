@@ -1,10 +1,18 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 import applyCaseMiddleware from "axios-case-converter";
 
 export type TAxiosMiddlewareApplication = {
   middleware: (instance: AxiosInstance, options?: any) => AxiosInstance;
   options?: any;
 };
+
+export function unwrapAxiosResult<TResponse, TData>(result: AxiosResponse<TResponse, TData>) {
+  /**
+   * Unwraps axios response and returns the data inself only.
+   * @param result: Original axios response object.
+   */
+  return result.data;
+}
 
 const middlewares: TAxiosMiddlewareApplication[] = [
   {

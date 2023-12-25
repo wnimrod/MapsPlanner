@@ -11,7 +11,7 @@ export default function SystemAlert() {
   const handleClose = () => dispatch(dismissAlert());
 
   return (
-    <Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
+    <Snackbar open={isOpen} autoHideDuration={6000} TransitionProps={{ onExited: handleClose }}>
       <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
         {message}
       </Alert>

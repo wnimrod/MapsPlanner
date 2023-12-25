@@ -1,12 +1,22 @@
 import { fetchCurrentUser } from "src/api/users";
 import useSWR from "swr";
 
-export default function useCurrentUser() {
-  const { data: user, error, isLoading } = useSWR("global/current-user", fetchCurrentUser);
+export type TCurrentUserLoggedIn = { isLoggedIn: true } & IAPIUser;
+export type TCurrentUser = TCurrentUserLoggedIn | { isLoggedIn: false };
 
-  return {
-    user,
+export default function useCurrentUser() {
+  const {
+    data: user,
     error,
     isLoading
-  };
+  } = useSWR<TCurrentUser>("global/current-user", async () => {
+    const user = await fetchCurrentUser();
+    if (user) {
+      return { ...user, isLoggedIn: true as true };
+    } else {
+      return { isLoggedIn: false as false };
+    }
+  });
+
+  return { user, error, isLoading };
 }

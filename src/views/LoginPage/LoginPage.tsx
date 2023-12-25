@@ -1,20 +1,20 @@
 import { Container, Divider, Typography } from "@mui/material";
 import GoogleLoginButton from "src/components/GoogleLoginButton";
-import { TRootState } from "src/store/types";
+import useCurrentUser from "src/hooks/useCurrentUser";
+import { ERoute } from "src/routes";
 
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import style from "./LoginPage.module.scss";
 
 export default function LoginPage() {
-  const user = useSelector((state: TRootState) => state.user);
+  const { user } = useCurrentUser();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.isLoggedIn) {
-      navigate("/");
+      navigate(ERoute.Home);
     }
   }, [user?.isLoggedIn]);
 

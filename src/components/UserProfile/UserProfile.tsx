@@ -1,13 +1,13 @@
 import { AccountCircle } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import { Avatar, IconButton, Menu, MenuItem, SvgIcon, Typography } from "@mui/material";
-import { TRootState } from "src/store/types";
+import useCurrentUser from "src/hooks/useCurrentUser";
 
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { To, useNavigate } from "react-router-dom";
 
 import ThemeSwtich from "../ThemeSwitch/ThemeSwitch";
+import ToggleAdminMode from "../ToggleAdminMode/ToggleAdminMode";
 import style from "./UserProfile.module.scss";
 
 type TProfileSettingsEntry = {
@@ -17,7 +17,7 @@ type TProfileSettingsEntry = {
 };
 
 export default function UserProfile() {
-  const user = useSelector((state: TRootState) => state.user);
+  const { user } = useCurrentUser();
   const navigate = useNavigate();
 
   const [anchorElUserProfile, setAnchorElUserProfile] = useState<null | HTMLElement>(null);
@@ -79,6 +79,9 @@ export default function UserProfile() {
         ))}
         <MenuItem key="switch-theme">
           <ThemeSwtich />
+        </MenuItem>
+        <MenuItem key="toggle-admin-mode">
+          <ToggleAdminMode />
         </MenuItem>
       </Menu>
     </>

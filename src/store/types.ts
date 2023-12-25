@@ -11,6 +11,7 @@ export type TGlobalState = {
     severity: AlertProps["severity"];
   };
   isSideMenuOpen: boolean;
+  administratorMode: boolean;
 };
 
 export type TRootState = {
