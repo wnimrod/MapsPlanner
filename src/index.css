@@ -4,8 +4,7 @@
   /* Z-indices */
   --backdrop-z-index: 5000;
   --body-background: initial;
-  background-color: var(--mui-palette-grey-50);
-
+  --top-bar-height: 64px;
 }
 
 html {
@@ -20,12 +19,11 @@ html {
 html, body, #root {
   background: var(--body-background);
   height: 100%;
-}
-
-body {
   margin: 0;
 }
+
 
 #root {
   background-color: var(--mui-palette-primary-contrastText)
 }
+

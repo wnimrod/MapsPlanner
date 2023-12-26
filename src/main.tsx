@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "./App.tsx";
+import DependenciesProvider from "./components/DependenciesProvider.tsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -14,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <BrowserRouter>
         <CSSVarsProvider>
-          <App />
+          <DependenciesProvider Component={App} />
         </CSSVarsProvider>
       </BrowserRouter>
     </Provider>

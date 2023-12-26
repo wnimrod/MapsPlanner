@@ -18,5 +18,5 @@ export default function useCurrentUser() {
     }
   });
 
-  return { user, error, isLoading };
+  return { user, error, isLoading, isLoaded: !isLoading && !error && !!user };
 }

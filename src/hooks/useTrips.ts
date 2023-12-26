@@ -12,6 +12,7 @@ export function useTrips() {
   const { user } = useCurrentUser() as { user: TCurrentUserLoggedIn };
 
   const key = `trips-${isAdministratorMode ? "global" : `user-${user.id}`}`;
+
   const {
     data: trips,
     isLoading,
