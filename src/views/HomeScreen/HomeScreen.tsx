@@ -7,7 +7,7 @@ import { generateEntityMocks } from "src/utils/utils";
 import style from "./HomeScreen.module.scss";
 
 export default function HomeScreen() {
-  const mocks = generateEntityMocks<IAPITripCard>(15);
+  const mocks = generateEntityMocks<IAPITripCard>(5);
   const { trips = mocks, isLoading } = useTrips();
 
   return (
