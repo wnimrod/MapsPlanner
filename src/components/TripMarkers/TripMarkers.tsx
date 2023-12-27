@@ -1,6 +1,4 @@
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import ParkIcon from "@mui/icons-material/Park";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import {
   Accordion,
   AccordionDetails,
@@ -18,6 +16,7 @@ import { IAPITripDetails } from "src/api/trips";
 import { useMemo, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
+import MarkerCategoryIcon from "./MarkerCategoryIcon";
 import style from "./TripMarkers.module.scss";
 import messages from "./messages";
 
@@ -25,15 +24,6 @@ type TProps = {
   trip?: IAPITripDetails;
   onMarkerSelected: (marker: IAPIMarker) => void;
 };
-
-function MarkerCategoryIcon({ category }: { category: EMarkerCategory }) {
-  switch (category) {
-    case EMarkerCategory.nature:
-      return <ParkIcon />;
-    case EMarkerCategory.shopping:
-      return <ShoppingBagIcon />;
-  }
-}
 
 const SKELETONS_COUNT = 5;
 
@@ -52,7 +42,7 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
       : trip!.markers) as unknown as IAPIMarker[];
 
     return groupBy(markers, "category");
-  }, [isLoading]);
+  }, [trip, isLoading]);
 
   const handleAccordionExpansion = (category: string, expanded: boolean) => {
     if (isLoading) return;

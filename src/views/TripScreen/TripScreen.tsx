@@ -13,9 +13,11 @@ import TripMarkers from "src/components/TripMarkers/TripMarkers";
 import useTrip from "src/hooks/useTrip";
 
 import { useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { useParams } from "react-router-dom";
 
 import style from "./TripScreen.module.scss";
+import messages from "./messages";
 
 export default function TripScreen() {
   const { id: tripId } = useParams();
@@ -39,7 +41,7 @@ export default function TripScreen() {
           <>
             <CircularProgress size={144} />
             <Typography variant="h4" color="common.onBackground">
-              Map is loading .....
+              <FormattedMessage {...messages.mapLoading} />
             </Typography>
           </>
         )}
