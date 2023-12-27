@@ -2,14 +2,19 @@
     transition: max-width 650ms ease-in-out;
 }
 
-.label {
+.label-container {
     flex-grow: 1;
     text-align: left;
-    display: flex;
-    align-items: center;
-    gap: var(--spacer);
-
-    &:hover {
-        cursor: pointer;
+    
+    .label {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: var(--spacer);  
+         
+        &:hover {
+            cursor: pointer;
+        }
     }
+
 }

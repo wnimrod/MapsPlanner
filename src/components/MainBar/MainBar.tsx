@@ -31,9 +31,11 @@ export default function MainBar() {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" className={style.label} onClick={() => navigate(ERoute.Home)}>
-            <MapIcon />
-            Maps Planner
+          <Typography className={style["label-container"]} variant="h6">
+            <div className={style.label} onClick={() => navigate(ERoute.Home)}>
+              <MapIcon />
+              Maps Planner
+            </div>
           </Typography>
 
           <UserProfile />

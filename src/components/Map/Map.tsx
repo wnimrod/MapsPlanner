@@ -42,6 +42,16 @@ export default function Map({ markers, center: explicitCenter, zoom = 15 }: TPro
       zoom={explicitCenter ? 17 : zoom}
       center={center}
       onLoad={handleMapLoadded}
+      options={{
+        disableDoubleClickZoom: true,
+        clickableIcons: false
+      }}
+      onDblClick={(event) => {
+        console.log(event.latLng?.toJSON());
+        event.stop();
+        event.domEvent.stopPropagation();
+        event.domEvent.preventDefault();
+      }}
     >
       {isMapLoaded &&
         markers.map(({ id, title, latitude: lat, longitude: lng }: IAPIMarker) => (
