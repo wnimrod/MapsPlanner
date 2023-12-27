@@ -12,7 +12,8 @@ const initialState: TGlobalState = {
     severity: undefined
   },
   isSideMenuOpen: false,
-  administratorMode: false
+  administratorMode: false,
+  language: "en"
 };
 
 export const slice = createSlice({

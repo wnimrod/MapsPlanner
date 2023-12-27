@@ -3,6 +3,8 @@ import { AlertProps } from "@mui/material";
 // TODO: Need to have conditional typing
 export type TUserState = null | ({ isLoggedIn: boolean } & Partial<IAPIUser>);
 
+export type TLanguage = "en";
+
 export type TGlobalState = {
   isAppReady: boolean;
   alert: {
@@ -12,6 +14,7 @@ export type TGlobalState = {
   };
   isSideMenuOpen: boolean;
   administratorMode: boolean;
+  language: TLanguage;
 };
 
 export type TRootState = {

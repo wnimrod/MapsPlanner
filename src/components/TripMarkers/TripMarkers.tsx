@@ -16,8 +16,10 @@ import { EMarkerCategory, IAPIMarker } from "src/api/markers";
 import { IAPITripDetails } from "src/api/trips";
 
 import { useMemo, useState } from "react";
+import { FormattedMessage } from "react-intl";
 
 import style from "./TripMarkers.module.scss";
+import messages from "./messages";
 
 type TProps = {
   trip?: IAPITripDetails;
@@ -81,7 +83,13 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
             )}
           </Grid>
           <Grid item md={9} paddingX={1}>
-            <Typography variant="body1">{isLoading ? <Skeleton /> : category}</Typography>
+            <Typography variant="body1">
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <FormattedMessage {...messages.categories[category].label} />
+              )}
+            </Typography>
           </Grid>
           <Grid item md={1} paddingX={1}>
             <Typography variant="body1">{isLoading ? <Skeleton /> : markers?.length}</Typography>

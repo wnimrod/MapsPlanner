@@ -27,7 +27,6 @@ export default function useLogin() {
   const googleLogin = useGoogleLogin({
     onSuccess: async ({ access_token }) => {
       try {
-        console.log("Access token: ", access_token);
         const { data: userInfoResponse } = await axios.get(
           `https://www.googleapis.com/oauth2/v1/userinfo`,
           {

@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App.tsx";
 import DependenciesProvider from "./components/DependenciesProvider.tsx";
+import LanguageProvider from "./components/LanguageProvider.tsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <BrowserRouter>
         <CSSVarsProvider>
-          <DependenciesProvider Component={App} />
+          <LanguageProvider>
+            <DependenciesProvider Component={App} />
+          </LanguageProvider>
         </CSSVarsProvider>
       </BrowserRouter>
     </Provider>

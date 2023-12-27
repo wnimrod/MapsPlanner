@@ -17,8 +17,6 @@ import { useParams } from "react-router-dom";
 
 import style from "./TripScreen.module.scss";
 
-console.log(style);
-
 export default function TripScreen() {
   const { id: tripId } = useParams();
   const { trip } = useTrip(+tripId!);
