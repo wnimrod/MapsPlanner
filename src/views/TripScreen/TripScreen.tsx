@@ -1,12 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  Container,
-  Divider,
-  Grid,
-  Skeleton,
-  Typography
-} from "@mui/material";
+import { CircularProgress, Grid, Typography } from "@mui/material";
 import { IAPIMarker } from "src/api/markers";
 import Map from "src/components/Map/Map";
 import TripMarkers from "src/components/TripMarkers/TripMarkers";

@@ -4,7 +4,7 @@ import useGeolocation from "src/hooks/useGeolocation";
 import { delay } from "src/utils/utils";
 
 import { GoogleMap, Marker } from "@react-google-maps/api";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import InformationPopover from "./InformationPopover";
 

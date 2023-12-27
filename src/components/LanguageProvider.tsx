@@ -5,7 +5,7 @@ import { PropsWithChildren } from "react";
 import { IntlProvider } from "react-intl";
 import { useSelector } from "react-redux";
 
-type TProps = PropsWithChildren<{}>;
+type TProps = PropsWithChildren;
 
 export default function LanguageProvider({ children }: TProps) {
   const locale = useSelector((state: TRootState) => state.global.language);

@@ -1,4 +1,3 @@
-import { IAPIMarker, TTripUpdateableFields, updateMarker } from "src/api/markers";
 import { IAPITripDetails, fetchTrip } from "src/api/trips";
 import useSWR from "swr";
 

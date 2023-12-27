@@ -4,7 +4,7 @@ import { useForceUpdate } from "./useForceUpdate";
 
 export type UseStateInCallbackReturnType<Type> = [MutableRefObject<Type>, (value: Type) => void];
 
-export function useStateInCallback<Type = any>(
+export function useStateInCallback<Type = unknown>(
   initialValue: Type
 ): UseStateInCallbackReturnType<Type> {
   /**

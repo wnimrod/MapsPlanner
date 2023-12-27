@@ -1,11 +1,15 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
+import { ListItemIcon, ListItemText, Menu, MenuItem, MenuProps } from "@mui/material";
 
 export enum ETripCardActions {
   Delete
 }
 
-export function ContextMenu({ handleClose, ...menuProps }: any) {
+type TProps = {
+  handleClose: (action: ETripCardActions) => void;
+} & MenuProps;
+
+export function ContextMenu({ handleClose, ...menuProps }: TProps) {
   return (
     <Menu {...menuProps}>
       <MenuItem onClick={() => handleClose(ETripCardActions.Delete)}>

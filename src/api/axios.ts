@@ -1,9 +1,11 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import applyCaseMiddleware from "axios-case-converter";
 
+type TMiddlewareOptions = object;
+
 export type TAxiosMiddlewareApplication = {
-  middleware: (instance: AxiosInstance, options?: any) => AxiosInstance;
-  options?: any;
+  middleware: (instance: AxiosInstance, options?: TMiddlewareOptions) => AxiosInstance;
+  options?: TMiddlewareOptions;
 };
 
 export function unwrapAxiosResult<TResponse, TData>(result: AxiosResponse<TResponse, TData>) {

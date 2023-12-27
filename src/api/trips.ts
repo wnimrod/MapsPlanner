@@ -1,5 +1,3 @@
-import { delay } from "src/utils/utils";
-
 import api, { unwrapAxiosResult } from "./axios";
 import { IAPIMarker } from "./markers";
 
@@ -16,13 +14,12 @@ export interface IAPITripDetails extends IAPITripCard {
   markers: IAPIMarker[];
 }
 
-export async function fetchTrips(fetchAll: boolean = false) {
+export async function fetchTrips() {
   /**
    * Fetch all trips for current user.
    * @param fetchAll - If user is administrator, this fetch all trips, not only his.
    */
 
-  await delay(1500);
   const result = await api.get<IAPITripCard[]>("/trips/");
   return unwrapAxiosResult(result);
 }

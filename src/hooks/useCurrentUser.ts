@@ -12,11 +12,13 @@ export default function useCurrentUser() {
   } = useSWR<TCurrentUser>("global/current-user", async () => {
     const user = await fetchCurrentUser();
     if (user) {
-      return { ...user, isLoggedIn: true as true };
+      return { ...user, isLoggedIn: true as const };
     } else {
-      return { isLoggedIn: false as false };
+      return { isLoggedIn: false as const };
     }
   });
 
-  return { user, error, isLoading, isLoaded: !isLoading && !error && !!user };
+  const isLoaded = !isLoading && !error && !!user;
+
+  return { user, error, isLoading, isLoaded };
 }

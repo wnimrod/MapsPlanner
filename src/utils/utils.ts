@@ -16,10 +16,12 @@ export function ConditionalWrap({ children, condition, wrapper }: TConditionalWr
   }
 }
 
+type TMessagesStructure<TLeaf> = Record<string, string | Record<string, TLeaf>>;
+
 export const injectMessageIds = (
   scope: string,
-  messages: MessageDescriptor | Record<string, MessageDescriptor>
-): Record<string, any> =>
+  messages: TMessagesStructure<string>
+): TMessagesStructure<MessageDescriptor> =>
   Object.entries(messages)
     .filter(([, messageBody]) => messageBody !== null)
     .reduce((messagesWithId, [nextMessageKey, nextMessageBody]) => {

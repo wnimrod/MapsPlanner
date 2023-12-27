@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import globalReducer, { SLICE_NAME as GLOBAL_SLICE_NAME } from "./global";
-import userReducer, { SLICE_NAME as USER_SLICE_NAME } from "./user";
 
 const store = configureStore({
   reducer: {
-    [GLOBAL_SLICE_NAME]: globalReducer,
-    [USER_SLICE_NAME]: userReducer
+    [GLOBAL_SLICE_NAME]: globalReducer
   }
 });
 
