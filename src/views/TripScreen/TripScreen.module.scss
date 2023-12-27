@@ -2,3 +2,11 @@
     height: calc(100vh - var(--top-bar-height));
     background: var(--mui-palette-secondary-mainChannel);
 }
+
+.map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column !important;
+    gap: calc(3 * var(--spacer));
+}

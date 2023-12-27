@@ -11,7 +11,7 @@ export default function useTrip(tripId: number) {
     data: trip,
     isLoading,
     error
-  } = useSWR<IAPITripDetails>(`trip-${tripId}`, () => delay(5000).then(() => fetchTrip(tripId)));
+  } = useSWR<IAPITripDetails>(`trip-${tripId}`, () => fetchTrip(tripId));
 
   return { trip, isLoading, error };
 }

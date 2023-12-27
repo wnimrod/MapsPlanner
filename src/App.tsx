@@ -32,7 +32,10 @@ function App() {
     <Box className={style.container}>
       <SystemAlert />
       <MainBar />
-      <Container maxWidth={isFullScreenPage ? false : "lg"}>
+      <Container
+        maxWidth={isFullScreenPage ? false : "lg"}
+        sx={{ padding: isFullScreenPage ? "0 !important" : undefined }}
+      >
         <Routes>
           <Route path={ERoute.Home} Component={HomeScreen} />
           <Route path={ERoute.Login} Component={LoginPage} />

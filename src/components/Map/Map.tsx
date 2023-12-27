@@ -1,27 +1,52 @@
 import { IAPIMarker } from "src/api/markers";
+import useGeolocation from "src/hooks/useGeolocation";
+import { delay } from "src/utils/utils";
 
-import { GoogleMap, Libraries, Marker, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import { useMemo, useState } from "react";
 
-const libraries: Libraries = ["places"];
+type TProps = {
+  markers: IAPIMarker[];
+  center?: IAPIMarker;
+  zoom?: number;
+};
 
 const mapContainerStyle = {
-  height: "100vh",
-  width: "100wh"
-};
-const center = {
-  lat: 32.073582, // default latitude
-  lng: 34.788052 // default longitude
+  width: "100%",
+  height: "100%"
 };
 
-export default function Map(markers: IAPIMarker[]) {
+export default function Map({ markers, center: explicitCenter, zoom = 15 }: TProps) {
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const { location } = useGeolocation();
+
+  const center = useMemo(() => {
+    if (explicitCenter) {
+      return { lat: explicitCenter.latitude, lng: explicitCenter.longitude };
+    } else if (markers.length > 0) {
+      return { lat: markers[0].latitude, lng: markers[0].longitude };
+    } else if (location) {
+      return { lat: location.latitude, lng: location.longitude };
+    }
+  }, [location, markers, explicitCenter]);
+
+  const handleMapLoadded = () => {
+    // Not clear why. but `delay(0)` is required in order to show the markers
+    delay(0).then(() => setIsMapLoaded(true));
+  };
+
   return (
     <GoogleMap
+      id="google-map"
       mapContainerStyle={mapContainerStyle}
-      zoom={10}
+      zoom={explicitCenter ? 17 : zoom}
       center={center}
-      onLoad={() => console.log("Maps loaded!")}
+      onLoad={handleMapLoadded}
     >
-      <Marker position={center}></Marker>
+      {isMapLoaded &&
+        markers.map(({ id, title, latitude: lat, longitude: lng }: IAPIMarker) => (
+          <Marker key={id} title={title} position={{ lat, lng }} />
+        ))}
     </GoogleMap>
   );
 }
