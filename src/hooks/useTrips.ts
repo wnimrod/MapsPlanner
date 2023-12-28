@@ -1,5 +1,6 @@
 import { IAPITripCard } from "src/api/trips";
 import * as tripsAPI from "src/api/trips";
+import { IAPITripCreationRequest } from "src/api/trips";
 import { TRootState } from "src/store/types";
 import useSWR from "swr";
 
@@ -7,23 +8,33 @@ import { useSelector } from "react-redux";
 
 import useCurrentUser, { TCurrentUserLoggedIn } from "./useCurrentUser";
 
-export function useTrips() {
+type TOptions = { fetch?: boolean };
+
+export function useTrips({ fetch = true }: TOptions = {}) {
   const isAdministratorMode = useSelector((state: TRootState) => state.global.administratorMode);
   const { user } = useCurrentUser() as { user: TCurrentUserLoggedIn };
 
-  const key = `trips-${isAdministratorMode ? "global" : `user-${user.id}`}`;
+  const key = fetch ? `trips-${isAdministratorMode ? "global" : `user-${user.id}`}` : null;
 
   const {
     data: trips,
     isLoading,
     error,
     mutate
-  } = useSWR<IAPITripCard[]>(key, () => tripsAPI.fetchTrips(isAdministratorMode));
+  } = useSWR<IAPITripCard[]>(key, () => tripsAPI.fetchTrips());
 
+  const createTrip = async (payload: IAPITripCreationRequest) => {
+    const newTrip = await tripsAPI.createTrip(payload);
+    if (trips) {
+      await mutate([newTrip, ...trips]);
+    }
+  };
   const deleteTrip = async (tripId: number) => {
     await tripsAPI.deleteTrip(tripId);
-    await mutate(trips?.filter(({ id }) => id !== tripId), {});
+    if (trips) {
+      await mutate(trips.filter(({ id }) => id !== tripId));
+    }
   };
 
-  return { trips, deleteTrip, isLoading, error };
+  return { trips, deleteTrip, createTrip, isLoading, error };
 }

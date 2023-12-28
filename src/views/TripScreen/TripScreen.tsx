@@ -22,11 +22,11 @@ export default function TripScreen() {
 
   return (
     <Grid container>
-      <Grid item md={2.5} className={style["side-menu"]}>
+      <Grid item md={2.5} className={style.sideMenu}>
         <TripMarkers trip={trip} onMarkerSelected={handleMarkerSelected} />
       </Grid>
 
-      <Grid item md={9.5} className={style["map-container"]}>
+      <Grid item md={9.5} className={style.mapContainer}>
         {trip ? (
           <Map markers={trip.markers} center={center} />
         ) : (

@@ -103,7 +103,7 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
       anchorPosition={anchorPosition}
       onClose={onClose}
     >
-      <Card className={style["card-container"]}>
+      <Card className={style.cardContainer}>
         <CardContent>
           <div className={style.header}>
             <Typography
@@ -126,7 +126,7 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
             ref={descriptionRef}
           >
             {isSubmitting
-              ? Array(Number(style["description-max-lines"])).fill(<Skeleton width="100%" />)
+              ? Array(Number(style.descriptionMaxLines)).fill(<Skeleton width="100%" />)
               : marker.description}
           </Typography>
         </CardContent>

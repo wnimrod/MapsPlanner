@@ -14,6 +14,12 @@ export default ({ mode }) => {
 
   return defineConfig({
     define: Object.entries(env).reduce(buildEnvObj, {}),
+    css: {
+      modules: {
+        localsConvention: "camelCase",
+        generateScopedName: "[name]__[local]__[hash:base64:2]"
+      }
+    },
     plugins: [react(), tsconfigPaths()],
     resolve: {
       alias: {

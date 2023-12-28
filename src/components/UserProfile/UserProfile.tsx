@@ -71,7 +71,7 @@ export default function UserProfile() {
           <MenuItem
             key={settingsEntry.label}
             onClick={() => handleMenuItemSelected(settingsEntry)}
-            className={style["menu-item"]}
+            className={style.menuItem}
           >
             <settingsEntry.icon />
             <Typography textAlign="center">{settingsEntry.label}</Typography>

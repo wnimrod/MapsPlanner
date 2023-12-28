@@ -22,7 +22,7 @@ export default function LoginPage() {
     <div className={style.container}>
       <div className={style.header} />
       <Container maxWidth="sm">
-        <div className={style["login-container"]}>
+        <div className={style.loginContainer}>
           <Typography variant="h5">Please log-in or sign-up</Typography>
           <Divider />
           <GoogleLoginButton />

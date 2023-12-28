@@ -16,7 +16,7 @@ html {
   }
   
 }
-html, body, #root {
+html, body {
   background: var(--body-background);
   height: 100%;
   margin: 0;

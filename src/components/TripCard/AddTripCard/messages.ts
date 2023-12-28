@@ -1,7 +1,6 @@
-import { EMarkerCategory } from "src/api/markers";
 import { injectMessageIds } from "src/utils/utils";
 
-const scope = "components.TripMarkers";
+const scope = "components.TripCard.AddTripCard";
 
 export default injectMessageIds(scope, {
   categories: {
