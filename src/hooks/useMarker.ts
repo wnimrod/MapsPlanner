@@ -12,9 +12,7 @@ export default function useMarker({ marker: propsMarker, markerId: propsMarkerId
   );
 
   const marker = propsMarker || fetchedMarker;
-
-  // Related trip
-  const { trip, mutate: mutateTrip } = useTrip(marker?.tripId);
+  const { trip, mutate: mutateTrip } = useTrip(marker?.tripId); // Related trip
 
   const editMarker = async (markerId: number, data: TTripUpdateableFields) => {
     if (!trip) return;

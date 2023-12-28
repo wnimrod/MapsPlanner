@@ -28,7 +28,7 @@ export default function TripScreen() {
 
       <Grid item md={9.5} className={style.mapContainer}>
         {trip ? (
-          <Map markers={trip.markers} center={center} />
+          <Map trip={trip} center={center} />
         ) : (
           <>
             <CircularProgress size={144} />

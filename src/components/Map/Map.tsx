@@ -1,15 +1,18 @@
 import { PopoverPosition } from "@mui/material";
 import { IAPIMarker } from "src/api/markers";
+import { IAPITripDetails } from "src/api/trips";
 import useGeolocation from "src/hooks/useGeolocation";
 import { delay } from "src/utils/utils";
 
 import { GoogleMap, Marker } from "@react-google-maps/api";
+import { Position } from "google-map-react";
 import { useMemo, useState } from "react";
 
-import InformationPopover from "./InformationPopover";
+import AddMarkerPopover from "./AddMarkerPopover/AddMarkerPopover";
+import InformationPopover from "./InformationPopover/InformationPopover";
 
 type TProps = {
-  markers: IAPIMarker[];
+  trip: IAPITripDetails;
   center?: IAPIMarker;
   zoom?: number;
 };
@@ -24,11 +27,19 @@ type TMarkerInfo = {
   position: PopoverPosition;
 };
 
-export default function Map({ markers, center: explicitCenter, zoom = 15 }: TProps) {
+type TCreationPopup = {
+  position: PopoverPosition;
+  coords: Position;
+};
+
+export default function Map({ trip, center: explicitCenter, zoom = 15 }: TProps) {
+  const { markers } = trip;
+
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const { location } = useGeolocation();
 
   const [markerInfo, setMarkerInfo] = useState<TMarkerInfo | null>(null);
+  const [creationPopup, setCreationPopup] = useState<TCreationPopup | null>(null);
 
   const center = useMemo(() => {
     if (explicitCenter) {
@@ -47,7 +58,6 @@ export default function Map({ markers, center: explicitCenter, zoom = 15 }: TPro
 
   const handleMarkerSelected = (event: google.maps.MapMouseEvent, marker: IAPIMarker) => {
     const { domEvent } = event;
-
     setMarkerInfo({
       marker,
       position: {
@@ -57,9 +67,18 @@ export default function Map({ markers, center: explicitCenter, zoom = 15 }: TPro
     });
   };
 
-  function handleInformationPopoverClosed() {
-    setMarkerInfo(null);
-  }
+  const handleRightClick = (e: MapMouseEvent) => {
+    const lat = e.latLng.lat();
+    const lng = e.latLng.lng();
+
+    const top = e.domEvent.clientY;
+    const left = e.domEvent.clientX;
+
+    setCreationPopup({
+      position: { top, left },
+      coords: { lat, lng }
+    });
+  };
 
   return (
     <>
@@ -69,6 +88,7 @@ export default function Map({ markers, center: explicitCenter, zoom = 15 }: TPro
         zoom={explicitCenter ? 17 : zoom}
         center={center}
         onLoad={handleMapLoadded}
+        onRightClick={handleRightClick}
         options={{
           disableDoubleClickZoom: true,
           clickableIcons: false
@@ -91,7 +111,16 @@ export default function Map({ markers, center: explicitCenter, zoom = 15 }: TPro
         <InformationPopover
           marker={markerInfo.marker}
           anchorPosition={markerInfo.position}
-          onClose={handleInformationPopoverClosed}
+          onClose={() => setMarkerInfo(null)}
+        />
+      )}
+      {creationPopup && (
+        <AddMarkerPopover
+          anchorPosition={creationPopup.position}
+          trip={trip}
+          latitude={creationPopup.coords.lat}
+          longitude={creationPopup.coords.lng}
+          onClose={() => setCreationPopup(null)}
         />
       )}
     </>

@@ -15,16 +15,36 @@ export interface IAPIMarker {
   longitude: number;
 }
 
+export interface IAPIMarkerCreationRequest {
+  tripId: number;
+  category: EMarkerCategory;
+  title: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+}
+
+export const ALL_MARKER_CATEGORIES = Object.values(EMarkerCategory).filter(
+  Number.isInteger
+) as EMarkerCategory[];
+
 const API_PREFIX = "/markers";
 
 export type TTripUpdateableFields = Partial<Pick<IAPIMarker, "title" | "description">>;
 
-export function fetchMarker(markerId: number) {
-  return api.get<IAPIMarker>(`${API_PREFIX}/${markerId}`).then(unwrapAxiosResult);
+export async function fetchMarker(markerId: number) {
+  const result = await api.get<IAPIMarker>(`${API_PREFIX}/${markerId}`);
+  return unwrapAxiosResult(result);
 }
 
-export function editMarker(markerId: number, data: TTripUpdateableFields) {
-  return api.patch<IAPIMarker>(`${API_PREFIX}/${markerId}`, data).then(unwrapAxiosResult);
+export async function addMarkers(markers: IAPIMarkerCreationRequest[]) {
+  const result = await api.post<IAPIMarker[]>(`${API_PREFIX}/`, markers);
+  return unwrapAxiosResult(result);
+}
+
+export async function editMarker(markerId: number, data: TTripUpdateableFields) {
+  const result = await api.patch<IAPIMarker>(`${API_PREFIX}/${markerId}`, data);
+  return unwrapAxiosResult(result);
 }
 
 export function deleteMarker(markerId: number) {

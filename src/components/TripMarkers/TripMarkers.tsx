@@ -1,9 +1,11 @@
+import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Button,
+  Container,
   Grid,
   Skeleton,
   Typography
@@ -54,6 +56,16 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
     onMarkerSelected(marker);
   };
 
+  if (!isLoading && trip.markers.length === 0) {
+    return (
+      <Container className={style.missingMarkers}>
+        <AddLocationAltIcon className={style.icon} fontSize="large" color="primary" />
+        <Typography variant="body2" color="common.onBackground">
+          You Still have no marker. Start adding one :) Right Clock on the desired spot.
+        </Typography>
+      </Container>
+    );
+  }
   return Object.entries(tripGroups).map(([category, markers]) => (
     <Accordion
       expanded={category === selectedCategory}

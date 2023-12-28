@@ -16,3 +16,16 @@
         color: var(--mui-palette-primary-dark)
     }
 }
+
+.missing-markers {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-top: var(--spacer);
+    gap: var(--spacer);
+    
+    .icon {
+        font-size: 8rem;
+    }
+}
+
