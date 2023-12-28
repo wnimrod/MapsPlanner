@@ -59,6 +59,7 @@ export default function AddMarkerPopover({
       title: "",
       description: ""
     },
+    isInitialValid: false,
     onSubmit: async (markerCreationRequest: IAPIMarkerCreationRequest, formikHelpers) => {
       try {
         formikHelpers.setSubmitting(true);
@@ -84,7 +85,9 @@ export default function AddMarkerPopover({
     >
       <Grid container direction="column" width={350} padding={1} spacing={1}>
         <Grid item>
-          <Typography variant="h6">Add a marker</Typography>
+          <Typography variant="h6">
+            <FormattedMessage {...messages.labels.header} />
+          </Typography>
         </Grid>
         <Grid item>
           <TextField

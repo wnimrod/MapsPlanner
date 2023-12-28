@@ -1,11 +1,9 @@
-import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Button,
-  Container,
   Grid,
   Skeleton,
   Typography
@@ -18,6 +16,8 @@ import { IAPITripDetails } from "src/api/trips";
 import { useMemo, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
+import TripCard from "../TripCard/TripCard/TripCard";
+import EmptyPlaceholder from "./EmptyPlaceholder";
 import MarkerCategoryIcon from "./MarkerCategoryIcon";
 import style from "./TripMarkers.module.scss";
 import messages from "./messages";
@@ -34,7 +34,7 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
   const [selectedMarker, setSelectedMarker] = useState<IAPIMarker | null>(null);
 
   const isLoading = !trip;
-
+  const isMarkersEmpty = !isLoading && trip.markers.length === 0;
   const tripGroups = useMemo(() => {
     const markers = (isLoading
       ? Object.values(EMarkerCategory)
@@ -56,60 +56,68 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
     onMarkerSelected(marker);
   };
 
-  if (!isLoading && trip.markers.length === 0) {
-    return (
-      <Container className={style.missingMarkers}>
-        <AddLocationAltIcon className={style.icon} fontSize="large" color="primary" />
-        <Typography variant="body2" color="common.onBackground">
-          You Still have no marker. Start adding one :) Right Clock on the desired spot.
-        </Typography>
-      </Container>
-    );
-  }
-  return Object.entries(tripGroups).map(([category, markers]) => (
-    <Accordion
-      expanded={category === selectedCategory}
-      onChange={(_, expanded: boolean) => handleAccordionExpansion(category, expanded)}
-      classes={{ expanded: style.expanded }}
-    >
-      <AccordionSummary expandIcon={<ArrowForwardIosSharpIcon />}>
-        <Grid
-          container
-          className={cx(style.header, { [style.selected]: category === selectedCategory })}
-        >
-          <Grid item md={2} paddingX={1}>
-            {isLoading ? (
-              <Skeleton />
-            ) : (
-              <MarkerCategoryIcon category={+category as EMarkerCategory} />
-            )}
-          </Grid>
-          <Grid item md={9} paddingX={1}>
-            <Typography variant="body1">
+  const markersView = isMarkersEmpty ? (
+    <EmptyPlaceholder />
+  ) : (
+    Object.entries(tripGroups).map(([category, markers]) => (
+      <Accordion
+        expanded={category === selectedCategory}
+        onChange={(_, expanded: boolean) => handleAccordionExpansion(category, expanded)}
+        classes={{ expanded: style.expanded }}
+      >
+        <AccordionSummary expandIcon={<ArrowForwardIosSharpIcon />}>
+          <Grid
+            container
+            className={cx(style.header, { [style.selected]: category === selectedCategory })}
+          >
+            <Grid item md={2} paddingX={1}>
               {isLoading ? (
                 <Skeleton />
               ) : (
-                <FormattedMessage {...messages.categories[category].label} />
+                <MarkerCategoryIcon category={+category as EMarkerCategory} />
               )}
-            </Typography>
+            </Grid>
+            <Grid item md={9} paddingX={1}>
+              <Typography variant="body1">
+                {isLoading ? (
+                  <Skeleton />
+                ) : (
+                  <FormattedMessage {...messages.categories[category].label} />
+                )}
+              </Typography>
+            </Grid>
+            <Grid item md={1} paddingX={1}>
+              <Typography variant="body1">{isLoading ? <Skeleton /> : markers?.length}</Typography>
+            </Grid>
           </Grid>
-          <Grid item md={1} paddingX={1}>
-            <Typography variant="body1">{isLoading ? <Skeleton /> : markers?.length}</Typography>
-          </Grid>
-        </Grid>
-      </AccordionSummary>
-      <AccordionDetails>
-        {markers.map((marker: IAPIMarker) => (
-          <Button
-            variant={selectedMarker?.id === marker.id ? "contained" : "text"}
-            fullWidth
-            className={style.button}
-            onClick={() => handleSelectedMarker(marker)}
-          >
-            <Typography variant="body1">{marker.title}</Typography>
-          </Button>
-        ))}
-      </AccordionDetails>
-    </Accordion>
-  ));
+        </AccordionSummary>
+        <AccordionDetails>
+          {markers.map((marker: IAPIMarker) => (
+            <Button
+              variant={selectedMarker?.id === marker.id ? "contained" : "text"}
+              fullWidth
+              className={style.button}
+              onClick={() => handleSelectedMarker(marker)}
+            >
+              <Typography variant="body1">{marker.title}</Typography>
+            </Button>
+          ))}
+        </AccordionDetails>
+      </Accordion>
+    ))
+  );
+
+  return (
+    <>
+      <TripCard
+        isLoading={isLoading}
+        withContextMenu={false}
+        interactive={false}
+        trip={trip}
+        classes={{ container: style.trip }}
+      />
+      {markersView}
+    </>
+  );
+  return markersView;
 }

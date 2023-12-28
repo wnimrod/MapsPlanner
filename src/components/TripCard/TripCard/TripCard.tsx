@@ -8,20 +8,21 @@ import { AppDispatch } from "src/store/store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import BasicTripCard from "../BasicTripCard/BasicTripCard";
+import BasicTripCard, { TBasicTripCardProps } from "../BasicTripCard/BasicTripCard";
 import { ContextMenu, ETripCardActions } from "./ContextMenu";
 
 type TProps = {
-  trip: IAPITripCard;
-  isLoading: boolean;
-};
+  withContextMenu?: boolean;
+} & TBasicTripCardProps;
 
-export default function TripCard({ trip, isLoading }: TProps) {
+export default function TripCard({ trip, isLoading, ...basicCardProps }: TProps) {
   const { deleteTrip } = useTrips();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleMenuAction = async (action?: ETripCardActions) => {
+    if (!trip) return;
+
     switch (action) {
       case ETripCardActions.Delete:
         try {
@@ -59,6 +60,7 @@ export default function TripCard({ trip, isLoading }: TProps) {
         isLoading={isLoading}
         onCardSelected={handleCardSelected}
         onContextMenuOpened={handleContextMenuOpened}
+        {...basicCardProps}
       />
       <ContextMenu {...menuProps} handleClose={handleClose} />
     </>

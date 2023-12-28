@@ -1,4 +1,7 @@
-import { Experimental_CssVarsProvider as CSSVarsProvider } from "@mui/material";
+import {
+  Experimental_CssVarsProvider as CSSVarsProvider,
+  StyledEngineProvider
+} from "@mui/material";
 import store from "src/store/store";
 
 import React from "react";
@@ -15,11 +18,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <CSSVarsProvider>
-          <LanguageProvider>
-            <DependenciesProvider Component={App} />
-          </LanguageProvider>
-        </CSSVarsProvider>
+        <LanguageProvider>
+          <StyledEngineProvider injectFirst>
+            <CSSVarsProvider>
+              <DependenciesProvider Component={App} />
+            </CSSVarsProvider>
+          </StyledEngineProvider>
+        </LanguageProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

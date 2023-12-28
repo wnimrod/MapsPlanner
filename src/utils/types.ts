@@ -1,5 +1,6 @@
-export type TConditionalWrapProps = {
-  children: JSX.Element;
+import { PropsWithChildren, ReactNode } from "react";
+
+export type TConditionalWrapProps = PropsWithChildren<{
   condition: boolean;
-  wrapper: (children: JSX.Element) => JSX.Element;
-};
+  wrapper: (children: ReactNode) => ReactNode;
+}>;

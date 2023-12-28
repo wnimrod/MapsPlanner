@@ -10,16 +10,12 @@ import { useMemo, useState } from "react";
 
 import AddMarkerPopover from "./AddMarkerPopover/AddMarkerPopover";
 import InformationPopover from "./InformationPopover/InformationPopover";
+import style from "./Map.module.scss";
 
 type TProps = {
   trip: IAPITripDetails;
   center?: IAPIMarker;
   zoom?: number;
-};
-
-const mapContainerStyle = {
-  width: "100%",
-  height: "100%"
 };
 
 type TMarkerInfo = {
@@ -67,12 +63,12 @@ export default function Map({ trip, center: explicitCenter, zoom = 15 }: TProps)
     });
   };
 
-  const handleRightClick = (e: MapMouseEvent) => {
-    const lat = e.latLng.lat();
-    const lng = e.latLng.lng();
+  const handleRightClick = (event: google.maps.MapMouseEvent) => {
+    const lat = event.latLng!.lat();
+    const lng = event.latLng!.lng();
 
-    const top = e.domEvent.clientY;
-    const left = e.domEvent.clientX;
+    const top = (event.domEvent as MouseEvent).clientY;
+    const left = (event.domEvent as MouseEvent).clientX;
 
     setCreationPopup({
       position: { top, left },
@@ -84,7 +80,7 @@ export default function Map({ trip, center: explicitCenter, zoom = 15 }: TProps)
     <>
       <GoogleMap
         id="google-map"
-        mapContainerStyle={mapContainerStyle}
+        mapContainerClassName={style.mapContainer}
         zoom={explicitCenter ? 17 : zoom}
         center={center}
         onLoad={handleMapLoadded}

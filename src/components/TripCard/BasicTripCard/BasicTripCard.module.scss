@@ -4,6 +4,9 @@
     --card-width: 345px;
     --card-height: 355px;
 
+    &.disabled {
+        pointer-events: none;
+    }
 
     width: var(--card-width);
     height: var(--card-height);

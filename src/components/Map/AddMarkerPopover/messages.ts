@@ -9,6 +9,7 @@ export default injectMessageIds(scope, {
       [EMarkerCategory.nature]: "Nature",
       [EMarkerCategory.shopping]: "Shopping"
     },
+    header: "Add A Marker",
     category: "Category",
     description: "Description",
     title: "Title"

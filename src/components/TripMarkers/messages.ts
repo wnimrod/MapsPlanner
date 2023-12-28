@@ -12,4 +12,4 @@ export default injectMessageIds(scope, {
       label: "Shopping"
     }
   }
-});
+}) as any;

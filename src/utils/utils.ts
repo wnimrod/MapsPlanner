@@ -16,36 +16,19 @@ export function ConditionalWrap({ children, condition, wrapper }: TConditionalWr
   }
 }
 
-type TMessagesStructure<TLeaf> = {
-  [key: string]: string | TMessagesStructure<TLeaf>;
-};
-
-export function injectMessageIds(
-  scope: string,
-  messages: TMessagesStructure<string>
-): TMessagesStructure<MessageDescriptor> {
+export function injectMessageIds(scope: string, messages: any): Record<string, MessageDescriptor> {
   return defineMessages(
     Object.entries(messages)
       .filter(([, messageBody]) => messageBody !== null)
-      .reduce((messagesWithId, [nextMessageKey, nextMessageBody]) => {
-        if (typeof nextMessageBody === "string") {
-          // eslint-disable-next-line no-param-reassign
-          nextMessageBody = {
-            defaultMessage: nextMessageBody
-          };
-        }
-
-        const isLeaf = typeof nextMessageBody.defaultMessage === "string";
+      .reduce((messagesWithId, [nextMessageKey, nextMessage]) => {
+        const isLeaf = typeof nextMessage === "string";
         const currentScope = `${scope}.${nextMessageKey}`;
 
         return {
           ...messagesWithId,
           [nextMessageKey]: isLeaf
-            ? {
-                id: currentScope,
-                ...nextMessageBody
-              } // If id presented, do not override.
-            : injectMessageIds(currentScope, nextMessageBody)
+            ? { id: currentScope, defaultMessage: nextMessage }
+            : injectMessageIds(currentScope, nextMessage)
         };
       }, {})
   );
