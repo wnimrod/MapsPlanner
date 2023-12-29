@@ -5,7 +5,6 @@ import {
   AccordionSummary,
   Button,
   Grid,
-  Skeleton,
   Typography
 } from "@mui/material";
 import cx from "classnames";
@@ -13,6 +12,7 @@ import { groupBy } from "lodash";
 import { EMarkerCategory, IAPIMarker } from "src/api/markers";
 import { IAPITripDetails } from "src/api/trips";
 import useSearchParam, { EGlobalSearchParams } from "src/hooks/useSearchParam";
+import useSkeleton from "src/hooks/useSkeleton";
 
 import { useMemo, useState } from "react";
 import { FormattedMessage } from "react-intl";
@@ -33,10 +33,12 @@ const SKELETONS_COUNT = 5;
 export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
   const isLoading = !trip;
 
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<EMarkerCategory | null>(null);
   const [selectedMarker, setSelectedMarker] = useState<IAPIMarker | null>(null);
 
   const searchQuery = useSearchParam(EGlobalSearchParams.Search);
+
+  const withSkeleton = useSkeleton({ isLoading });
 
   const isMarkersEmpty = !isLoading && trip.markers.length === 0;
 
@@ -57,7 +59,7 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
 
   const tripGroups = useMemo(() => groupBy(displayableMarkers, "category"), [displayableMarkers]);
 
-  const handleAccordionExpansion = (category: string, expanded: boolean) => {
+  const handleAccordionExpansion = (category: EMarkerCategory, expanded: boolean) => {
     if (isLoading) return;
     setSelectedCategory(expanded ? category : null);
   };
@@ -70,54 +72,52 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
   const markersView = isMarkersEmpty ? (
     <EmptyPlaceholder />
   ) : (
-    Object.entries(tripGroups).map(([category, markers]) => (
-      <Accordion
-        expanded={category === selectedCategory}
-        onChange={(_, expanded: boolean) => handleAccordionExpansion(category, expanded)}
-        classes={{ expanded: style.expanded }}
-      >
-        <AccordionSummary expandIcon={<ArrowForwardIosSharpIcon />}>
-          <Grid
-            container
-            className={cx(style.header, { [style.selected]: category === selectedCategory })}
-          >
-            <Grid item md={2} paddingX={1}>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <MarkerCategoryIcon category={+category as EMarkerCategory} />
-              )}
+    Object.entries(tripGroups).map(([_category, markers]) => {
+      const category = +_category as EMarkerCategory; // Object keys are always strings; EMarkerCategory is number enum.
+
+      return (
+        <Accordion
+          expanded={category === selectedCategory}
+          onChange={(_, expanded: boolean) => handleAccordionExpansion(category, expanded)}
+          classes={{ expanded: style.expanded }}
+        >
+          <AccordionSummary expandIcon={<ArrowForwardIosSharpIcon />}>
+            <Grid
+              container
+              className={cx(style.header, { [style.selected]: category === selectedCategory })}
+            >
+              <Grid item md={2} paddingX={1}>
+                {withSkeleton(() => (
+                  <MarkerCategoryIcon category={category} />
+                ))}
+              </Grid>
+              <Grid item md={9} paddingX={1}>
+                <Typography variant="body1">
+                  {withSkeleton(<FormattedMessage {...messages.categories[category].label} />)}
+                </Typography>
+              </Grid>
+              <Grid item md={1} paddingX={1}>
+                <Typography variant="body1">{withSkeleton(markers?.length)}</Typography>
+              </Grid>
             </Grid>
-            <Grid item md={9} paddingX={1}>
-              <Typography variant="body1">
-                {isLoading ? (
-                  <Skeleton />
-                ) : (
-                  <FormattedMessage {...messages.categories[category].label} />
-                )}
-              </Typography>
-            </Grid>
-            <Grid item md={1} paddingX={1}>
-              <Typography variant="body1">{isLoading ? <Skeleton /> : markers?.length}</Typography>
-            </Grid>
-          </Grid>
-        </AccordionSummary>
-        <AccordionDetails>
-          {!isLoading &&
-            (markers as IAPIMarker[]).map((marker: IAPIMarker) => (
-              <Button
-                key={marker.id}
-                fullWidth
-                variant={selectedMarker?.id === marker.id ? "contained" : "text"}
-                className={style.button}
-                onClick={() => handleSelectedMarker(marker)}
-              >
-                <Typography variant="body1">{marker.title}</Typography>
-              </Button>
-            ))}
-        </AccordionDetails>
-      </Accordion>
-    ))
+          </AccordionSummary>
+          <AccordionDetails>
+            {!isLoading &&
+              (markers as IAPIMarker[]).map((marker: IAPIMarker) => (
+                <Button
+                  key={marker.id}
+                  fullWidth
+                  variant={selectedMarker?.id === marker.id ? "contained" : "text"}
+                  className={style.button}
+                  onClick={() => handleSelectedMarker(marker)}
+                >
+                  <Typography variant="body1">{marker.title}</Typography>
+                </Button>
+              ))}
+          </AccordionDetails>
+        </Accordion>
+      );
+    })
   );
 
   return (

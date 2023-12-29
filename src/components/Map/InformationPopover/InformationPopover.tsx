@@ -8,11 +8,11 @@ import {
   IconButton,
   Popover,
   PopoverProps,
-  Skeleton,
   Typography
 } from "@mui/material";
 import { IAPIMarker } from "src/api/markers";
 import useMarker from "src/hooks/useMarker";
+import useSkeleton from "src/hooks/useSkeleton";
 import { setAlert } from "src/store/global";
 import { AppDispatch } from "src/store/store";
 
@@ -37,6 +37,8 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
   const titleRef = useRef<HTMLSpanElement | null>(null);
 
   const dispatch: AppDispatch = useDispatch();
+
+  const withSkeleton = useSkeleton({ isLoading: isSubmitting });
 
   const handleEditSubmission = async () => {
     setIsEditing(false);
@@ -74,7 +76,7 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
 
   const renderActions = () => {
     if (isSubmitting) {
-      return <CircularProgress size={24} />;
+      return <CircularProgress size={20} />;
     } else if (isEditing) {
       return (
         <IconButton onClick={handleEditSubmission}>
@@ -113,7 +115,7 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
               contentEditable={isEditing}
               ref={titleRef}
             >
-              {isSubmitting ? <Skeleton width={220} /> : marker.title}
+              {withSkeleton(marker.title, 1, { width: 220 })}
             </Typography>
             {renderActions()}
           </div>
@@ -125,9 +127,7 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
             contentEditable={isEditing}
             ref={descriptionRef}
           >
-            {isSubmitting
-              ? Array(Number(style.descriptionMaxLines)).fill(<Skeleton width="100%" />)
-              : marker.description}
+            {withSkeleton(marker?.description, +style.descriptionMaxLines, { width: "100%" })}
           </Typography>
         </CardContent>
       </Card>
