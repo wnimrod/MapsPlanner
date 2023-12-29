@@ -1,8 +1,8 @@
 import { AlertProps } from "@mui/material";
-import type { IAPIUser } from "src/api/types";
+import type { TAPIUser } from "src/api/types";
 
 // TODO: Need to have conditional typing
-export type TUserState = null | ({ isLoggedIn: boolean } & Partial<IAPIUser>);
+export type TUserState = null | ({ isLoggedIn: boolean } & Partial<TAPIUser>);
 
 export type TLanguage = "en";
 

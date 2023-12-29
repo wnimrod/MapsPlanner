@@ -1,8 +1,8 @@
-import type { IAPIUser } from "src/api/types";
+import type { TAPIUser } from "src/api/types";
 import { fetchCurrentUser } from "src/api/users";
 import useSWR from "swr";
 
-export type TCurrentUserLoggedIn = { isLoggedIn: true } & IAPIUser;
+export type TCurrentUserLoggedIn = { isLoggedIn: true } & TAPIUser;
 export type TCurrentUser = TCurrentUserLoggedIn | { isLoggedIn: false };
 
 export default function useCurrentUser() {

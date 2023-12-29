@@ -1,4 +1,4 @@
-import { IAPITripCard } from "src/api/trips";
+import { TAPITripCard } from "src/api/trips";
 import useCurrentUser, { TCurrentUserLoggedIn } from "src/hooks/useCurrentUser";
 
 import BasicTripCard, { TBasicTripCardProps } from "../BasicTripCard/BasicTripCard";
@@ -8,7 +8,7 @@ type TProps = Omit<TBasicTripCardProps, "trip" | "onContextMenuOpened">;
 export default function AddTripCard({ isLoading, onCardSelected }: TProps) {
   const { user } = useCurrentUser();
 
-  const addTrip: IAPITripCard = {
+  const addTrip: TAPITripCard = {
     id: -1,
     creationDate: "",
     description: "Add your new trip, now!",

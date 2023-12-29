@@ -11,8 +11,8 @@ import {
   Typography
 } from "@mui/material";
 import { useFormik } from "formik";
-import { ALL_MARKER_CATEGORIES, EMarkerCategory, IAPIMarkerCreationRequest } from "src/api/markers";
-import { IAPITripCard } from "src/api/trips";
+import { ALL_MARKER_CATEGORIES, EMarkerCategory, TAPIMarkerCreationRequest } from "src/api/markers";
+import { TAPITripCard } from "src/api/trips";
 import useTrip from "src/hooks/useTrip";
 import { setAlert } from "src/store/global";
 import { AppDispatch } from "src/store/store";
@@ -29,7 +29,7 @@ type TProps = {
   anchorPosition: PopoverProps["anchorPosition"];
   latitude: number;
   longitude: number;
-  trip: IAPITripCard;
+  trip: TAPITripCard;
   onClose: () => void;
 };
 
@@ -50,7 +50,7 @@ export default function AddMarkerPopover({
       .required(formatMessage(messages.validation.title.required))
   });
 
-  const form = useFormik<IAPIMarkerCreationRequest>({
+  const form = useFormik<TAPIMarkerCreationRequest>({
     initialValues: {
       tripId: trip.id,
       latitude,
@@ -60,7 +60,7 @@ export default function AddMarkerPopover({
       description: ""
     },
     isInitialValid: false,
-    onSubmit: async (markerCreationRequest: IAPIMarkerCreationRequest, formikHelpers) => {
+    onSubmit: async (markerCreationRequest: TAPIMarkerCreationRequest, formikHelpers) => {
       try {
         formikHelpers.setSubmitting(true);
         await addMarker(markerCreationRequest);

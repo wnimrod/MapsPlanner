@@ -6,7 +6,7 @@ type TOptions = { isLoading: boolean } & SkeletonProps;
 export default function useSkeleton({ isLoading, ...defaultSkeletonProps }: TOptions) {
   const withSkeleton = (
     children: TChildrenArgument,
-    count: number = 1,
+    count = 1,
     overrideSkeletonProps: SkeletonProps = {}
   ) => {
     if (isLoading) {

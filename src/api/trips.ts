@@ -1,26 +1,26 @@
 import { delay } from "src/utils/utils";
 
 import api, { unwrapAxiosResult } from "./axios";
-import { IAPIMarker } from "./markers";
+import { TAPIMarker } from "./markers";
 
-export interface IAPITripCard {
+export type TAPITripCard = {
   id: number;
   name: string;
   description: string;
   picture: string;
   creationDate: string;
   userId: number;
-}
+};
 
-export interface IAPITripCreationRequest {
+export type TAPITripCreationRequest = {
   name: string;
   description?: string;
   picture: string; // As url or base64
-}
+};
 
-export interface IAPITripDetails extends IAPITripCard {
-  markers: IAPIMarker[];
-}
+export type TAPITripDetails = {
+  markers: TAPIMarker[];
+} & TAPITripCard;
 
 const API_PREFIX = "/trips";
 
@@ -31,18 +31,18 @@ export async function fetchTrips() {
    */
 
   await delay(3000);
-  const result = await api.get<IAPITripCard[]>(`${API_PREFIX}/`);
+  const result = await api.get<TAPITripCard[]>(`${API_PREFIX}/`);
   return unwrapAxiosResult(result);
 }
 
 export async function fetchTrip(tripId: number) {
   await delay(5000);
-  const result = await api.get<IAPITripDetails>(`${API_PREFIX}/${tripId}/`);
+  const result = await api.get<TAPITripDetails>(`${API_PREFIX}/${tripId}/`);
   return unwrapAxiosResult(result);
 }
 
-export async function createTrip(payload: IAPITripCreationRequest) {
-  const result = await api.post<IAPITripCard>(`${API_PREFIX}/`, payload);
+export async function createTrip(payload: TAPITripCreationRequest) {
+  const result = await api.post<TAPITripCard>(`${API_PREFIX}/`, payload);
   return unwrapAxiosResult(result);
 }
 

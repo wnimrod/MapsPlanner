@@ -1,6 +1,6 @@
 import { PopoverPosition } from "@mui/material";
-import { IAPIMarker } from "src/api/markers";
-import { IAPITripDetails } from "src/api/trips";
+import { TAPIMarker } from "src/api/markers";
+import { TAPITripDetails } from "src/api/trips";
 import useGeolocation from "src/hooks/useGeolocation";
 import { delay } from "src/utils/utils";
 
@@ -13,13 +13,13 @@ import InformationPopover from "./InformationPopover/InformationPopover";
 import style from "./Map.module.scss";
 
 type TProps = {
-  trip: IAPITripDetails;
-  center?: IAPIMarker;
+  trip: TAPITripDetails;
+  center?: TAPIMarker;
   zoom?: number;
 };
 
 type TMarkerInfo = {
-  marker: IAPIMarker;
+  marker: TAPIMarker;
   position: PopoverPosition;
 };
 
@@ -52,7 +52,7 @@ export default function Map({ trip, center: explicitCenter, zoom = 15 }: TProps)
     delay(0).then(() => setIsMapLoaded(true));
   };
 
-  const handleMarkerSelected = (event: google.maps.MapMouseEvent, marker: IAPIMarker) => {
+  const handleMarkerSelected = (event: google.maps.MapMouseEvent, marker: TAPIMarker) => {
     const { domEvent } = event;
     setMarkerInfo({
       marker,
@@ -91,7 +91,7 @@ export default function Map({ trip, center: explicitCenter, zoom = 15 }: TProps)
         }}
       >
         {isMapLoaded &&
-          markers.map((marker: IAPIMarker) => {
+          markers.map((marker: TAPIMarker) => {
             const { id, title, latitude: lat, longitude: lng } = marker;
             return (
               <Marker

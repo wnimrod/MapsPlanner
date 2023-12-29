@@ -1,6 +1,6 @@
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
 import cx from "classnames";
-import { IAPITripCard } from "src/api/trips";
+import { TAPITripCard } from "src/api/trips";
 import useSkeleton from "src/hooks/useSkeleton";
 import { ConditionalWrap } from "src/utils/utils";
 
@@ -9,10 +9,10 @@ import { ReactNode } from "react";
 import style from "./BasicTripCard.module.scss";
 
 export type TBasicTripCardProps = {
-  trip?: IAPITripCard;
+  trip?: TAPITripCard;
   isLoading: boolean;
   onContextMenuOpened?: (event: React.MouseEvent) => void;
-  onCardSelected?: (trip: IAPITripCard) => void;
+  onCardSelected?: (trip: TAPITripCard) => void;
   interactive?: boolean;
   classes?: Partial<{
     container: string;

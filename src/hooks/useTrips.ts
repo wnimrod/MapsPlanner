@@ -1,6 +1,6 @@
-import { IAPITripCard } from "src/api/trips";
+import { TAPITripCard } from "src/api/trips";
 import * as tripsAPI from "src/api/trips";
-import { IAPITripCreationRequest } from "src/api/trips";
+import { TAPITripCreationRequest } from "src/api/trips";
 import { TRootState } from "src/store/types";
 import useSWR from "swr";
 
@@ -21,9 +21,9 @@ export function useTrips({ fetch = true }: TOptions = {}) {
     isLoading,
     error,
     mutate
-  } = useSWR<IAPITripCard[]>(key, () => tripsAPI.fetchTrips());
+  } = useSWR<TAPITripCard[]>(key, () => tripsAPI.fetchTrips());
 
-  const createTrip = async (payload: IAPITripCreationRequest) => {
+  const createTrip = async (payload: TAPITripCreationRequest) => {
     const newTrip = await tripsAPI.createTrip(payload);
     if (trips) {
       await mutate([newTrip, ...trips]);

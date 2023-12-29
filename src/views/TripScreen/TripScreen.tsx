@@ -1,5 +1,5 @@
 import { CircularProgress, Grid, Typography } from "@mui/material";
-import { IAPIMarker } from "src/api/markers";
+import { TAPIMarker } from "src/api/markers";
 import Map from "src/components/Map/Map";
 import TripMarkers from "src/components/TripMarkers/TripMarkers";
 import useTrip from "src/hooks/useTrip";
@@ -14,9 +14,9 @@ import messages from "./messages";
 export default function TripScreen() {
   const { id: tripId } = useParams();
   const { trip } = useTrip(+tripId!);
-  const [center, setCenter] = useState<IAPIMarker | undefined>();
+  const [center, setCenter] = useState<TAPIMarker | undefined>();
 
-  const handleMarkerSelected = (marker: IAPIMarker) => {
+  const handleMarkerSelected = (marker: TAPIMarker) => {
     setCenter(marker);
   };
 

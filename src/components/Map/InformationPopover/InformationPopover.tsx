@@ -10,7 +10,7 @@ import {
   PopoverProps,
   Typography
 } from "@mui/material";
-import { IAPIMarker } from "src/api/markers";
+import { TAPIMarker } from "src/api/markers";
 import useMarker from "src/hooks/useMarker";
 import useSkeleton from "src/hooks/useSkeleton";
 import { setAlert } from "src/store/global";
@@ -24,7 +24,7 @@ import style from "./InformationPopover.module.scss";
 import messages from "./messages";
 
 type TProps = {
-  marker: IAPIMarker;
+  marker: TAPIMarker;
   anchorPosition: PopoverProps["anchorPosition"];
   onClose: () => void;
 };

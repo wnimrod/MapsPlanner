@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 import cx from "classnames";
 import { groupBy } from "lodash";
-import { EMarkerCategory, IAPIMarker } from "src/api/markers";
-import { IAPITripDetails } from "src/api/trips";
+import { EMarkerCategory, TAPIMarker } from "src/api/markers";
+import { TAPITripDetails } from "src/api/trips";
 import useSearchParam, { EGlobalSearchParams } from "src/hooks/useSearchParam";
 import useSkeleton from "src/hooks/useSkeleton";
 
@@ -24,8 +24,8 @@ import style from "./TripMarkers.module.scss";
 import messages from "./messages";
 
 type TProps = {
-  trip?: IAPITripDetails;
-  onMarkerSelected: (marker: IAPIMarker) => void;
+  trip?: TAPITripDetails;
+  onMarkerSelected: (marker: TAPIMarker) => void;
 };
 
 const SKELETONS_COUNT = 5;
@@ -34,7 +34,7 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
   const isLoading = !trip;
 
   const [selectedCategory, setSelectedCategory] = useState<EMarkerCategory | null>(null);
-  const [selectedMarker, setSelectedMarker] = useState<IAPIMarker | null>(null);
+  const [selectedMarker, setSelectedMarker] = useState<TAPIMarker | null>(null);
 
   const searchQuery = useSearchParam(EGlobalSearchParams.Search);
 
@@ -64,7 +64,7 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
     setSelectedCategory(expanded ? category : null);
   };
 
-  const handleSelectedMarker = (marker: IAPIMarker) => {
+  const handleSelectedMarker = (marker: TAPIMarker) => {
     setSelectedMarker(marker);
     onMarkerSelected(marker);
   };
@@ -103,7 +103,7 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
           </AccordionSummary>
           <AccordionDetails>
             {!isLoading &&
-              (markers as IAPIMarker[]).map((marker: IAPIMarker) => (
+              (markers as TAPIMarker[]).map((marker: TAPIMarker) => (
                 <Button
                   key={marker.id}
                   fullWidth

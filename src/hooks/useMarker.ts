@@ -1,10 +1,10 @@
 import * as markersAPI from "src/api/markers";
-import { IAPIMarker, TTripUpdateableFields } from "src/api/markers";
+import { TAPIMarker, TTripUpdateableFields } from "src/api/markers";
 import useSWR from "swr";
 
 import useTrip from "./useTrip";
 
-type TOptions = { marker: IAPIMarker; markerId?: never } | { markerId: number; marker?: never };
+type TOptions = { marker: TAPIMarker; markerId?: never } | { markerId: number; marker?: never };
 
 export default function useMarker({ marker: propsMarker, markerId: propsMarkerId }: TOptions) {
   const { data: fetchedMarker } = useSWR(propsMarkerId ? `marker-${propsMarkerId}` : null, () =>
@@ -17,7 +17,7 @@ export default function useMarker({ marker: propsMarker, markerId: propsMarkerId
   const editMarker = async (markerId: number, data: TTripUpdateableFields) => {
     if (!trip) return;
 
-    const getUpdatedTrip = (markerUpdated: Partial<IAPIMarker>) => ({
+    const getUpdatedTrip = (markerUpdated: Partial<TAPIMarker>) => ({
       ...trip,
       markers: trip.markers.map((marker) =>
         marker.id === markerId ? { ...marker, ...markerUpdated } : marker

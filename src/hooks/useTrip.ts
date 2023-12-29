@@ -1,6 +1,6 @@
-import { IAPIMarkerCreationRequest } from "src/api/markers";
+import { TAPIMarkerCreationRequest } from "src/api/markers";
 import * as markersAPI from "src/api/markers";
-import { IAPITripDetails, fetchTrip } from "src/api/trips";
+import { TAPITripDetails, fetchTrip } from "src/api/trips";
 import useSWR from "swr";
 
 export default function useTrip(tripId?: number) {
@@ -11,9 +11,9 @@ export default function useTrip(tripId?: number) {
     isLoading,
     error,
     mutate
-  } = useSWR<IAPITripDetails>(shouldFetch ? `trip-${tripId}` : null, () => fetchTrip(tripId!));
+  } = useSWR<TAPITripDetails>(shouldFetch ? `trip-${tripId}` : null, () => fetchTrip(tripId!));
 
-  const addMarker = async (markerCreationRequest: IAPIMarkerCreationRequest) => {
+  const addMarker = async (markerCreationRequest: TAPIMarkerCreationRequest) => {
     if (markerCreationRequest.tripId !== tripId) {
       throw new Error("Mismatch between marker.trip_id and trip.id");
     }

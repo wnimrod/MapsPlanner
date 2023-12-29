@@ -1,5 +1,5 @@
 import { ImageList, ImageListItem } from "@mui/material";
-import { IAPITripCard } from "src/api/trips";
+import { TAPITripCard } from "src/api/trips";
 import AddTripModal from "src/components/AddTripModal/AddTripModal";
 import AddTripCard from "src/components/TripCard/AddTripCard/AddTripCard";
 import TripCard from "src/components/TripCard/TripCard/TripCard";
@@ -12,7 +12,7 @@ import { useMemo, useState } from "react";
 import style from "./HomeScreen.module.scss";
 
 export default function HomeScreen() {
-  const mocks = generateEntityMocks<IAPITripCard>(5);
+  const mocks = generateEntityMocks<TAPITripCard>(5);
   const { trips = mocks, isLoading } = useTrips();
   const [isAddTripModalOpen, setIsAddTripModalOpen] = useState(false);
 
@@ -34,7 +34,7 @@ export default function HomeScreen() {
         <ImageListItem key="trip-add">
           <AddTripCard isLoading={isLoading} onCardSelected={() => setIsAddTripModalOpen(true)} />
         </ImageListItem>
-        {displayableTrips.map((trip: IAPITripCard) => (
+        {displayableTrips.map((trip: TAPITripCard) => (
           <ImageListItem key={`trip-card-${trip.id}`}>
             <TripCard isLoading={isLoading} trip={trip} />
           </ImageListItem>

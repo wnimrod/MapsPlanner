@@ -1,4 +1,4 @@
-import { IAPITripCard } from "src/api/trips";
+import { TAPITripCard } from "src/api/trips";
 import useContextMenu from "src/hooks/useContextMenu";
 import { useTrips } from "src/hooks/useTrips";
 import { ERoute } from "src/routes";
@@ -63,7 +63,7 @@ export default function TripCard({ trip, isLoading, ...basicCardProps }: TProps)
     menuProps
   } = useContextMenu(handleMenuAction);
 
-  const handleCardSelected = (selectedTrip: IAPITripCard) => {
+  const handleCardSelected = (selectedTrip: TAPITripCard) => {
     navigate(ERoute.Trip.replace(":id", selectedTrip.id.toString()));
   };
 
