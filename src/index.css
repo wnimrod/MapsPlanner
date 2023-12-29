@@ -1,29 +1,17 @@
 :root {
   --spacer: 1rem;
-
-  /* Z-indices */
   --backdrop-z-index: 5000;
-  --body-background: initial;
   --top-bar-height: 64px;
 }
 
-html {
-  &[data-mui-color-scheme=light] {
-    --login-background-image: url("maps-background-light.jpg")
-  }
-  &[data-mui-color-scheme=dark] {
-    --login-background-image: url("maps-background-dark.jpg")
-  }
-  
-}
 html, body {
-  background: var(--body-background);
   height: 100%;
   margin: 0;
 }
 
 
 #root {
-  background-color: var(--mui-palette-primary-contrastText)
+  background-color: var(--mui-palette-primary-contrastText);
+  min-height: 100vh;
 }
 

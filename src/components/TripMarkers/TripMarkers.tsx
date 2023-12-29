@@ -12,6 +12,7 @@ import cx from "classnames";
 import { groupBy } from "lodash";
 import { EMarkerCategory, IAPIMarker } from "src/api/markers";
 import { IAPITripDetails } from "src/api/trips";
+import useSearchParam, { EGlobalSearchParams } from "src/hooks/useSearchParam";
 
 import { useMemo, useState } from "react";
 import { FormattedMessage } from "react-intl";
@@ -30,21 +31,31 @@ type TProps = {
 const SKELETONS_COUNT = 5;
 
 export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
+  const isLoading = !trip;
+
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedMarker, setSelectedMarker] = useState<IAPIMarker | null>(null);
 
-  const isLoading = !trip;
-  const isMarkersEmpty = !isLoading && trip.markers.length === 0;
-  const tripGroups = useMemo(() => {
-    const markers = (isLoading
-      ? Object.values(EMarkerCategory)
-          .filter(Number.isInteger)
-          .slice(0, SKELETONS_COUNT)
-          .map((category) => ({ category }))
-      : trip!.markers) as unknown as IAPIMarker[];
+  const searchQuery = useSearchParam(EGlobalSearchParams.Search);
 
-    return groupBy(markers, "category");
-  }, [trip, isLoading]);
+  const isMarkersEmpty = !isLoading && trip.markers.length === 0;
+
+  const displayableMarkers = useMemo(() => {
+    if (isLoading) {
+      return Object.values(EMarkerCategory)
+        .filter(Number.isInteger)
+        .slice(0, SKELETONS_COUNT)
+        .map((category, id) => ({ id, category }));
+    } else if (searchQuery) {
+      return trip!.markers.filter((marker) =>
+        marker.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    } else {
+      return trip!.markers;
+    }
+  }, [trip, isLoading, searchQuery]);
+
+  const tripGroups = useMemo(() => groupBy(displayableMarkers, "category"), [displayableMarkers]);
 
   const handleAccordionExpansion = (category: string, expanded: boolean) => {
     if (isLoading) return;
@@ -92,16 +103,18 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
           </Grid>
         </AccordionSummary>
         <AccordionDetails>
-          {markers.map((marker: IAPIMarker) => (
-            <Button
-              variant={selectedMarker?.id === marker.id ? "contained" : "text"}
-              fullWidth
-              className={style.button}
-              onClick={() => handleSelectedMarker(marker)}
-            >
-              <Typography variant="body1">{marker.title}</Typography>
-            </Button>
-          ))}
+          {!isLoading &&
+            (markers as IAPIMarker[]).map((marker: IAPIMarker) => (
+              <Button
+                key={marker.id}
+                fullWidth
+                variant={selectedMarker?.id === marker.id ? "contained" : "text"}
+                className={style.button}
+                onClick={() => handleSelectedMarker(marker)}
+              >
+                <Typography variant="body1">{marker.title}</Typography>
+              </Button>
+            ))}
         </AccordionDetails>
       </Accordion>
     ))
