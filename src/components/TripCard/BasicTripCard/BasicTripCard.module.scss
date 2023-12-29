@@ -4,13 +4,18 @@
     --card-width: 345px;
     --card-height: 355px;
 
+    width: var(--card-width);
+    height: var(--card-height);
+
     &.disabled {
         pointer-events: none;
     }
+        
+    .action-area, & .container {
+        height: 100%;
+ 
+    }
 
-    width: var(--card-width);
-    height: var(--card-height);
-    
     .image {
         --card-image-height: 170px;
         height: var(--card-image-height);

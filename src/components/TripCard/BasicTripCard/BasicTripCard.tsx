@@ -43,8 +43,12 @@ export default function BasicTripCard(props: TBasicTripCardProps) {
   };
 
   const makeInteractive = (children: ReactNode) => (
-    <CardActionArea disabled={!interactive} onClick={handleCardSelected}>
-      {children}
+    <CardActionArea
+      classes={{ root: style.actionArea }}
+      disabled={!interactive}
+      onClick={handleCardSelected}
+    >
+      <div className={style.container}>{children}</div>
     </CardActionArea>
   );
 
