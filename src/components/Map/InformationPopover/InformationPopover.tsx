@@ -20,6 +20,7 @@ import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import style from "./InformationPopover.module.scss";
+import messages from "./messages";
 
 type TProps = {
   marker: IAPIMarker;
@@ -53,7 +54,6 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
       // Revert changes
       titleRef.current!.innerText = marker.title;
       descriptionRef.current!.innerText = marker.description;
-
       dispatch(setAlert({ message: "Failed to edit marker.", severity: "error" }));
     } finally {
       setIsSubmitting(false);
@@ -62,9 +62,15 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
 
   const handleDeleteMarker = async () => {
     setIsSubmitting(true);
+    onClose();
+
     try {
-      await deleteMarker(marker.id);
-      onClose();
+      const confirmDeleteMarker = await window.confirmDialog(messages.confirmDeleteMarkerDialog, {
+        markerName: marker.title
+      });
+      if (confirmDeleteMarker) {
+        await deleteMarker(marker.id);
+      }
     } catch (error) {
       dispatch(
         setAlert({ message: `Failed to delete marker \`${marker.title}\``, severity: "error" })

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import BasicTripCard, { TBasicTripCardProps } from "../BasicTripCard/BasicTripCard";
 import { ContextMenu, ETripCardActions } from "./ContextMenu";
+import messages from "./messages";
 
 type TProps = {
   withContextMenu?: boolean;
@@ -24,7 +25,13 @@ export default function TripCard({ trip, isLoading, ...basicCardProps }: TProps)
     if (!trip) return;
 
     switch (action) {
-      case ETripCardActions.Delete:
+      case ETripCardActions.Delete: {
+        const confirmDeleteTrip = await window.confirmDialog(messages.confirmDeleteTripDialog, {
+          tripName: trip.name
+        });
+
+        if (!confirmDeleteTrip) return;
+
         try {
           await deleteTrip(trip.id);
           dispatch(
@@ -40,6 +47,7 @@ export default function TripCard({ trip, isLoading, ...basicCardProps }: TProps)
         }
 
         break;
+      }
     }
   };
 

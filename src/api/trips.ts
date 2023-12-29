@@ -8,7 +8,7 @@ export interface IAPITripCard {
   name: string;
   description: string;
   picture: string;
-  creationDate: TTimestamp;
+  creationDate: string;
   userId: number;
 }
 

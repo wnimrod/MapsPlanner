@@ -1,3 +1,4 @@
+import type { IAPIUser } from "src/api/types";
 import { fetchCurrentUser } from "src/api/users";
 import useSWR from "swr";
 

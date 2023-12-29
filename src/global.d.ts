@@ -1,11 +1,15 @@
-declare type TTimestamp = string; // TODO: Format to iso and epohc
+export {};
 
-declare interface IAPIUser {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  profilePicture: string; // as url
-  isActive: boolean;
-  isAdministrator: boolean;
+declare type TActionConfirmDialogRef =
+  import("./components/ActionConfirmDialog/ActionConfirmDialog").TActionConfirmDialogRef;
+declare type TDialogLanguage =
+  import("./components/ActionConfirmDialog/ActionConfirmDialog").TDialogLanguage;
+
+declare global {
+  declare interface Window {
+    confirmDialog: (
+      languageOverride?: Partial<TDialogLanguage>,
+      languageValues?: Record<string, any>
+    ) => Promise<boolean>;
+  }
 }

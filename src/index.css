@@ -1,7 +1,10 @@
 :root {
   --spacer: 1rem;
-  --backdrop-z-index: 5000;
   --top-bar-height: 64px;
+
+   /* z-indices */
+  --backdrop-z-index: 5000;
+  --action-confirm-dialog-z-index: 5001;
 }
 
 html, body {

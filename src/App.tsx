@@ -1,11 +1,14 @@
 import { Box, Container } from "@mui/material";
 import { ERoute, useIsFullScreenRoute } from "src/routes.ts";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import style from "./App.module.scss";
+import ActionConfirmDialog, {
+  TActionConfirmDialogRef
+} from "./components/ActionConfirmDialog/ActionConfirmDialog";
 import MainBar from "./components/MainBar/MainBar";
 import SystemAlert from "./components/SystemAlert/SystemAlert";
 import useCurrentUser from "./hooks/useCurrentUser";
@@ -22,15 +25,22 @@ function App() {
 
   const navigate = useNavigate();
 
+  const confirmDialogDialogRef = useRef<TActionConfirmDialogRef | null>(null);
+
   useEffect(() => {
     if (isAppReady && user?.isLoggedIn === false) {
       navigate(ERoute.Login);
     }
   }, [isAppReady, user]);
 
+  useEffect(() => {
+    if (confirmDialogDialogRef.current) {
+      window.confirmDialog = confirmDialogDialogRef.current.confirm;
+    }
+  }, [confirmDialogDialogRef.current]);
+
   return (
     <Box className={style.container}>
-      <SystemAlert />
       <MainBar />
       <Container
         maxWidth={isFullScreenPage ? false : "lg"}
@@ -42,6 +52,10 @@ function App() {
           <Route path={ERoute.Trip} Component={TripScreen} />
         </Routes>
       </Container>
+
+      {/* Global Scope utilities */}
+      <SystemAlert />
+      <ActionConfirmDialog dialogRef={confirmDialogDialogRef} />
     </Box>
   );
 }
