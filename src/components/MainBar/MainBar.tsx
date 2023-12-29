@@ -1,6 +1,7 @@
 import MapIcon from "@mui/icons-material/Map";
 import SearchIcon from "@mui/icons-material/Search";
 import { AppBar, Container, InputAdornment, TextField, Toolbar, Typography } from "@mui/material";
+import useCurrentUser from "src/hooks/useCurrentUser";
 import useSearchParams, { EGlobalSearchParams } from "src/hooks/useSearchParams";
 import { ERoute, useIsFullScreenRoute } from "src/routes";
 
@@ -16,6 +17,8 @@ export default function MainBar() {
 
   const navigate = useNavigate();
   const isFullScreenPage = useIsFullScreenRoute();
+  const { isLoggedIn } = useCurrentUser();
+
   const { searchParams, handleSearchParamChange } = useSearchParams({
     [EGlobalSearchParams.Search]: ""
   });
@@ -30,21 +33,22 @@ export default function MainBar() {
               Maps Planner
             </div>
           </Typography>
-
-          <TextField
-            placeholder={formatMessage(messages.search)}
-            value={searchParams.get(EGlobalSearchParams.Search)}
-            name={EGlobalSearchParams.Search}
-            onChange={handleSearchParamChange}
-            classes={{ root: style.searchBar }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start" sx={{ marginRight: 2 }}>
-                  <SearchIcon />
-                </InputAdornment>
-              )
-            }}
-          />
+          {isLoggedIn && (
+            <TextField
+              placeholder={formatMessage(messages.search)}
+              value={searchParams.get(EGlobalSearchParams.Search)}
+              name={EGlobalSearchParams.Search}
+              onChange={handleSearchParamChange}
+              classes={{ root: style.searchBar }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" sx={{ marginRight: 2 }}>
+                    <SearchIcon />
+                  </InputAdornment>
+                )
+              }}
+            />
+          )}
           <UserProfile />
         </Toolbar>
       </Container>

@@ -19,6 +19,7 @@ export default function useCurrentUser() {
   });
 
   const isLoaded = !isLoading && !error && !!user;
+  const isLoggedIn = isLoaded && user.isLoggedIn;
 
-  return { user, error, isLoading, isLoaded };
+  return { user, error, isLoggedIn, isLoading, isLoaded };
 }
