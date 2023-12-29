@@ -1,28 +1,26 @@
 .container {
-    transition: max-width 650ms ease-in-out;
+  transition: max-width 650ms ease-in-out;
 
-    .label-container {
-        flex-grow: 1;
-        text-align: left;
-        
-        .label {
-            width: fit-content;
-            display: flex;
-            align-items: center;
-            gap: var(--spacer);  
-             
-            &:hover {
-                cursor: pointer;
-            }
-        }
-    }
+  .label-container {
+    flex-grow: 1;
+    text-align: left;
 
-    .search-bar  {
-        color: white !important;
-        & input {
-            margin: calc(-0.5 * var(--spacer)) !important;
-        }
-        
+    .label {
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      gap: var(--spacer);
+
+      &:hover {
+        cursor: pointer;
+      }
     }
+  }
+
+  .search-bar {
+    color: white !important;
+    & input {
+      margin: calc(-0.5 * var(--spacer)) !important;
+    }
+  }
 }
-

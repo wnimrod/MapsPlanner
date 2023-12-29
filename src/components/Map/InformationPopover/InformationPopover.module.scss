@@ -3,22 +3,22 @@
 $description-max-lines: 3;
 
 .card-container {
-    max-width: 350px;
+  max-width: 350px;
 
-    .header {
-        display: flex;
-        gap: calc(0.5 * var(--spacer));
-        align-items: baseline;
-        .label {
-            flex-grow: 1;
-        }
+  .header {
+    display: flex;
+    gap: calc(0.5 * var(--spacer));
+    align-items: baseline;
+    .label {
+      flex-grow: 1;
     }
+  }
 
-    .description:not(:hover):not([contentEditable=true]) {
-        @include trancute-multiline($description-max-lines);
-    }
+  .description:not(:hover):not([contentEditable="true"]) {
+    @include trancute-multiline($description-max-lines);
+  }
 }
 
 :export {
-    description-max-lines: $description-max-lines
+  description-max-lines: $description-max-lines;
 }

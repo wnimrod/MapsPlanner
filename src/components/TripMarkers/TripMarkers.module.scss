@@ -1,37 +1,35 @@
 .expanded {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 .button {
-    justify-content: flex-start !important;
-    text-transform: initial !important;
+  justify-content: flex-start !important;
+  text-transform: initial !important;
 }
 
-.header { 
-    & p {
-        font-weight: bold !important;
-    }
-    
-    &.selected > * {
-        color: var(--mui-palette-primary-dark)
-    }
+.header {
+  & p {
+    font-weight: bold !important;
+  }
+
+  &.selected > * {
+    color: var(--mui-palette-primary-dark);
+  }
 }
 
 .missing-markers {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    margin-top: var(--spacer);
-    gap: var(--spacer);
-    
-    .icon {
-        font-size: 8rem;
-    }
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-top: var(--spacer);
+  gap: var(--spacer);
+
+  .icon {
+    font-size: 8rem;
+  }
 }
 
-
-
 .trip {
-    border-radius: initial;
-    --card-width: 100%;
+  border-radius: initial;
+  --card-width: 100%;
 }

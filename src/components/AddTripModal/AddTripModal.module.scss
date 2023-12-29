@@ -1,21 +1,20 @@
 .form {
-    width: 100%;
-    
-    .picture {
-        
-        width: 100%;
-        border-radius: 5px;
-    }
+  width: 100%;
 
-    .picture-source {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: var(--spacer);
-    }
+  .picture {
+    width: 100%;
+    border-radius: 5px;
+  }
+
+  .picture-source {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacer);
+  }
 }
 
 .actions {
-    justify-content: space-between !important;
-    padding: var(--spacer) calc(1.5 * var(--spacer));
+  justify-content: space-between !important;
+  padding: var(--spacer) calc(1.5 * var(--spacer));
 }

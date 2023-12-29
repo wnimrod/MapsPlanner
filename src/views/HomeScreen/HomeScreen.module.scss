@@ -1,15 +1,12 @@
-
 .list {
+  --column-count: 3;
+  grid-template-columns: repeat(var(--column-count), 1fr) !important;
 
-    --column-count: 3;
-    grid-template-columns: repeat(var(--column-count), 1fr) !important;
+  @media only screen and (max-width: 1100px) {
+    --column-count: 2;
+  }
 
-    @media only screen and (max-width: 1100px) {
-        --column-count: 2
-    }
-
-    @media only screen and (max-width: 733px) {
-        --column-count: 1
-    }
+  @media only screen and (max-width: 733px) {
+    --column-count: 1;
+  }
 }
-

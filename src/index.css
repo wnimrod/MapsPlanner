@@ -2,19 +2,18 @@
   --spacer: 1rem;
   --top-bar-height: 64px;
 
-   /* z-indices */
+  /* z-indices */
   --backdrop-z-index: 5000;
   --action-confirm-dialog-z-index: 5001;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
-
 
 #root {
   background-color: var(--mui-palette-primary-contrastText);
   min-height: 100vh;
 }
-

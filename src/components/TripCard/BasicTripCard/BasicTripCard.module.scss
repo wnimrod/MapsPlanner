@@ -1,31 +1,31 @@
 @import "mapsplanner/_mixins.scss";
 
 .card {
-    --card-width: 345px;
-    --card-height: 355px;
+  --card-width: 345px;
+  --card-height: 355px;
 
-    width: var(--card-width);
-    height: var(--card-height);
+  width: var(--card-width);
+  height: var(--card-height);
 
-    &.disabled {
-        pointer-events: none;
+  &.disabled {
+    pointer-events: none;
+  }
+
+  .action-area,
+  & .container {
+    height: 100%;
+  }
+
+  .image {
+    --card-image-height: 170px;
+    height: var(--card-image-height);
+
+    &.skeleton {
+      transform: scale(1);
     }
-        
-    .action-area, & .container {
-        height: 100%;
- 
-    }
+  }
 
-    .image {
-        --card-image-height: 170px;
-        height: var(--card-image-height);
-
-        &.skeleton {
-            transform: scale(1)
-        }
-    }
-
-    .description {
-        @include trancute-multiline(5)
-    }
+  .description {
+    @include trancute-multiline(5);
+  }
 }
