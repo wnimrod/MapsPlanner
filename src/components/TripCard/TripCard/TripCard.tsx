@@ -5,6 +5,7 @@ import { ERoute } from "src/routes";
 import { setAlert } from "src/store/global";
 import { AppDispatch } from "src/store/store";
 
+import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +18,8 @@ type TProps = {
 } & TBasicTripCardProps;
 
 export default function TripCard({ trip, isLoading, ...basicCardProps }: TProps) {
+  const { formatMessage } = useIntl();
+
   const { deleteTrip } = useTrips();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,13 +39,16 @@ export default function TripCard({ trip, isLoading, ...basicCardProps }: TProps)
           await deleteTrip(trip.id);
           dispatch(
             setAlert({
-              message: `Trip \`${trip.name}\` deleted successfully.`,
+              message: formatMessage(messages.info.delete, { tripName: trip.name }),
               severity: "success"
             })
           );
         } catch (error) {
           dispatch(
-            setAlert({ message: `Failed to delete trip \`${trip.name}\``, severity: "error" })
+            setAlert({
+              message: formatMessage(messages.error.delete, { tripName: trip.name }),
+              severity: "error"
+            })
           );
         }
 

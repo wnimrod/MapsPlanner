@@ -22,5 +22,8 @@ export default injectMessageIds(scope, {
       min: "Common, this one really short ...",
       required: "Please put it a name."
     }
+  },
+  errors: {
+    failedToAddMarker: "Failed to add marker."
   }
 }) as any;

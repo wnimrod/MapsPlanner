@@ -66,7 +66,9 @@ export default function AddMarkerPopover({
         await addMarker(markerCreationRequest);
         formikHelpers.resetForm();
       } catch (error) {
-        dispatch(setAlert({ message: "Failed to add marker.", severity: "error" }));
+        dispatch(
+          setAlert({ message: formatMessage(messages.errors.failedToAddMarker), severity: "error" })
+        );
       } finally {
         formikHelpers.setSubmitting(false);
         onClose();

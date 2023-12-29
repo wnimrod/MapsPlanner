@@ -1,6 +1,6 @@
 import { Google as GoogleIcon } from "@mui/icons-material";
 import { Button, ButtonOwnProps } from "@mui/material";
-import { useGoogleAuth } from "src/api/auth";
+import useGoogleAuth from "src/hooks/useGoogleAuth";
 
 type TGoogleLoginButtonProps = Partial<ButtonOwnProps>;
 

@@ -1,15 +1,18 @@
+import api from "src/api/axios";
 import { setAlert } from "src/store/global";
 import { AppDispatch } from "src/store/store";
 
+import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 
-import api from "./axios";
+import messages from "./messages";
 
 type TAuthResponse = {
   url: string;
 };
 
-export const useGoogleAuth = () => {
+export default function useGoogleAuth() {
+  const { formatMessage } = useIntl();
   const dispatch: AppDispatch = useDispatch();
 
   const redirect = async () => {
@@ -19,7 +22,7 @@ export const useGoogleAuth = () => {
     } catch (error) {
       dispatch(
         setAlert({
-          message: "Failed to initiate google login redirection.",
+          message: formatMessage(messages.useGoogleAuth.initiationFailure),
           severity: "error"
         })
       );
@@ -27,4 +30,4 @@ export const useGoogleAuth = () => {
   };
 
   return { redirect };
-};
+}

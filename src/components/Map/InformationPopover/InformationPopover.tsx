@@ -17,6 +17,7 @@ import { setAlert } from "src/store/global";
 import { AppDispatch } from "src/store/store";
 
 import { useRef, useState } from "react";
+import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 
 import style from "./InformationPopover.module.scss";
@@ -29,6 +30,7 @@ type TProps = {
 };
 
 export default function InformationPopover({ anchorPosition, marker, onClose }: TProps) {
+  const { formatMessage } = useIntl();
   const { editMarker, deleteMarker } = useMarker({ marker });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -54,7 +56,7 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
       // Revert changes
       titleRef.current!.innerText = marker.title;
       descriptionRef.current!.innerText = marker.description;
-      dispatch(setAlert({ message: "Failed to edit marker.", severity: "error" }));
+      dispatch(setAlert({ message: formatMessage(messages.error.editMarker), severity: "error" }));
     } finally {
       setIsSubmitting(false);
     }
@@ -73,7 +75,10 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
       }
     } catch (error) {
       dispatch(
-        setAlert({ message: `Failed to delete marker \`${marker.title}\``, severity: "error" })
+        setAlert({
+          message: formatMessage(messages.errors.deleteMarker, { markerName: marker.title }),
+          severity: "error"
+        })
       );
     } finally {
       setIsSubmitting(false);
