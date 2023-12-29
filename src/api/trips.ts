@@ -1,5 +1,3 @@
-import { delay } from "src/utils/utils";
-
 import api, { unwrapAxiosResult } from "./axios";
 import { TAPIMarker } from "./markers";
 
@@ -30,13 +28,11 @@ export async function fetchTrips() {
    * @param fetchAll - If user is administrator, this fetch all trips, not only his.
    */
 
-  await delay(3000);
   const result = await api.get<TAPITripCard[]>(`${API_PREFIX}/`);
   return unwrapAxiosResult(result);
 }
 
 export async function fetchTrip(tripId: number) {
-  await delay(5000);
   const result = await api.get<TAPITripDetails>(`${API_PREFIX}/${tripId}/`);
   return unwrapAxiosResult(result);
 }

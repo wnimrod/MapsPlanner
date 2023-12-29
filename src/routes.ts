@@ -1,7 +1,8 @@
 export enum ERoute {
   Home = "/",
   Login = "/login",
-  Trip = "/trips/:id"
+  Trip = "/trips/:id",
+  UserProfile = "/settings/profile"
 }
 
 const FULL_SCREEN_ROUTES = [ERoute.Trip];

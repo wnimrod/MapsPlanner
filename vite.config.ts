@@ -1,4 +1,5 @@
 import { defineConfig, loadEnv } from "vite";
+import svgr from "vite-plugin-svgr";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 import react from "@vitejs/plugin-react";
@@ -20,11 +21,12 @@ export default ({ mode }) => {
         generateScopedName: "[name]__[local]__[hash:base64:2]"
       }
     },
-    plugins: [react(), tsconfigPaths()],
+    plugins: [svgr(), react(), tsconfigPaths()],
     resolve: {
       alias: {
         src: "/src",
-        mapsplanner: "/src"
+        mapsplanner: "/src",
+        public: "/public"
       }
     }
   });

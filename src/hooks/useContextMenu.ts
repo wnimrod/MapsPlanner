@@ -12,8 +12,8 @@ export type TContextMenuForwardProps = Pick<
   "open" | "onClose" | "anchorReference" | "anchorPosition"
 >;
 
-export default function useContextMenu<EMenuActions>(
-  handleActionTaken?: (action?: EMenuActions) => void
+export default function useContextMenu<CallbackArg>(
+  handleActionTaken?: (action?: CallbackArg) => void
 ) {
   const [contextMenuPosition, setContextMenuPosition] = useState<MousePosition | null>(null);
 
@@ -25,7 +25,7 @@ export default function useContextMenu<EMenuActions>(
     );
   };
 
-  const handleContextMenuClosed = (action?: EMenuActions) => {
+  const handleContextMenuClosed = (action?: CallbackArg) => {
     if (handleActionTaken) {
       handleActionTaken(action);
     }

@@ -1,0 +1,13 @@
+html {
+    &[data-mui-color-scheme="dark"] {
+        --login-grid-icon-background: #c9ced8;
+        --login-grid-form-background: #e4e6eb;
+        --login-grid-form-text: var(--mui-palette-grey-900)
+    }
+
+    &[data-mui-color-scheme=light] {
+        --login-grid-icon-background: #4d81bd;
+        --login-grid-form-background: #8ec3ff;
+        --login-grid-form-text: var(--mui-palette-grey-200)
+    }
+}

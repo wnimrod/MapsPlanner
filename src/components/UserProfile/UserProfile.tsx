@@ -1,20 +1,16 @@
 import { AccountCircle } from "@mui/icons-material";
-import PersonIcon from "@mui/icons-material/Person";
-import { Avatar, IconButton, Menu, MenuItem, SvgIcon, Typography } from "@mui/material";
+import { Avatar, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import useCurrentUser from "src/hooks/useCurrentUser";
+import { ERoute } from "src/routes";
 
 import { useState } from "react";
-import { To, useNavigate } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+import { useNavigate } from "react-router-dom";
 
-import ThemeSwtich from "../ThemeSwitch/ThemeSwitch";
-import ToggleAdminMode from "../ToggleAdminMode/ToggleAdminMode";
 import style from "./UserProfile.module.scss";
-
-type TProfileSettingsEntry = {
-  label: string;
-  icon: typeof SvgIcon;
-  to: To;
-};
+import { userMenuEntries } from "./manifest";
+import messages from "./messages";
+import { EUserMenuEntry, TUserMenuEntry } from "./types";
 
 export default function UserProfile() {
   const { user } = useCurrentUser();
@@ -26,29 +22,35 @@ export default function UserProfile() {
     setAnchorElUserProfile(event.currentTarget);
   };
 
-  const handleMenuItemSelected = (item?: TProfileSettingsEntry) => {
-    if (item) {
-      navigate(item.to);
+  const handleMenuItemSelected = (key: EUserMenuEntry) => {
+    switch (key) {
+      case EUserMenuEntry.Profile:
+        navigate(ERoute.UserProfile);
+        setAnchorElUserProfile(null);
+        break;
+      default:
+        break;
     }
-    setAnchorElUserProfile(null);
   };
 
-  const settingsMenuEntries: TProfileSettingsEntry[] = [
-    {
-      label: "Profile",
-      icon: PersonIcon,
-      to: "/settings/profile"
+  const filterSettingsEntry = (menuEntry: TUserMenuEntry) => {
+    if (menuEntry.public) {
+      return true;
+    } else if (user?.isLoggedIn) {
+      return menuEntry.administratorOnly ? user.isAdministrator : true;
+    } else {
+      return false;
     }
-  ];
-
-  if (!user?.isLoggedIn) {
-    return <AccountCircle />;
-  }
+  };
 
   return (
     <>
       <IconButton size="large" onClick={handleOpenUserProfileMenu}>
-        <Avatar alt={`${user.firstName} ${user.lastName}`} src={user.profilePicture} />
+        {user?.isLoggedIn ? (
+          <Avatar alt={`${user.firstName} ${user.lastName}`} src={user.profilePicture} />
+        ) : (
+          <AccountCircle />
+        )}
       </IconButton>
 
       <Menu
@@ -65,24 +67,22 @@ export default function UserProfile() {
           horizontal: "right"
         }}
         open={Boolean(anchorElUserProfile)}
-        onClose={() => handleMenuItemSelected()}
+        onClose={() => setAnchorElUserProfile(null)}
       >
-        {settingsMenuEntries.map((settingsEntry) => (
+        {userMenuEntries.filter(filterSettingsEntry).map(({ key, icon, render }) => (
           <MenuItem
-            key={settingsEntry.label}
-            onClick={() => handleMenuItemSelected(settingsEntry)}
+            key={key}
+            onClick={() => handleMenuItemSelected(key)}
             className={style.menuItem}
           >
-            <settingsEntry.icon />
-            <Typography textAlign="center">{settingsEntry.label}</Typography>
+            {icon}
+            {render?.(key) || (
+              <Typography textAlign="center">
+                <FormattedMessage {...messages.labels[key]} />
+              </Typography>
+            )}
           </MenuItem>
         ))}
-        <MenuItem key="switch-theme">
-          <ThemeSwtich />
-        </MenuItem>
-        <MenuItem key="toggle-admin-mode">
-          <ToggleAdminMode />
-        </MenuItem>
       </Menu>
     </>
   );
