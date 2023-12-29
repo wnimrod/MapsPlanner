@@ -2,6 +2,7 @@ import {
   Experimental_CssVarsProvider as CSSVarsProvider,
   StyledEngineProvider
 } from "@mui/material";
+import { SnackbarProvider } from "notistack";
 import store from "src/store/store";
 
 import React from "react";
@@ -21,7 +22,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <LanguageProvider>
           <StyledEngineProvider injectFirst>
             <CSSVarsProvider>
-              <DependenciesProvider Component={App} />
+              <SnackbarProvider maxSnack={5}>
+                <DependenciesProvider Component={App} />
+              </SnackbarProvider>
             </CSSVarsProvider>
           </StyledEngineProvider>
         </LanguageProvider>

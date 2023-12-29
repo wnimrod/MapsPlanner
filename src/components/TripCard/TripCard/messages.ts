@@ -11,6 +11,6 @@ export default injectMessageIds(scope, {
     delete: "Trip `{tripName}` deleted successfully."
   },
   error: {
-    delete: "Failed to delete trip `${tripName}`"
+    delete: "Failed to delete trip `{tripName}`"
   }
 }) as any;

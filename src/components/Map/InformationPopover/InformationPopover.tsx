@@ -10,15 +10,13 @@ import {
   PopoverProps,
   Typography
 } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { TAPIMarker } from "src/api/markers";
 import useMarker from "src/hooks/useMarker";
 import useSkeleton from "src/hooks/useSkeleton";
-import { setAlert } from "src/store/global";
-import { AppDispatch } from "src/store/store";
 
 import { useRef, useState } from "react";
 import { useIntl } from "react-intl";
-import { useDispatch } from "react-redux";
 
 import style from "./InformationPopover.module.scss";
 import messages from "./messages";
@@ -39,7 +37,7 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
   const descriptionRef = useRef<HTMLSpanElement | null>(null);
   const titleRef = useRef<HTMLSpanElement | null>(null);
 
-  const dispatch: AppDispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const withSkeleton = useSkeleton({ isLoading: isSubmitting });
 
@@ -56,7 +54,7 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
       // Revert changes
       titleRef.current!.innerText = marker.title;
       descriptionRef.current!.innerText = marker.description;
-      dispatch(setAlert({ message: formatMessage(messages.error.editMarker), severity: "error" }));
+      enqueueSnackbar(formatMessage(messages.error.editMarker), { variant: "error" });
     } finally {
       setIsSubmitting(false);
     }
@@ -74,12 +72,9 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
         await deleteMarker(marker.id);
       }
     } catch (error) {
-      dispatch(
-        setAlert({
-          message: formatMessage(messages.errors.deleteMarker, { markerName: marker.title }),
-          severity: "error"
-        })
-      );
+      enqueueSnackbar(formatMessage(messages.errors.deleteMarker, { markerName: marker.title }), {
+        variant: "error"
+      });
     } finally {
       setIsSubmitting(false);
     }

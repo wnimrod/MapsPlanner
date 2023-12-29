@@ -23,15 +23,6 @@ export const slice = createSlice({
     setIsAppReady(state: TGlobalState, { payload: isAppReady }: PayloadAction<boolean>) {
       state.isAppReady = isAppReady;
     },
-    setAlert(
-      state: TGlobalState,
-      { payload: alert }: PayloadAction<Omit<TGlobalState["alert"], "isOpen">>
-    ) {
-      state.alert = { isOpen: true, ...alert };
-    },
-    dismissAlert(state: TGlobalState) {
-      state.alert = initialState.alert;
-    },
     setIsSideMenuOpen: (state: TGlobalState, { payload: isOpen }: PayloadAction<boolean>) => {
       state.isSideMenuOpen = isOpen;
     },
@@ -44,6 +35,5 @@ export const slice = createSlice({
   }
 });
 
-export const { setIsAppReady, setAlert, dismissAlert, setIsSideMenuOpen, setAdministratorMode } =
-  slice.actions;
+export const { setIsAppReady, setIsSideMenuOpen, setAdministratorMode } = slice.actions;
 export default slice.reducer;

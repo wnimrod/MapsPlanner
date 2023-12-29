@@ -10,7 +10,6 @@ import ActionConfirmDialog, {
   TActionConfirmDialogRef
 } from "./components/ActionConfirmDialog/ActionConfirmDialog";
 import MainBar from "./components/MainBar/MainBar";
-import SystemAlert from "./components/SystemAlert/SystemAlert";
 import useCurrentUser from "./hooks/useCurrentUser";
 import { TRootState } from "./store/types";
 import HomeScreen from "./views/HomeScreen/HomeScreen";
@@ -54,7 +53,6 @@ function App() {
       </Container>
 
       {/* Global Scope utilities */}
-      <SystemAlert />
       <ActionConfirmDialog dialogRef={confirmDialogDialogRef} />
     </Box>
   );

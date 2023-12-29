@@ -11,15 +11,13 @@ import {
   Typography
 } from "@mui/material";
 import { useFormik } from "formik";
+import { useSnackbar } from "notistack";
 import { ALL_MARKER_CATEGORIES, EMarkerCategory, TAPIMarkerCreationRequest } from "src/api/markers";
 import { TAPITripCard } from "src/api/trips";
 import useTrip from "src/hooks/useTrip";
-import { setAlert } from "src/store/global";
-import { AppDispatch } from "src/store/store";
 import * as Yup from "yup";
 
 import { FormattedMessage, useIntl } from "react-intl";
-import { useDispatch } from "react-redux";
 
 import MarkerCategoryIcon from "../../TripMarkers/MarkerCategoryIcon";
 import style from "./AddMarkerPopover.module.scss";
@@ -41,8 +39,8 @@ export default function AddMarkerPopover({
   onClose
 }: TProps) {
   const { addMarker } = useTrip(trip.id);
-  const dispatch: AppDispatch = useDispatch();
   const { formatMessage } = useIntl();
+  const { enqueueSnackbar } = useSnackbar();
 
   const validationSchema = Yup.object().shape({
     title: Yup.string()
@@ -66,9 +64,7 @@ export default function AddMarkerPopover({
         await addMarker(markerCreationRequest);
         formikHelpers.resetForm();
       } catch (error) {
-        dispatch(
-          setAlert({ message: formatMessage(messages.errors.failedToAddMarker), severity: "error" })
-        );
+        enqueueSnackbar(formatMessage(messages.errors.failedToAddMarker), { variant: "error" });
       } finally {
         formikHelpers.setSubmitting(false);
         onClose();

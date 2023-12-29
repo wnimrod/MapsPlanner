@@ -1,12 +1,10 @@
+import { useSnackbar } from "notistack";
 import { TAPITripCard } from "src/api/trips";
 import useContextMenu from "src/hooks/useContextMenu";
 import { useTrips } from "src/hooks/useTrips";
 import { ERoute } from "src/routes";
-import { setAlert } from "src/store/global";
-import { AppDispatch } from "src/store/store";
 
 import { useIntl } from "react-intl";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import BasicTripCard, { TBasicTripCardProps } from "../BasicTripCard/BasicTripCard";
@@ -21,7 +19,7 @@ export default function TripCard({ trip, isLoading, ...basicCardProps }: TProps)
   const { formatMessage } = useIntl();
 
   const { deleteTrip } = useTrips();
-  const dispatch: AppDispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
   const handleMenuAction = async (action?: ETripCardActions) => {
@@ -37,19 +35,13 @@ export default function TripCard({ trip, isLoading, ...basicCardProps }: TProps)
 
         try {
           await deleteTrip(trip.id);
-          dispatch(
-            setAlert({
-              message: formatMessage(messages.info.delete, { tripName: trip.name }),
-              severity: "success"
-            })
-          );
+          enqueueSnackbar(formatMessage(messages.info.delete, { tripName: trip.name }), {
+            variant: "success"
+          });
         } catch (error) {
-          dispatch(
-            setAlert({
-              message: formatMessage(messages.error.delete, { tripName: trip.name }),
-              severity: "error"
-            })
-          );
+          enqueueSnackbar(formatMessage(messages.error.delete, { tripName: trip.name }), {
+            variant: "error"
+          });
         }
 
         break;
