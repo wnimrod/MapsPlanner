@@ -2,7 +2,11 @@ import api, { unwrapAxiosResult } from "./axios";
 
 export enum EMarkerCategory {
   nature = 0,
-  shopping = 1
+  shopping = 1,
+  Restaurant = 2,
+  Parks = 3,
+  Beach = 4,
+  PublicTransportation = 5
 }
 
 export type TAPIMarker = {
@@ -24,6 +28,11 @@ export type TAPIMarkerCreationRequest = {
   longitude: number;
 };
 
+export type TAPIMarkerGenerationRequest = {
+  tripId: number;
+  categories: EMarkerCategory[];
+};
+
 export const ALL_MARKER_CATEGORIES = Object.values(EMarkerCategory).filter(
   Number.isInteger
 ) as EMarkerCategory[];
@@ -39,6 +48,14 @@ export async function fetchMarker(markerId: number) {
 
 export async function addMarkers(markers: TAPIMarkerCreationRequest[]) {
   const result = await api.post<TAPIMarker[]>(`${API_PREFIX}/`, markers);
+  return unwrapAxiosResult(result);
+}
+
+export async function generateMarkers({ tripId, categories }: TAPIMarkerGenerationRequest) {
+  const result = await api.post<TAPIMarker[]>(`${API_PREFIX}/${tripId}/generate-markers`, {
+    tripId,
+    categories
+  });
   return unwrapAxiosResult(result);
 }
 

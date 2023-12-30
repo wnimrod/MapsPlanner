@@ -1,27 +1,17 @@
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Button,
-  Grid,
-  Typography
-} from "@mui/material";
-import cx from "classnames";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { groupBy } from "lodash";
-import { EMarkerCategory, TAPIMarker } from "src/api/markers";
+import { ALL_MARKER_CATEGORIES, EMarkerCategory, TAPIMarker } from "src/api/markers";
 import { TAPITripDetails } from "src/api/trips";
 import useSearchParam, { EGlobalSearchParams } from "src/hooks/useSearchParam";
-import useSkeleton from "src/hooks/useSkeleton";
 
 import { useMemo, useState } from "react";
-import { FormattedMessage } from "react-intl";
 
 import TripCard from "../TripCard/TripCard/TripCard";
-import EmptyPlaceholder from "./EmptyPlaceholder";
-import MarkerCategoryIcon from "./MarkerCategoryIcon";
+import { tripCardActionManifest } from "../TripCard/TripCard/manifest";
+import MarkerGeneratorButton from "./MarkerGeneratorButton";
+import TripMarkersBody from "./TripMarkerBody";
+import TripMarkerHeader from "./TripMarkerHeader";
 import style from "./TripMarkers.module.scss";
-import messages from "./messages";
 
 type TProps = {
   trip?: TAPITripDetails;
@@ -38,10 +28,6 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
 
   const searchQuery = useSearchParam(EGlobalSearchParams.Search);
 
-  const withSkeleton = useSkeleton({ isLoading });
-
-  const isMarkersEmpty = !isLoading && trip.markers.length === 0;
-
   const displayableMarkers = useMemo(() => {
     if (isLoading) {
       return Object.values(EMarkerCategory)
@@ -57,80 +43,81 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
     }
   }, [trip, isLoading, searchQuery]);
 
-  const tripGroups = useMemo(() => groupBy(displayableMarkers, "category"), [displayableMarkers]);
+  const tripGroups = useMemo(() => {
+    const groups = groupBy(displayableMarkers, "category");
+    for (const category of ALL_MARKER_CATEGORIES) {
+      if (!Object.prototype.hasOwnProperty.call(groups, category)) {
+        groups[category] = [];
+      }
+    }
+
+    return groups;
+  }, [displayableMarkers]);
 
   const handleAccordionExpansion = (category: EMarkerCategory, expanded: boolean) => {
     if (isLoading) return;
+
     setSelectedCategory(expanded ? category : null);
   };
 
-  const handleSelectedMarker = (marker: TAPIMarker) => {
+  const handleMarkerSelected = (marker: TAPIMarker) => {
     setSelectedMarker(marker);
     onMarkerSelected(marker);
   };
 
-  const markersView = isMarkersEmpty ? (
-    <EmptyPlaceholder />
-  ) : (
-    Object.entries(tripGroups).map(([_category, markers]) => {
-      const category = +_category as EMarkerCategory; // Object keys are always strings; EMarkerCategory is number enum.
+  const markersView = Object.entries(tripGroups).map(([_category, markers]) => {
+    const category = +_category as EMarkerCategory; // Object keys are always strings; EMarkerCategory is number enum.
 
-      return (
-        <Accordion
-          expanded={category === selectedCategory}
-          onChange={(_, expanded: boolean) => handleAccordionExpansion(category, expanded)}
-          classes={{ expanded: style.expanded }}
-        >
-          <AccordionSummary expandIcon={<ArrowForwardIosSharpIcon />}>
-            <Grid
-              container
-              className={cx(style.header, { [style.selected]: category === selectedCategory })}
-            >
-              <Grid item md={2} paddingX={1}>
-                {withSkeleton(() => (
-                  <MarkerCategoryIcon category={category} />
-                ))}
-              </Grid>
-              <Grid item md={9} paddingX={1}>
-                <Typography variant="body1">
-                  {withSkeleton(<FormattedMessage {...messages.categories[category].label} />)}
-                </Typography>
-              </Grid>
-              <Grid item md={1} paddingX={1}>
-                <Typography variant="body1">{withSkeleton(markers?.length)}</Typography>
-              </Grid>
-            </Grid>
-          </AccordionSummary>
-          <AccordionDetails>
-            {!isLoading &&
-              (markers as TAPIMarker[]).map((marker: TAPIMarker) => (
-                <Button
-                  key={marker.id}
-                  fullWidth
-                  variant={selectedMarker?.id === marker.id ? "contained" : "text"}
-                  className={style.button}
-                  onClick={() => handleSelectedMarker(marker)}
-                >
-                  <Typography variant="body1">{marker.title}</Typography>
-                </Button>
+    return (
+      <Accordion
+        expanded={category === selectedCategory}
+        onChange={(_, expanded: boolean) => handleAccordionExpansion(category, expanded)}
+        classes={{ expanded: style.expanded }}
+      >
+        <AccordionSummary>
+          <TripMarkerHeader
+            category={category}
+            isLoading={isLoading}
+            count={markers?.length || 0}
+            isSelected={category === selectedCategory}
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          {!isLoading && (
+            <>
+              <MarkerGeneratorButton
+                category={category}
+                tripId={trip.id}
+                fullWidth
+                sx={{ mb: 1, textWrap: "nowrap" }}
+              />
+              {(markers as TAPIMarker[]).map((marker: TAPIMarker) => (
+                <>
+                  <TripMarkersBody
+                    key={marker.id}
+                    isSelected={selectedMarker?.id === marker.id}
+                    marker={marker}
+                    handleMarkerSelected={handleMarkerSelected}
+                  />
+                </>
               ))}
-          </AccordionDetails>
-        </Accordion>
-      );
-    })
-  );
+            </>
+          )}
+        </AccordionDetails>
+      </Accordion>
+    );
+  });
 
   return (
     <>
       <TripCard
         isLoading={isLoading}
-        withContextMenu={false}
-        interactive={false}
+        onCardSelected={undefined}
+        actions={tripCardActionManifest}
         trip={trip}
         classes={{ container: style.trip }}
       />
-      {markersView}
+      <div className={style.markersContainer}>{markersView}</div>
     </>
   );
-  return markersView;
 }

@@ -11,9 +11,16 @@
     pointer-events: none;
   }
 
-  .action-area,
-  & .container {
+  .action-area, & .container {
     height: 100%;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    .label {
+      flex-grow: 1;
+    }
   }
 
   .image {

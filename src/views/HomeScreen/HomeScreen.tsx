@@ -3,6 +3,7 @@ import { TAPITripCard } from "src/api/trips";
 import AddTripModal from "src/components/AddTripModal/AddTripModal";
 import AddTripCard from "src/components/TripCard/AddTripCard/AddTripCard";
 import TripCard from "src/components/TripCard/TripCard/TripCard";
+import { ACTION_DELETE } from "src/components/TripCard/TripCard/manifest";
 import useSearchParam, { EGlobalSearchParams } from "src/hooks/useSearchParam";
 import { useTrips } from "src/hooks/useTrips";
 import { generateEntityMocks } from "src/utils/utils";
@@ -36,7 +37,7 @@ export default function HomeScreen() {
         </ImageListItem>
         {displayableTrips.map((trip: TAPITripCard) => (
           <ImageListItem key={`trip-card-${trip.id}`}>
-            <TripCard isLoading={isLoading} trip={trip} />
+            <TripCard isLoading={isLoading} trip={trip} actions={[ACTION_DELETE]} />
           </ImageListItem>
         ))}
       </ImageList>

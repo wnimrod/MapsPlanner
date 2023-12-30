@@ -23,7 +23,24 @@ export default function useTrip(tripId?: number) {
     if (trip) {
       await mutate({ ...trip, markers: [...trip.markers, newMarker] });
     }
+
+    return newMarker;
   };
 
-  return { trip, isLoading, addMarker, error, mutate };
+  const generateMarkers = async (
+    markerGenerationRequest: markersAPI.TAPIMarkerGenerationRequest
+  ) => {
+    if (markerGenerationRequest.tripId !== tripId) {
+      throw new Error("Mismatch between marker.trip_id and trip.id");
+    }
+
+    const suggestedMarkers = await markersAPI.generateMarkers(markerGenerationRequest);
+
+    if (trip) {
+      await mutate({ ...trip, markers: [...trip.markers, ...suggestedMarkers] });
+    }
+
+    return suggestedMarkers;
+  };
+  return { trip, isLoading, addMarker, generateMarkers, error, mutate };
 }

@@ -1,45 +1,55 @@
-import { MenuProps } from "@mui/material";
+import { MenuProps, PopoverPosition } from "@mui/material";
 
 import { useState } from "react";
 
-type MousePosition = {
-  x: number;
-  y: number;
-};
-
 export type TContextMenuForwardProps = Pick<
   MenuProps,
-  "open" | "onClose" | "anchorReference" | "anchorPosition"
+  "open" | "onClose" | "anchorReference" | "anchorPosition" | "anchorEl"
 >;
 
-export default function useContextMenu<CallbackArg>(
-  handleActionTaken?: (action?: CallbackArg) => void
-) {
-  const [contextMenuPosition, setContextMenuPosition] = useState<MousePosition | null>(null);
+type TOptions<CallbackArg> = {
+  // Is context menu attached to anchor element, or mouse position?
+  anchor?: HTMLElement;
+  // Triggered when menu item selected.
+  handleActionTaken?: (action?: CallbackArg) => void;
+};
+
+export default function useContextMenu<CallbackArg>({
+  anchor,
+  handleActionTaken
+}: TOptions<CallbackArg> = {}) {
+  const [contextMenuPosition, setContextMenuPosition] = useState<
+    PopoverPosition | Element | undefined
+  >(undefined);
 
   const handleContextMenuOpened = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
-    setContextMenuPosition(
-      contextMenuPosition === null ? { x: event.clientX + 2, y: event.clientY - 6 } : null
-    );
+
+    if (contextMenuPosition) {
+      setContextMenuPosition(undefined); // Close menu.
+    } else if (anchor) {
+      setContextMenuPosition(anchor);
+    } else {
+      // Set mouse position
+      setContextMenuPosition({ top: event.clientY - 6, left: event.clientX + 2 });
+    }
   };
 
   const handleContextMenuClosed = (action?: CallbackArg) => {
+    setContextMenuPosition(undefined);
+
     if (handleActionTaken) {
       handleActionTaken(action);
     }
-    setContextMenuPosition(null);
   };
 
   const menuProps: TContextMenuForwardProps = {
-    open: contextMenuPosition !== null,
+    open: !!contextMenuPosition,
     onClose: () => handleContextMenuClosed(),
-    anchorReference: "anchorPosition",
-    anchorPosition:
-      contextMenuPosition !== null
-        ? { top: contextMenuPosition.y, left: contextMenuPosition.x }
-        : undefined
+    anchorReference: anchor ? "anchorEl" : "anchorPosition",
+    anchorPosition: contextMenuPosition as undefined | PopoverPosition,
+    anchorEl: contextMenuPosition as undefined | Element
   };
 
   return {

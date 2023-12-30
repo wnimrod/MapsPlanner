@@ -10,6 +10,23 @@ export default injectMessageIds(scope, {
     },
     [EMarkerCategory.shopping]: {
       label: "Shopping"
+    },
+    [EMarkerCategory.Beach]: {
+      label: "Sea & Beach"
+    },
+    [EMarkerCategory.Parks]: {
+      label: "City Parks"
+    },
+    [EMarkerCategory.PublicTransportation]: {
+      label: "Transportation"
+    },
+    [EMarkerCategory.Restaurant]: {
+      label: "Resturants"
     }
+  },
+  generateMarkers: {
+    label: "Generate Markers",
+    error: "Failed to generate markers",
+    success: "{count} markers generated successfully!"
   }
 }) as any;
