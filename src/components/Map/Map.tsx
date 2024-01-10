@@ -87,7 +87,7 @@ export default function Map({ trip, center: explicitCenter, zoom = 15 }: TProps)
         onRightClick={handleRightClick}
         options={{
           disableDoubleClickZoom: true,
-          clickableIcons: false
+          clickableIcons: true
         }}
       >
         {isMapLoaded &&

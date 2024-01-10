@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import applyCaseMiddleware from "axios-case-converter";
 
+import { requestInterceptors, responseInterceptors } from "./interceptors";
+
 type TMiddlewareOptions = object;
 
 export type TAxiosMiddlewareApplication = {
@@ -33,5 +35,9 @@ const instance = middlewares.reduce(
     applyMiddleware(instance, options),
   baseInstance
 );
+
+// Register interceptors
+requestInterceptors.forEach((interceptor) => instance.interceptors.request.use(interceptor));
+responseInterceptors.forEach((interceptor) => instance.interceptors.response.use(interceptor));
 
 export default instance;

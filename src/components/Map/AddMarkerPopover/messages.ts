@@ -7,7 +7,11 @@ export default injectMessageIds(scope, {
   labels: {
     categories: {
       [EMarkerCategory.nature]: "Nature",
-      [EMarkerCategory.shopping]: "Shopping"
+      [EMarkerCategory.shopping]: "Shopping",
+      [EMarkerCategory.Beach]: "Sea & Beach",
+      [EMarkerCategory.Parks]: "City Parks",
+      [EMarkerCategory.PublicTransportation]: "Transportation",
+      [EMarkerCategory.Restaurant]: "Resturants"
     },
     header: "Add A Marker",
     category: "Category",

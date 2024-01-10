@@ -22,5 +22,12 @@ export default function useCurrentUser() {
   const isLoaded = !isLoading && !error && !!user;
   const isLoggedIn = isLoaded && user.isLoggedIn;
 
-  return { user, error, isLoggedIn, isLoading, isLoaded };
+  return {
+    user,
+    error,
+    isLoggedIn,
+    isLoading,
+    isLoaded,
+    isAdministrator: (user?.isLoggedIn && user.isAdministrator) || false
+  };
 }

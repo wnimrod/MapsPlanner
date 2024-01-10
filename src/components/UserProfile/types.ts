@@ -6,7 +6,7 @@ export enum EUserMenuEntry {
 
 export type TUserMenuEntry = {
   key: EUserMenuEntry;
-  administratorOnly: boolean;
+  administratorOnly?: boolean;
   render?: (key: EUserMenuEntry) => React.ReactNode;
   icon?: React.ReactNode;
   public?: boolean; // Is this link shown to un-authenticated user?

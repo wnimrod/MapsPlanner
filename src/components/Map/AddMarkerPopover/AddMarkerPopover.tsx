@@ -80,6 +80,10 @@ export default function AddMarkerPopover({
       anchorReference="anchorPosition"
       anchorPosition={anchorPosition}
       onClose={onClose}
+      onContextMenuCapture={(event) => {
+        event.stopPropagation();
+        event.preventDefault();
+      }}
     >
       <Grid container direction="column" width={350} padding={1} spacing={1}>
         <Grid item>

@@ -12,7 +12,7 @@ export const userMenuEntries: TUserMenuEntry[] = [
   },
   {
     key: EUserMenuEntry.ToggleTheme,
-    administratorOnly: false,
+    public: true,
     render: () => <ThemeSwtich />
   },
   {
