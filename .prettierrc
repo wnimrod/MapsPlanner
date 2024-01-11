@@ -12,5 +12,6 @@
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrder": ["react", "^components/(.*)$", "^[./]"],
   "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "importOrderSortSpecifiers": true,
+  "endOfLine": "lf"
 }

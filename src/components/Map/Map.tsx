@@ -4,7 +4,7 @@ import { TAPITripDetails } from "src/api/trips";
 import useGeolocation from "src/hooks/useGeolocation";
 import { delay } from "src/utils/utils";
 
-import { GoogleMap, Marker, StandaloneSearchBox } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 import { Position } from "google-map-react";
 import { useMemo, useState } from "react";
 

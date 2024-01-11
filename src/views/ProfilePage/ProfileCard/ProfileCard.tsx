@@ -4,7 +4,6 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { Avatar, Badge, Button, Card, Divider, Grid, Typography } from "@mui/material";
 import cx from "classnames";
 import useCopyToClipboard from "src/hooks/useCopyToClipboard";
-import useCurrentUser from "src/hooks/useCurrentUser";
 import useSkeleton from "src/hooks/useSkeleton";
 import useUserProfile from "src/hooks/useUserProfile";
 import { ERoute } from "src/routes";

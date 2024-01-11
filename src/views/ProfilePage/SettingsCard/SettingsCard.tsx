@@ -1,8 +1,8 @@
-import { Box, Card, CardContent, Tab, Tabs } from "@mui/material";
+import { Card, CardContent, Tab, Tabs } from "@mui/material";
 import { ERoute } from "src/routes";
 
 import { useIntl } from "react-intl";
-import { Route, Routes, generatePath, useNavigate, useParams } from "react-router-dom";
+import { generatePath, useNavigate, useParams } from "react-router-dom";
 
 import { ETab } from "../types";
 import messages from "./messages";

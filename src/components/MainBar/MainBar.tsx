@@ -37,7 +37,11 @@ export default function MainBar() {
           </Typography>
           {isLoggedIn && (
             <TextField
-              placeholder={formatMessage(messages.search[route] || messages.search.default)}
+              placeholder={formatMessage(
+                !!route && route in messages.search
+                  ? messages.search[route]
+                  : messages.search.default
+              )}
               value={searchParams.get(EGlobalSearchParams.Search)}
               name={EGlobalSearchParams.Search}
               onChange={handleSearchParamChange}
