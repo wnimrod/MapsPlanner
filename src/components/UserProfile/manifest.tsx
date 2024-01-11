@@ -7,7 +7,6 @@ import { EUserMenuEntry, TUserMenuEntry } from "./types";
 export const userMenuEntries: TUserMenuEntry[] = [
   {
     key: EUserMenuEntry.Profile,
-    administratorOnly: true,
     icon: <PersonIcon />
   },
   {

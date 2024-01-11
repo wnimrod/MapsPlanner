@@ -3,7 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { AppBar, Container, InputAdornment, TextField, Toolbar, Typography } from "@mui/material";
 import useCurrentUser from "src/hooks/useCurrentUser";
 import useSearchParams, { EGlobalSearchParams } from "src/hooks/useSearchParams";
-import { ERoute, useIsFullScreenRoute } from "src/routes";
+import { ERoute, getCurrentRoute, useIsFullScreenRoute } from "src/routes";
 
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +23,8 @@ export default function MainBar() {
     [EGlobalSearchParams.Search]: ""
   });
 
+  const route = getCurrentRoute();
+
   return (
     <AppBar position="sticky">
       <Container className={style.container} maxWidth={isFullScreenPage ? false : "lg"}>
@@ -35,7 +37,7 @@ export default function MainBar() {
           </Typography>
           {isLoggedIn && (
             <TextField
-              placeholder={formatMessage(messages.search)}
+              placeholder={formatMessage(messages.search[route] || messages.search.default)}
               value={searchParams.get(EGlobalSearchParams.Search)}
               name={EGlobalSearchParams.Search}
               onChange={handleSearchParamChange}

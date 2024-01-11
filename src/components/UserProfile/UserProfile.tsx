@@ -5,7 +5,7 @@ import { ERoute } from "src/routes";
 
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 
 import style from "./UserProfile.module.scss";
 import { userMenuEntries } from "./manifest";
@@ -25,7 +25,7 @@ export default function UserProfile() {
   const handleMenuItemSelected = (key: EUserMenuEntry) => {
     switch (key) {
       case EUserMenuEntry.Profile:
-        navigate(ERoute.UserProfile);
+        navigate(generatePath(ERoute.UserProfile));
         setAnchorElUserProfile(null);
         break;
       default:

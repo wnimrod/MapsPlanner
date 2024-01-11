@@ -16,6 +16,7 @@ import { AppDispatch } from "./store/store";
 import { TRootState } from "./store/types";
 import HomeScreen from "./views/HomeScreen/HomeScreen";
 import LoginPage from "./views/LoginPage/LoginPage";
+import ProfilePage from "./views/ProfilePage/ProfilePage";
 import TripScreen from "./views/TripScreen/TripScreen";
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
           <Route path={ERoute.Home} Component={HomeScreen} />
           <Route path={ERoute.Login} Component={LoginPage} />
           <Route path={ERoute.Trip} Component={TripScreen} />
+          <Route path={ERoute.UserProfile} Component={ProfilePage} />
         </Routes>
       </Container>
 
