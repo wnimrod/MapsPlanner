@@ -10,15 +10,16 @@ import { ERoute } from "src/routes";
 
 import { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
-import { generatePath, useNavigate, useParams } from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 
-import { ETab } from "../types";
 import useEffectiveUserId from "../useEffectiveUserId";
+import useParams from "../useParams";
 import style from "./ProfileCard.module.scss";
 import messages from "./messages";
 
 export default function ProfileCard() {
-  const { id: userIdParam = null, page: pageParam = null } = useParams();
+  const { id: userIdParam, tab: tabParam } = useParams();
+
   const copyToClipboard = useCopyToClipboard();
   const effectiveUserId = useEffectiveUserId();
 
@@ -32,7 +33,7 @@ export default function ProfileCard() {
   const handleShareProfile = () => {
     const path = generatePath(ERoute.UserProfile, {
       id: effectiveUserId ? `${effectiveUserId}` : null,
-      page: pageParam
+      tab: tabParam
     });
     const url = `${window.location.host}${path}`;
     copyToClipboard(url);
@@ -42,13 +43,13 @@ export default function ProfileCard() {
     if (userIdParam === null && typeof effectiveUserId === "number") {
       const explicitPath = generatePath(ERoute.UserProfile, {
         id: `${effectiveUserId}`,
-        page: pageParam || ETab.Profile
+        tab: tabParam
       });
 
-      console.log("Replacing with explicit path: ", explicitPath);
       navigate(explicitPath, { replace: true });
     }
   }, [userIdParam, effectiveUserId]);
+
   if (!isLoading && !userProfile) {
     return null;
   }
@@ -63,7 +64,7 @@ export default function ProfileCard() {
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
               badgeContent={<PhotoCameraIcon classes={{ root: style.badge }} />}
             >
-              <Avatar classes={{ root: style.avatar }} src={profilePicture} />
+              <Avatar classes={{ root: style.avatar }} src={profilePicture} alt={fullname} />
             </Badge>,
             1,
             {

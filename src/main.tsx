@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <LanguageProvider>
           <StyledEngineProvider injectFirst>
             <CSSVarsProvider>
-              <SnackbarProvider maxSnack={5}>
+              <SnackbarProvider maxSnack={5} autoHideDuration={2000} preventDuplicate>
                 <DependenciesProvider Component={App} />
               </SnackbarProvider>
             </CSSVarsProvider>

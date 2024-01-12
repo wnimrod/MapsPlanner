@@ -1,6 +1,5 @@
 import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
-import { Typography } from "@mui/material";
-import { Container } from "@mui/system";
+import { Container, Typography } from "@mui/material";
 
 import style from "./TripMarkers.module.scss";
 

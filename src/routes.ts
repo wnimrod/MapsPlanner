@@ -2,27 +2,23 @@ export enum ERoute {
   Home = "/",
   Login = "/login",
   Trip = "/trips/:id",
-  UserProfile = "/settings/profile/:id?/:page?"
+  UserProfile = "/user/:id?/:tab?"
 }
+
+const ROUTES = Object.values(ERoute);
 
 const FULL_SCREEN_ROUTES = [ERoute.Trip];
 
 export const getCurrentRoute = () => {
-  const paramsRegex = /:[^/]+/g;
-  const patternPairs = Object.values(ERoute).map((route: string) => ({
-    route,
-    pattern: route.replace(paramsRegex, ".*")
-  }));
+  const pageMatcher = /^\/([a-zA-Z]*)/;
+  const match = window.location.pathname.match(pageMatcher);
 
-  const match = patternPairs.find(({ pattern }) => window.location.pathname.match(`^${pattern}$`));
+  if (!match) return null;
 
-  return match?.route;
+  return ROUTES.find((route) => route.toLowerCase().startsWith(match[0]));
 };
 
 export const useIsFullScreenRoute = () => {
-  // TODO: Is there anyway to do it with react router??
-  const paramsRegex = /:[^/]+/g;
-  return FULL_SCREEN_ROUTES.map((route: string) => route.replace(paramsRegex, ".*")).some(
-    (rePattern) => window.location.pathname.match(rePattern)
-  );
+  const currentRoute = getCurrentRoute();
+  return currentRoute ? FULL_SCREEN_ROUTES.includes(currentRoute) : false;
 };

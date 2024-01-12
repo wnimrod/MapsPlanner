@@ -1,3 +1,7 @@
 .container {
   margin-top: var(--spacer);
+
+  :global(.MuiPaper-root) {
+    height: 100%;
+  }
 }
