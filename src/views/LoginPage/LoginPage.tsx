@@ -1,5 +1,5 @@
 import MapIcon from "@mui/icons-material/Map";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import GoogleLoginButton from "src/components/GoogleLoginButton";
 import useCurrentUser from "src/hooks/useCurrentUser";
 import { ERoute } from "src/routes";
@@ -16,6 +16,9 @@ export default function LoginPage() {
   const { user } = useCurrentUser();
   const navigate = useNavigate();
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   useEffect(() => {
     if (user?.isLoggedIn) {
       navigate(ERoute.Home);
@@ -23,7 +26,7 @@ export default function LoginPage() {
   }, [user?.isLoggedIn]);
 
   return (
-    <Grid container maxWidth="lg" classes={{ root: style.container }} columns={2}>
+    <Grid container maxWidth="lg" classes={{ root: style.container }} columns={isMobile ? 1 : 2}>
       <Grid item xs={1} classes={{ root: style.appIcon }}>
         <MapsPlannerIcon />
       </Grid>

@@ -33,13 +33,13 @@ export type TAPIMarkerGenerationRequest = {
   categories: EMarkerCategory[];
 };
 
+export type TTripUpdateableFields = Partial<Pick<TAPIMarker, "title" | "description">>;
+
 export const ALL_MARKER_CATEGORIES = Object.values(EMarkerCategory).filter(
   Number.isInteger
 ) as EMarkerCategory[];
 
 const API_PREFIX = "/markers";
-
-export type TTripUpdateableFields = Partial<Pick<TAPIMarker, "title" | "description">>;
 
 export async function fetchMarker(markerId: number) {
   const result = await api.get<TAPIMarker>(`${API_PREFIX}/${markerId}`);

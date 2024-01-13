@@ -1,3 +1,4 @@
+import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 
 import ThemeSwtich from "../ThemeSwitch/ThemeSwitch";
@@ -18,5 +19,9 @@ export const userMenuEntries: TUserMenuEntry[] = [
     key: EUserMenuEntry.ToggleAdministratorMode,
     administratorOnly: true,
     render: () => <ToggleAdminMode />
+  },
+  {
+    key: EUserMenuEntry.Logout,
+    icon: <LogoutIcon />
   }
 ];

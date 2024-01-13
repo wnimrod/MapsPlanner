@@ -12,12 +12,17 @@ export type TAPIUser = {
   isAdministrator: boolean;
 };
 
+export enum EGender {
+  male = 1,
+  female = 2
+}
+
 export type TAPIUserProfile = {
   registerDate: Date;
   fullname: string;
   totalTrips: number;
   totalMarkers: number;
-  gender: "M" | "F";
+  gender: EGender;
   birthDate: Date;
 } & TAPIUser;
 
@@ -27,7 +32,7 @@ export type TAPIUpdateUserRequest = Partial<{
   email: string;
   profilePicture: string;
   birthDate: Date;
-  gender: "M" | "F";
+  gender: EGender;
 }>;
 
 const API_PREFIX = "/users";

@@ -23,8 +23,6 @@ export default function useUserProfile(userId?: number) {
 
     const optimisticData: TAPIUserProfile = Object.assign({}, userProfile, payload);
 
-    console.log("Optimistic data: ", optimisticData);
-
     await mutate(
       usersAPI.updateUser(userId, payload).then((updatedUser) => updatedUser),
       { optimisticData }

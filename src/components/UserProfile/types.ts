@@ -1,7 +1,8 @@
 export enum EUserMenuEntry {
   Profile = "profile",
   ToggleTheme = "toggle-theme",
-  ToggleAdministratorMode = "toggle-administrator-mode"
+  ToggleAdministratorMode = "toggle-administrator-mode",
+  Logout = "Logout"
 }
 
 export type TUserMenuEntry = {

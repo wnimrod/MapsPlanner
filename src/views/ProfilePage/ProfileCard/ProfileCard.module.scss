@@ -12,13 +12,19 @@
     display: flex;
     justify-content: center;
 
+  
     .badge {
-      border: 5px solid var(--mui-palette-common-white);
-      background-color: var(--mui-palette-grey-500);
-      border-radius: 50%;
-      padding: 0.2rem;
-      width: 1rem;
-      height: 1rem;
+      :hover {
+        cursor: pointer;
+      }
+      .camera {
+        border: 5px solid var(--mui-palette-common-white);
+        background-color: var(--mui-palette-grey-500);
+        border-radius: 50%;
+        padding: 0.2rem;
+        width: 1rem;
+        height: 1rem;
+      }
     }
 
     .avatar {

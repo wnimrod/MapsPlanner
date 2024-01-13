@@ -1,10 +1,16 @@
 import { AccountCircle } from "@mui/icons-material";
-import { Avatar, IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import { Avatar, Badge, IconButton, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
+import { enqueueSnackbar } from "notistack";
+import { logout } from "src/api/auth";
 import useCurrentUser from "src/hooks/useCurrentUser";
 import { ERoute } from "src/routes";
+import { TRootState } from "src/store/types";
+import { ConditionalWrap, delay } from "src/utils/utils";
 
-import { useState } from "react";
-import { FormattedMessage } from "react-intl";
+import React, { useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
+import { useSelector } from "react-redux";
 import { generatePath, useNavigate } from "react-router-dom";
 
 import style from "./UserProfile.module.scss";
@@ -13,8 +19,11 @@ import messages from "./messages";
 import { EUserMenuEntry, TUserMenuEntry } from "./types";
 
 export default function UserProfile() {
+  const { formatMessage } = useIntl();
   const { user } = useCurrentUser();
   const navigate = useNavigate();
+
+  const isAdministratorMode = useSelector((state: TRootState) => state.global.administratorMode);
 
   const [anchorElUserProfile, setAnchorElUserProfile] = useState<null | HTMLElement>(null);
 
@@ -22,11 +31,23 @@ export default function UserProfile() {
     setAnchorElUserProfile(event.currentTarget);
   };
 
-  const handleMenuItemSelected = (key: EUserMenuEntry) => {
+  const handleMenuItemSelected = async (key: EUserMenuEntry) => {
     switch (key) {
       case EUserMenuEntry.Profile:
         navigate(generatePath(ERoute.UserProfile));
         setAnchorElUserProfile(null);
+        break;
+      case EUserMenuEntry.Logout:
+        try {
+          await logout();
+          await delay(0);
+          navigate(ERoute.Login);
+        } catch (error) {
+          enqueueSnackbar({
+            message: formatMessage(messages.errors.logout),
+            variant: "error"
+          });
+        }
         break;
       default:
         break;
@@ -43,14 +64,31 @@ export default function UserProfile() {
     }
   };
 
+  const AdministratorBadgeWrapper = (children: React.ReactNode) => (
+    <Badge
+      overlap="circular"
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      classes={{ root: style.badge }}
+      badgeContent={
+        <Tooltip title={formatMessage(messages.labels.adminMode)}>
+          <AdminPanelSettingsIcon classes={{ root: style.administratorBadge }} />
+        </Tooltip>
+      }
+    >
+      {children}
+    </Badge>
+  );
+
   return (
     <>
       <IconButton size="large" onClick={handleOpenUserProfileMenu}>
-        {user?.isLoggedIn ? (
-          <Avatar alt={`${user.firstName} ${user.lastName}`} src={user.profilePicture} />
-        ) : (
-          <AccountCircle />
-        )}
+        <ConditionalWrap condition={isAdministratorMode} wrapper={AdministratorBadgeWrapper}>
+          {user?.isLoggedIn ? (
+            <Avatar alt={`${user.firstName} ${user.lastName}`} src={user.profilePicture} />
+          ) : (
+            <AccountCircle />
+          )}
+        </ConditionalWrap>
       </IconButton>
 
       <Menu

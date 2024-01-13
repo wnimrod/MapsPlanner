@@ -1,5 +1,6 @@
 import api, { unwrapAxiosResult } from "./axios";
 import { TAPIMarker } from "./markers";
+import { TBaseAPIFilter } from "./types";
 
 export type TAPITripCard = {
   id: number;
@@ -20,15 +21,24 @@ export type TAPITripDetails = {
   markers: TAPIMarker[];
 } & TAPITripCard;
 
+export type TAPITripFilters = TBaseAPIFilter &
+  Partial<{
+    creationDate: string;
+    name: string;
+  }>;
+
 const API_PREFIX = "/trips";
 
-export async function fetchTrips() {
+export async function fetchTrips(filters: TAPITripFilters = {}) {
   /**
    * Fetch all trips for current user.
    * @param fetchAll - If user is administrator, this fetch all trips, not only his.
    */
 
-  const result = await api.get<TAPITripCard[]>(`${API_PREFIX}/`);
+  const result = await api.get<TAPITripCard[]>(`${API_PREFIX}/`, {
+    params: filters
+  });
+
   return unwrapAxiosResult(result);
 }
 

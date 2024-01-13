@@ -1,3 +1,6 @@
+@import "src/_consts.scss";
+@import "src/_mixins.scss";
+
 $container-border-radius: 25px;
 
 .container {
@@ -5,11 +8,20 @@ $container-border-radius: 25px;
   & > div {
     padding: var(--spacer);
   }
-  
+
+  @include breakdown-down($mui-breakdown-sm) {
+    flex-direction: column;
+  }
+
   .app-icon {
     background: var(--login-grid-icon-background);
     border-top-left-radius: $container-border-radius;
     border-bottom-left-radius: $container-border-radius;
+    
+    @include breakdown-down($mui-breakdown-sm) {
+      border-bottom-left-radius: unset;
+      border-top-right-radius: $container-border-radius;
+    }
 
     & svg {
       width: 100%;
@@ -24,6 +36,11 @@ $container-border-radius: 25px;
     background: var(--login-grid-form-background);
     border-top-right-radius: $container-border-radius;
     border-bottom-right-radius: $container-border-radius;
+
+    @include breakdown-down($mui-breakdown-sm) {
+      border-bottom-left-radius: $container-border-radius;
+      border-top-right-radius: unset;
+    }
 
     .header {
       text-transform: uppercase;

@@ -1,12 +1,19 @@
-@mixin specificity() {
-  :global(#body) #{if(&, '&', '')} {
-    @content;
-  }
-}
-
 @mixin trancute-multiline($max-lines) {
   display: -webkit-box;
   -webkit-line-clamp: $max-lines;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@mixin breakdown-up($limit) {
+  @media only screen and (min-width: $limit) {
+    @content;
+  }
+}
+
+@mixin breakdown-down($limit) {
+  @media only screen and (max-width: $limit) {
+    @content;
+  }
+}
+

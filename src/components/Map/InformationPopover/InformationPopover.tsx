@@ -54,7 +54,7 @@ export default function InformationPopover({ anchorPosition, marker, onClose }: 
       // Revert changes
       titleRef.current!.innerText = marker.title;
       descriptionRef.current!.innerText = marker.description;
-      enqueueSnackbar(formatMessage(messages.error.editMarker), { variant: "error" });
+      enqueueSnackbar(formatMessage(messages.errors.editMarker), { variant: "error" });
     } finally {
       setIsSubmitting(false);
     }

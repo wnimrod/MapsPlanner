@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
+import { EGender } from "src/api/users";
 import useSkeleton from "src/hooks/useSkeleton";
 import useUserProfile from "src/hooks/useUserProfile";
 import useParams from "src/views/ProfilePage/useParams";
@@ -17,7 +18,7 @@ import useParams from "src/views/ProfilePage/useParams";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import FormInput from "./FormInput";
-import { validationSchema } from "./constants";
+import { createValidationSchema } from "./constants";
 import messages from "./messages";
 
 export default function EditProfile() {
@@ -30,10 +31,21 @@ export default function EditProfile() {
   const { firstName, lastName, email, profilePicture, birthDate, gender } = userProfile || {};
   const initialValues = { firstName, lastName, email, gender, birthDate, profilePicture };
 
-  const form = useFormik({
+  const validationSchema = createValidationSchema(formatMessage);
+
+  const {
+    values,
+    errors,
+    isValid,
+    isValidating,
+    isSubmitting,
+    setFieldValue,
+    dirty,
+    handleSubmit
+  } = useFormik({
     enableReinitialize: true,
     initialValues,
-    validationSchema: validationSchema(formatMessage),
+    validationSchema,
     onSubmit: async (values, formikHelpers) => {
       formikHelpers.setSubmitting(true);
       const keys = Object.keys(values) as (keyof typeof initialValues)[];
@@ -64,18 +76,31 @@ export default function EditProfile() {
 
   const withSkeleton = useSkeleton({ isLoading, height: 70 });
 
-  console.log(form.values);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const skipFields = ["birthDate"]; // @TODO: Validation makes problem for these fields. skip for now.
+    const { name: field } = event.target;
+    let { value } = event.target;
+
+    try {
+      if (!skipFields.includes(field))
+        value = validationSchema.validateSyncAt(field, { [field]: value });
+    } catch (error) {
+      console.debug(`Field ${field} not found in valdiation schema; falling back to given value.`);
+    } finally {
+      setFieldValue(field, value);
+    }
+  };
 
   return (
-    <Grid container rowSpacing={2} columns={2} spacing={6}>
+    <Grid container rowSpacing={2} columns={1} spacing={6}>
       <Grid item xs={1}>
         {withSkeleton(
           <FormInput
             name="firstName"
-            value={form.values.firstName}
-            error={!!form.errors.firstName}
-            helperText={form.errors.firstName}
-            onChange={form.handleChange}
+            value={values.firstName}
+            error={!!errors.firstName}
+            helperText={errors.firstName}
+            onChange={handleChange}
           />
         )}
       </Grid>
@@ -83,10 +108,10 @@ export default function EditProfile() {
         {withSkeleton(
           <FormInput
             name="lastName"
-            value={form.values.lastName}
-            error={!!form.errors.lastName}
-            helperText={form.errors.lastName}
-            onChange={form.handleChange}
+            value={values.lastName}
+            error={!!errors.lastName}
+            helperText={errors.lastName}
+            onChange={handleChange}
           />
         )}
       </Grid>
@@ -94,10 +119,10 @@ export default function EditProfile() {
         {withSkeleton(
           <FormInput
             name="email"
-            value={form.values.email}
-            error={!!form.errors.email}
-            helperText={form.errors.email}
-            onChange={form.handleChange}
+            value={values.email}
+            error={!!errors.email}
+            helperText={errors.email}
+            onChange={handleChange}
           />
         )}
       </Grid>
@@ -107,16 +132,16 @@ export default function EditProfile() {
             <FormLabel>
               <FormattedMessage {...messages.fields.gender.label} />
             </FormLabel>
-            <RadioGroup row name="gender" value={form.values.gender} onChange={form.handleChange}>
+            <RadioGroup row name="gender" value={values.gender} onChange={handleChange}>
               <FormControlLabel
-                value="M"
-                checked={form.values.gender === "M"}
+                value={EGender.male}
+                checked={values.gender === EGender.male}
                 control={<Radio />}
                 label={formatMessage(messages.fields.gender.male)}
               />
               <FormControlLabel
-                value="F"
-                checked={form.values.gender === "F"}
+                value={EGender.female}
+                checked={values.gender === EGender.female}
                 control={<Radio />}
                 label={formatMessage(messages.fields.gender.female)}
               />
@@ -129,10 +154,10 @@ export default function EditProfile() {
           <FormInput
             type="date"
             name="birthDate"
-            error={!!form.errors.birthDate}
-            helperText={form.errors.birthDate}
-            value={form.values.birthDate}
-            onChange={form.handleChange}
+            error={!!errors.birthDate}
+            helperText={errors.birthDate}
+            value={values.birthDate}
+            onChange={handleChange}
           />
         )}
       </Grid>
@@ -140,11 +165,11 @@ export default function EditProfile() {
         {withSkeleton(
           <Button
             size="large"
-            onClick={() => form.handleSubmit()}
+            onClick={() => handleSubmit()}
             variant="outlined"
-            disabled={!form.isValid || form.isValidating || !form.dirty}
+            disabled={!isValid || isValidating || !dirty}
           >
-            {form.isSubmitting && <CircularProgress size={12} sx={{ mr: 1 }} />}
+            {isSubmitting && <CircularProgress size={12} sx={{ mr: 1 }} />}
             <FormattedMessage {...messages.submit} />
           </Button>,
           1,

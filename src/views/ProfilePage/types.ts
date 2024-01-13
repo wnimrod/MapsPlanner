@@ -1,6 +1,7 @@
 export enum ETab {
   Profile = "profile",
   Trips = "trips",
+  Activity = "activity",
   Settings = "settings"
 }
 

@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { toggleAdministratorMode } from "src/api/interceptors/administratorModeInterceptor";
 
 import { TGlobalState } from "./types";
 
@@ -31,6 +32,7 @@ export const slice = createSlice({
       { payload: isAdministratorMode }: PayloadAction<boolean>
     ) => {
       state.administratorMode = isAdministratorMode;
+      toggleAdministratorMode(isAdministratorMode);
     }
   }
 });

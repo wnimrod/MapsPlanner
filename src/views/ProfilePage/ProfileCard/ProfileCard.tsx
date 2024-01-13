@@ -5,10 +5,12 @@ import { Avatar, Badge, Button, Card, Divider, Grid, Typography } from "@mui/mat
 import cx from "classnames";
 import useCopyToClipboard from "src/hooks/useCopyToClipboard";
 import useSkeleton from "src/hooks/useSkeleton";
+import { handleFileSelected } from "src/hooks/useUploadFile";
 import useUserProfile from "src/hooks/useUserProfile";
 import { ERoute } from "src/routes";
 
-import { useEffect } from "react";
+import React from "react";
+import { useEffect, useRef } from "react";
 import { FormattedMessage } from "react-intl";
 import { generatePath, useNavigate } from "react-router-dom";
 
@@ -25,19 +27,12 @@ export default function ProfileCard() {
 
   const navigate = useNavigate();
 
-  const { userProfile, isLoading } = useUserProfile(effectiveUserId);
+  const { userProfile, isLoading, editProfile } = useUserProfile(effectiveUserId);
   const { profilePicture, fullname, registerDate, totalTrips, totalMarkers } = userProfile || {};
 
   const withSkeleton = useSkeleton({ isLoading });
 
-  const handleShareProfile = () => {
-    const path = generatePath(ERoute.UserProfile, {
-      id: effectiveUserId ? `${effectiveUserId}` : null,
-      tab: tabParam
-    });
-    const url = `${window.location.host}${path}`;
-    copyToClipboard(url);
-  };
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (userIdParam === null && typeof effectiveUserId === "number") {
@@ -50,6 +45,20 @@ export default function ProfileCard() {
     }
   }, [userIdParam, effectiveUserId]);
 
+  const handleShareProfile = () => {
+    const path = generatePath(ERoute.UserProfile, {
+      id: effectiveUserId ? `${effectiveUserId}` : null,
+      tab: tabParam
+    });
+    const url = `${window.location.host}${path}`;
+    copyToClipboard(url);
+  };
+
+  const handleProfilePictureChanged = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const profilePicture = await handleFileSelected(event)[0];
+    await editProfile({ profilePicture });
+  };
+
   if (!isLoading && !userProfile) {
     return null;
   }
@@ -61,8 +70,10 @@ export default function ProfileCard() {
           {withSkeleton(
             <Badge
               overlap="circular"
+              onClick={() => fileInputRef?.current?.click()}
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              badgeContent={<PhotoCameraIcon classes={{ root: style.badge }} />}
+              classes={{ root: style.badge }}
+              badgeContent={<PhotoCameraIcon classes={{ root: style.camera }} />}
             >
               <Avatar classes={{ root: style.avatar }} src={profilePicture} alt={fullname} />
             </Badge>,
@@ -125,6 +136,7 @@ export default function ProfileCard() {
           )}
         </Grid>
       </Grid>
+      <input type="file" ref={fileInputRef} onChange={handleProfilePictureChanged} hidden />
     </Card>
   );
 }

@@ -1,7 +1,6 @@
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import { Switch, Tooltip } from "@mui/material";
-import { toggleAdministratorMode } from "src/api/interceptors/administratorModeInterceptor";
 import { setAdministratorMode } from "src/store/global";
 import { AppDispatch } from "src/store/store";
 import { TRootState } from "src/store/types";
@@ -16,7 +15,6 @@ export default function ToggleAdminMode() {
   const dispatch: AppDispatch = useDispatch();
 
   const handleToggle = (_: ChangeEvent<HTMLInputElement>, isAdmin: boolean) => {
-    toggleAdministratorMode(isAdmin);
     dispatch(setAdministratorMode(isAdmin));
   };
 

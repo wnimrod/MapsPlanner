@@ -1,5 +1,6 @@
 .container {
   transition: max-width 650ms ease-in-out;
+  height: var(--main-bar-height);
 
   .label-container {
     flex-grow: 1;

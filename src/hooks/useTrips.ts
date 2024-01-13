@@ -8,20 +8,25 @@ import { useSelector } from "react-redux";
 
 import useCurrentUser, { TCurrentUserLoggedIn } from "./useCurrentUser";
 
-type TOptions = { fetch?: boolean };
+type TOptions = {
+  fetch?: boolean;
+  filters?: tripsAPI.TAPITripFilters;
+};
 
-export function useTrips({ fetch = true }: TOptions = {}) {
+export function useTrips({ fetch = true, filters }: TOptions = {}) {
   const isAdministratorMode = useSelector((state: TRootState) => state.global.administratorMode);
   const { user } = useCurrentUser() as { user: TCurrentUserLoggedIn };
 
-  const key = fetch ? `trips-${isAdministratorMode ? "global" : `user-${user.id}`}` : null;
+  const key = fetch
+    ? [`trips-${isAdministratorMode ? "global" : `user-${user.id}`}`, filters]
+    : null;
 
   const {
     data: trips,
     isLoading,
     error,
     mutate
-  } = useSWR<TAPITripCard[]>(key, () => tripsAPI.fetchTrips());
+  } = useSWR<TAPITripCard[]>(key, () => tripsAPI.fetchTrips(filters));
 
   const createTrip = async (payload: TAPITripCreationRequest) => {
     const newTrip = await tripsAPI.createTrip(payload);

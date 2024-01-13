@@ -1,5 +1,14 @@
+@import "./_consts.scss";
+@import "./mixins";
+
 .container {
   height: 100%;
+
+  @include breakdown-up ($mui-breakdown-md) {
+    .inner {
+      height: calc(100vh - var(--top-bar-height))
+    }
+  }
 }
 
 :global(.selectable) {

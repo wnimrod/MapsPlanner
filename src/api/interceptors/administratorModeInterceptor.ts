@@ -18,9 +18,9 @@ export default function AdministratorModeInterceptor(
   return {
     ...config,
     params: {
-      ...config.params,
       // admin: Requests from the backend to returns all results, not just user-associated ones.
-      admin: state.isAdministratorMode
+      impersonateUserId: state.isAdministratorMode ? "all" : undefined,
+      ...config.params
     }
   };
 }

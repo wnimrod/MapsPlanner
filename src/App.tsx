@@ -50,6 +50,7 @@ function App() {
       <Container
         maxWidth={isFullScreenPage ? false : "lg"}
         sx={{ padding: isFullScreenPage ? "0 !important" : undefined }}
+        className={style.inner}
       >
         <Routes>
           <Route path={ERoute.Home} Component={HomeScreen} />
