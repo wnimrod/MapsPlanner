@@ -2,21 +2,21 @@ import type { TAPIUser } from "src/api/types";
 import { fetchCurrentUser } from "src/api/users";
 import useSWR from "swr";
 
+import { TBaseFetchOptions } from "./types";
+
 export type TCurrentUserLoggedIn = { isLoggedIn: true } & TAPIUser;
 export type TCurrentUser = TCurrentUserLoggedIn | { isLoggedIn: false };
 
-export default function useCurrentUser() {
+export default function useCurrentUser({ shouldFetch = true }: TBaseFetchOptions = {}) {
+  const fetchKey = shouldFetch ? "global/current-user" : null;
+
   const {
     data: user,
     error,
     isLoading
-  } = useSWR<TCurrentUser>("global/current-user", async () => {
+  } = useSWR<TCurrentUser>(fetchKey, async () => {
     const user = await fetchCurrentUser();
-    if (user) {
-      return { ...user, isLoggedIn: true as const };
-    } else {
-      return { isLoggedIn: false as const };
-    }
+    return user ? { ...user, isLoggedIn: true as const } : { isLoggedIn: false as const };
   });
 
   const isLoaded = !isLoading && !error && !!user;

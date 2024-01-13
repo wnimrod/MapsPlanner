@@ -7,12 +7,13 @@ import useTrip from "./useTrip";
 type TOptions = { marker: TAPIMarker; markerId?: never } | { markerId: number; marker?: never };
 
 export default function useMarker({ marker: propsMarker, markerId: propsMarkerId }: TOptions) {
-  const { data: fetchedMarker } = useSWR(propsMarkerId ? `marker-${propsMarkerId}` : null, () =>
-    markersAPI.fetchMarker(propsMarkerId!)
-  );
-
+  // Fetch Marker, if not given.
+  const fetchKey = propsMarkerId ? `marker-${propsMarkerId}` : null;
+  const { data: fetchedMarker } = useSWR(fetchKey, () => markersAPI.fetchMarker(propsMarkerId!));
   const marker = propsMarker || fetchedMarker;
-  const { trip, mutate: mutateTrip } = useTrip(marker?.tripId); // Related trip
+
+  // Fetch Related trip.
+  const { trip, mutate: mutateTrip } = useTrip(marker?.tripId);
 
   const editMarker = async (markerId: number, data: TTripUpdateableFields) => {
     if (!trip) return;

@@ -6,20 +6,15 @@ import useSWR from "swr";
 
 import { useSelector } from "react-redux";
 
-import useCurrentUser, { TCurrentUserLoggedIn } from "./useCurrentUser";
+import type { TBaseFetchOptions } from "./types";
 
-type TOptions = {
-  fetch?: boolean;
+type TOptions = TBaseFetchOptions & {
   filters?: tripsAPI.TAPITripFilters;
 };
 
-export function useTrips({ fetch = true, filters }: TOptions = {}) {
+export function useTrips({ shouldFetch = true, filters }: TOptions = {}) {
   const isAdministratorMode = useSelector((state: TRootState) => state.global.administratorMode);
-  const { user } = useCurrentUser() as { user: TCurrentUserLoggedIn };
-
-  const key = fetch
-    ? [`trips-${isAdministratorMode ? "global" : `user-${user.id}`}`, filters]
-    : null;
+  const key = shouldFetch ? ["trips", isAdministratorMode, filters] : null;
 
   const {
     data: trips,
@@ -34,6 +29,7 @@ export function useTrips({ fetch = true, filters }: TOptions = {}) {
       await mutate([newTrip, ...trips]);
     }
   };
+
   const deleteTrip = async (tripId: number) => {
     await tripsAPI.deleteTrip(tripId);
     if (trips) {

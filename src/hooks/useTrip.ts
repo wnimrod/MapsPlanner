@@ -4,14 +4,13 @@ import { TAPITripDetails, fetchTrip } from "src/api/trips";
 import useSWR from "swr";
 
 export default function useTrip(tripId?: number) {
-  const shouldFetch = typeof tripId !== "undefined";
-
+  const fetchKey = typeof tripId !== "undefined" ? `trip-${tripId}` : null;
   const {
     data: trip,
     isLoading,
     error,
     mutate
-  } = useSWR<TAPITripDetails>(shouldFetch ? `trip-${tripId}` : null, () => fetchTrip(tripId!));
+  } = useSWR<TAPITripDetails>(fetchKey, () => fetchTrip(tripId!));
 
   const addMarker = async (markerCreationRequest: TAPIMarkerCreationRequest) => {
     if (markerCreationRequest.tripId !== tripId) {
