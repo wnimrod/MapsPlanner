@@ -1,11 +1,13 @@
-import IconAutoFixHigh from "@mui/icons-material/AutoFixHigh";
-import { Button, ButtonProps, LinearProgress, Typography } from "@mui/material";
-import { useSnackbar } from "notistack";
-import { EMarkerCategory } from "src/api/markers";
-import useTrip from "src/hooks/useTrip";
-
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+
+import IconAutoFixHigh from "@mui/icons-material/AutoFixHigh";
+import { Button, ButtonProps, LinearProgress, Typography } from "@mui/material";
+
+import { useSnackbar } from "notistack";
+
+import { EMarkerCategory } from "src/api/markers";
+import useTrip from "src/hooks/useTrip";
 
 import message from "./messages";
 

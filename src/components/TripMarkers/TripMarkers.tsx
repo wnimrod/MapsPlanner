@@ -1,16 +1,12 @@
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { useMemo, useState } from "react";
+
 import { groupBy } from "lodash";
+
 import { ALL_MARKER_CATEGORIES, EMarkerCategory, TAPIMarker } from "src/api/markers";
 import { TAPITripDetails } from "src/api/trips";
 import useSearchParam, { EGlobalSearchParams } from "src/hooks/useSearchParam";
 
-import { useMemo, useState } from "react";
-
-import TripCard from "../TripCard/TripCard/TripCard";
-import { tripCardActionManifest } from "../TripCard/TripCard/manifest";
-import MarkerGeneratorButton from "./MarkerGeneratorButton";
-import TripMarkersBody from "./TripMarkerBody";
-import TripMarkerHeader from "./TripMarkerHeader";
+import TripMarkerCategory from "./TripMarkerCategory";
 import style from "./TripMarkers.module.scss";
 
 type TProps = {
@@ -24,7 +20,6 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
   const isLoading = !trip;
 
   const [selectedCategory, setSelectedCategory] = useState<EMarkerCategory | null>(null);
-  const [selectedMarker, setSelectedMarker] = useState<TAPIMarker | null>(null);
 
   const searchQuery = useSearchParam(EGlobalSearchParams.Search);
 
@@ -51,7 +46,10 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
       }
     }
 
-    return groups;
+    return Object.entries(groups).map(
+      ([category, markers]) =>
+        [+category as EMarkerCategory, markers as TAPIMarker[]] as [EMarkerCategory, TAPIMarker[]]
+    );
   }, [displayableMarkers]);
 
   const handleAccordionExpansion = (category: EMarkerCategory, expanded: boolean) => {
@@ -61,63 +59,22 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
   };
 
   const handleMarkerSelected = (marker: TAPIMarker) => {
-    setSelectedMarker(marker);
     onMarkerSelected(marker);
   };
 
-  const markersView = Object.entries(tripGroups).map(([_category, markers]) => {
-    const category = +_category as EMarkerCategory; // Object keys are always strings; EMarkerCategory is number enum.
-
-    return (
-      <Accordion
-        expanded={category === selectedCategory}
-        onChange={(_, expanded: boolean) => handleAccordionExpansion(category, expanded)}
-        classes={{ expanded: style.expanded }}
-      >
-        <AccordionSummary>
-          <TripMarkerHeader
-            category={category}
-            isLoading={isLoading}
-            count={markers?.length || 0}
-            isSelected={category === selectedCategory}
-          />
-        </AccordionSummary>
-        <AccordionDetails>
-          {!isLoading && (
-            <>
-              <MarkerGeneratorButton
-                category={category}
-                tripId={trip.id}
-                fullWidth
-                sx={{ mb: 1, textWrap: "nowrap" }}
-              />
-              {(markers as TAPIMarker[]).map((marker: TAPIMarker) => (
-                <>
-                  <TripMarkersBody
-                    key={marker.id}
-                    isSelected={selectedMarker?.id === marker.id}
-                    marker={marker}
-                    handleMarkerSelected={handleMarkerSelected}
-                  />
-                </>
-              ))}
-            </>
-          )}
-        </AccordionDetails>
-      </Accordion>
-    );
-  });
-
   return (
-    <>
-      <TripCard
-        isLoading={isLoading}
-        onCardSelected={undefined}
-        actions={tripCardActionManifest}
-        trip={trip}
-        classes={{ container: style.trip }}
-      />
-      <div className={style.markersContainer}>{markersView}</div>
-    </>
+    <div className={style.markersContainer}>
+      {tripGroups.map(([category, markers]) => (
+        <TripMarkerCategory
+          category={category}
+          isLoading={isLoading}
+          isSelected={category === selectedCategory}
+          markers={markers as TAPIMarker[]}
+          onAccordionExpansion={handleAccordionExpansion}
+          onMarkerSelected={handleMarkerSelected}
+          tripId={trip?.id}
+        />
+      ))}
+    </div>
   );
 }

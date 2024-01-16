@@ -1,19 +1,23 @@
+import { useIntl } from "react-intl";
+
 import { TAPITripCard } from "src/api/trips";
 import useCurrentUser, { TCurrentUserLoggedIn } from "src/hooks/useCurrentUser";
 
 import BasicTripCard, { TBasicTripCardProps } from "../BasicTripCard/BasicTripCard";
+import messages from "./messages";
 
 type TProps = Omit<TBasicTripCardProps, "trip" | "onContextMenuOpened">;
 
 export default function AddTripCard({ isLoading, onCardSelected }: TProps) {
   const { user } = useCurrentUser();
+  const { formatMessage } = useIntl();
 
   const addTrip: TAPITripCard = {
     id: -1,
     creationDate: "",
-    description: "Add your new trip, now!",
+    name: formatMessage(messages.name),
+    description: formatMessage(messages.description),
     userId: (user as TCurrentUserLoggedIn).id,
-    name: "Add Trip!",
     picture: "/maps-background-light.jpg"
   };
 

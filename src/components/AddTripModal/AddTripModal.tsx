@@ -1,3 +1,5 @@
+import { FormattedMessage, useIntl } from "react-intl";
+
 import {
   Button,
   Dialog,
@@ -8,12 +10,12 @@ import {
   Grid,
   TextField
 } from "@mui/material";
+
 import { FormikHelpers, useFormik } from "formik";
-import Image from "src/components/Image/Image";
-import { useTrips } from "src/hooks/useTrips";
 import * as Yup from "yup";
 
-import { FormattedMessage, useIntl } from "react-intl";
+import { useTrips } from "src/hooks/useTrips";
+import { Image } from "src/ui/atoms";
 
 import style from "./AddTripModal.module.scss";
 import * as FormComponents from "./FormComponents";

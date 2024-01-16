@@ -12,7 +12,6 @@ const initialState: TGlobalState = {
     message: "",
     severity: undefined
   },
-  isSideMenuOpen: false,
   administratorMode: false,
   language: "en"
 };
@@ -24,9 +23,6 @@ export const slice = createSlice({
     setIsAppReady(state: TGlobalState, { payload: isAppReady }: PayloadAction<boolean>) {
       state.isAppReady = isAppReady;
     },
-    setIsSideMenuOpen: (state: TGlobalState, { payload: isOpen }: PayloadAction<boolean>) => {
-      state.isSideMenuOpen = isOpen;
-    },
     setAdministratorMode: (
       state: TGlobalState,
       { payload: isAdministratorMode }: PayloadAction<boolean>
@@ -37,5 +33,5 @@ export const slice = createSlice({
   }
 });
 
-export const { setIsAppReady, setIsSideMenuOpen, setAdministratorMode } = slice.actions;
+export const { setIsAppReady, setAdministratorMode } = slice.actions;
 export default slice.reducer;

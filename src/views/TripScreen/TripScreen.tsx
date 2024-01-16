@@ -1,19 +1,23 @@
-import { CircularProgress, Grid, Typography } from "@mui/material";
-import { TAPIMarker } from "src/api/markers";
-import Map from "src/components/Map/Map";
-import TripMarkers from "src/components/TripMarkers/TripMarkers";
-import useTrip from "src/hooks/useTrip";
-
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useParams } from "react-router-dom";
+
+import { CircularProgress, Grid, Typography } from "@mui/material";
+
+import Map from "src/components/Map/Map";
+import TripCard from "src/components/TripCard/TripCard/TripCard";
+import { tripCardActionManifest } from "src/components/TripCard/TripCard/manifest";
+import TripMarkers from "src/components/TripMarkers/TripMarkers";
+
+import { TAPIMarker } from "src/api/markers";
+import useTrip from "src/hooks/useTrip";
 
 import style from "./TripScreen.module.scss";
 import messages from "./messages";
 
 export default function TripScreen() {
   const { id: tripId } = useParams();
-  const { trip } = useTrip(+tripId!);
+  const { trip, isLoading } = useTrip(+tripId!);
   const [center, setCenter] = useState<TAPIMarker | undefined>();
 
   const handleMarkerSelected = (marker: TAPIMarker) => {
@@ -23,6 +27,13 @@ export default function TripScreen() {
   return (
     <Grid container>
       <Grid item md={2.5} className={style.sideMenu}>
+        <TripCard
+          trip={trip}
+          isLoading={isLoading}
+          onCardSelected={undefined}
+          actions={tripCardActionManifest}
+          classes={{ container: style.trip }}
+        />
         <TripMarkers trip={trip} onMarkerSelected={handleMarkerSelected} />
       </Grid>
 

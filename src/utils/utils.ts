@@ -52,3 +52,15 @@ export function enumKeys(_enum: any) {
     return extractedKeys;
   }
 }
+
+export function isFunctionalComponent(Component: React.FC | any) {
+  return (
+    typeof Component === "function" && // can be various things
+    !(
+      (
+        Component.prototype && // native arrows don't have prototypes
+        Component.prototype.isReactComponent
+      ) // special property
+    )
+  );
+}

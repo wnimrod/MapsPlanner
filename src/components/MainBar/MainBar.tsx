@@ -1,15 +1,16 @@
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+
 import MapIcon from "@mui/icons-material/Map";
 import SearchIcon from "@mui/icons-material/Search";
 import { AppBar, Container, InputAdornment, TextField, Toolbar, Typography } from "@mui/material";
+
 import useCurrentUser from "src/hooks/useCurrentUser";
 import useSearchParams, { EGlobalSearchParams } from "src/hooks/useSearchParams";
 import { ERoute, getCurrentRoute, useIsFullScreenRoute } from "src/routes";
 
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-
-import UserProfile from "../UserProfile/UserProfile";
 import style from "./MainBar.module.scss";
+import UserProfile from "./UserProfile/UserProfile";
 import messages from "./messages";
 
 export default function MainBar() {

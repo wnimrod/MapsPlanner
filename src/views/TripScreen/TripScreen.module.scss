@@ -3,6 +3,11 @@
   background: var(--mui-palette-secondary-mainChannel);
   display: flex;
   flex-direction: column;
+
+  .trip {
+    border-radius: initial;
+    --card-width: 100%;
+  }
 }
 
 .map-container {

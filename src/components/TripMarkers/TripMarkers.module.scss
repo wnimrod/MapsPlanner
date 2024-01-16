@@ -6,11 +6,6 @@ html {
   &[data-mui-color-scheme="light"] {
     --expanded-marker-group-background-color: #f7f7f7;
   }
-
-  .trip {
-    border-radius: initial;
-    --card-width: 100%;
-  }
   
   .markers-container {
     overflow-y: auto;
@@ -27,6 +22,7 @@ html {
     .button {
       justify-content: flex-start !important;
       text-transform: initial !important;
+      padding: 6px var(--spacer) !important;
     }
     
     .header {

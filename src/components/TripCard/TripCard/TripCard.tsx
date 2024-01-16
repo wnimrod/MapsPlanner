@@ -1,28 +1,17 @@
+import { generatePath, useNavigate } from "react-router-dom";
+
 import { TAPITripCard } from "src/api/trips";
 import { ERoute } from "src/routes";
 
-import { useNavigate } from "react-router-dom";
-
 import BasicTripCard, { TBasicTripCardProps } from "../BasicTripCard/BasicTripCard";
-import { TMenuItem } from "./types";
 
-type TProps = {
-  actions?: TMenuItem[];
-} & TBasicTripCardProps;
-
-export default function TripCard({ trip, isLoading, ...basicCardProps }: TProps) {
+export default function TripCard(basicTripCardProps: TBasicTripCardProps) {
   const navigate = useNavigate();
 
   const handleCardSelected = (selectedTrip: TAPITripCard) => {
-    navigate(ERoute.Trip.replace(":id", selectedTrip.id.toString()));
+    const path = generatePath(ERoute.Trip, { id: selectedTrip.id.toString() });
+    navigate(path);
   };
 
-  return (
-    <BasicTripCard
-      trip={trip}
-      isLoading={isLoading}
-      onCardSelected={handleCardSelected}
-      {...basicCardProps}
-    />
-  );
+  return <BasicTripCard onCardSelected={handleCardSelected} {...basicTripCardProps} />;
 }

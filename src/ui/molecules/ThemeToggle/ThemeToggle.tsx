@@ -4,9 +4,9 @@ import { Switch, Tooltip, useColorScheme } from "@mui/material";
 
 import { ChangeEvent } from "react";
 
-import style from "./ThemeSwitch.module.scss";
+import style from "./ThemeToggle.module.scss";
 
-export default function ThemeSwtich() {
+export default function ThemeToggle() {
   const { mode, setMode } = useColorScheme();
 
   function toggleMode(_: ChangeEvent<HTMLInputElement>, isDarkMode: boolean) {

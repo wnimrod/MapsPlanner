@@ -1,4 +1,4 @@
-import { SvgIconComponent } from "@mui/icons-material";
+import { TMenuItem as TUIMenuItem } from "src/ui/molecules/Menu/MenuItem/types";
 
 export enum ETripCardActions {
   Delete,
@@ -6,7 +6,4 @@ export enum ETripCardActions {
   GenerateMarkers
 }
 
-export type TMenuItem = {
-  action: ETripCardActions;
-  icon?: SvgIconComponent;
-};
+export type TMenuItem = TUIMenuItem<ETripCardActions>;

@@ -1,3 +1,6 @@
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { FormattedMessage, MessageDescriptor } from "react-intl";
+
 import {
   Button,
   Dialog,
@@ -7,10 +10,8 @@ import {
   DialogTitle,
   useTheme
 } from "@mui/material";
-import { delay } from "src/utils/utils";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { FormattedMessage, MessageDescriptor } from "react-intl";
+import { delay } from "src/utils/utils";
 
 import style from "./ActionConfirmDialog.module.scss";
 import messages from "./messages";

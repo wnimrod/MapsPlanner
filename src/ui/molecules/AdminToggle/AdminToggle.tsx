@@ -8,9 +8,9 @@ import { TRootState } from "src/store/types";
 import { ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import style from "./ToggleAdminMode.module.scss";
+import style from "./AdminToggle.module.scss";
 
-export default function ToggleAdminMode() {
+export default function AdminToggle() {
   const administratorMode = useSelector((state: TRootState) => state.global.administratorMode);
   const dispatch: AppDispatch = useDispatch();
 

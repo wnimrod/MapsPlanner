@@ -1,3 +1,6 @@
+import { ReactNode, useMemo, useState } from "react";
+import { MessageDescriptor, useIntl } from "react-intl";
+
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   Card,
@@ -7,21 +10,21 @@ import {
   IconButton,
   Typography
 } from "@mui/material";
+
 import cx from "classnames";
+import jp from "jsonpath";
 import { useSnackbar } from "notistack";
-import { TAPITripCard } from "src/api/trips";
+
+import type { TAPITripCard } from "src/api/trips";
 import useContextMenu from "src/hooks/useContextMenu";
 import useSkeleton from "src/hooks/useSkeleton";
 import { useTrips } from "src/hooks/useTrips";
+import { Menu } from "src/ui/molecules";
 import { ConditionalWrap } from "src/utils/utils";
 
-import { ReactNode, useState } from "react";
-import { useIntl } from "react-intl";
-
-import { ActionMenu } from "../ActionMenu/ActionMenu";
-import messages from "../TripCard/messages";
 import { ETripCardActions, TMenuItem } from "../TripCard/types";
 import style from "./BasicTripCard.module.scss";
+import messages from "./messages";
 
 export type TBasicTripCardProps = {
   trip?: TAPITripCard;
@@ -43,6 +46,14 @@ export default function BasicTripCard(props: TBasicTripCardProps) {
 
   const { deleteTrip } = useTrips();
 
+  const actionMessages = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(messages.actions as [string, any]).map(([key, { label }]) => [key, label])
+      ) as Record<ETripCardActions, MessageDescriptor>,
+    [messages]
+  );
+
   const handleMenuAction = async (action?: ETripCardActions) => {
     if (!trip) return;
 
@@ -56,13 +67,15 @@ export default function BasicTripCard(props: TBasicTripCardProps) {
 
         try {
           await deleteTrip(trip.id);
-          enqueueSnackbar(formatMessage(messages.info.delete, { tripName: trip.name }), {
-            variant: "success"
-          });
+          enqueueSnackbar(
+            formatMessage(messages[ETripCardActions.Delete].success, { tripName: trip.name }),
+            { variant: "success" }
+          );
         } catch (error) {
-          enqueueSnackbar(formatMessage(messages.error.delete, { tripName: trip.name }), {
-            variant: "error"
-          });
+          enqueueSnackbar(
+            formatMessage(messages[ETripCardActions.Delete].error, { tripName: trip.name }),
+            { variant: "error" }
+          );
         }
 
         break;
@@ -130,7 +143,14 @@ export default function BasicTripCard(props: TBasicTripCardProps) {
           </CardContent>
         </ConditionalWrap>
       </Card>
-      {actions && <ActionMenu actions={actions} {...menuProps} handleClose={handleClose} />}
+      {actions && (
+        <Menu
+          items={actions}
+          onItemSelected={(item) => handleClose(item.key)}
+          messages={actionMessages}
+          {...menuProps}
+        />
+      )}
     </>
   );
 }

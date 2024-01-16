@@ -1,19 +1,20 @@
-import { Box, Container } from "@mui/material";
-import { ERoute, useIsFullScreenRoute } from "src/routes.ts";
-
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
+import { Box, Container } from "@mui/material";
+
+import { ERoute, useIsFullScreenRoute } from "src/routes.ts";
+
 import style from "./App.module.scss";
-import ActionConfirmDialog, {
-  TActionConfirmDialogRef
-} from "./components/ActionConfirmDialog/ActionConfirmDialog";
 import MainBar from "./components/MainBar/MainBar";
 import useCurrentUser from "./hooks/useCurrentUser";
 import { setAdministratorMode } from "./store/global";
 import { AppDispatch } from "./store/store";
 import { TRootState } from "./store/types";
+import ActionConfirmDialog, {
+  TActionConfirmDialogRef
+} from "./ui/molecules/ActionConfirmDialog/ActionConfirmDialog";
 import HomeScreen from "./views/HomeScreen/HomeScreen";
 import LoginPage from "./views/LoginPage/LoginPage";
 import ProfilePage from "./views/ProfilePage/ProfilePage";

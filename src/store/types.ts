@@ -13,7 +13,6 @@ export type TGlobalState = {
     message: string;
     severity: AlertProps["severity"];
   };
-  isSideMenuOpen: boolean;
   administratorMode: boolean;
   language: TLanguage;
 };

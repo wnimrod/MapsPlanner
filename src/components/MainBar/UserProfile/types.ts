@@ -1,3 +1,5 @@
+import type { SvgIconComponent } from "@mui/icons-material";
+
 export enum EUserMenuEntry {
   Profile = "profile",
   ToggleTheme = "toggle-theme",
@@ -7,8 +9,8 @@ export enum EUserMenuEntry {
 
 export type TUserMenuEntry = {
   key: EUserMenuEntry;
-  administratorOnly?: boolean;
+  icon?: SvgIconComponent;
   render?: (key: EUserMenuEntry) => React.ReactNode;
-  icon?: React.ReactNode;
+  administratorOnly?: boolean;
   public?: boolean; // Is this link shown to un-authenticated user?
 };

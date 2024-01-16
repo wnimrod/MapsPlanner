@@ -1,9 +1,9 @@
 export {};
 
 declare type TActionConfirmDialogRef =
-  import("./components/ActionConfirmDialog/ActionConfirmDialog").TActionConfirmDialogRef;
+  import("./ui/molecules/ActionConfirmDialog/ActionConfirmDialog").TActionConfirmDialogRef;
 declare type TDialogLanguage =
-  import("./components/ActionConfirmDialog/ActionConfirmDialog").TDialogLanguage;
+  import("./ui/molecules/ActionConfirmDialog/ActionConfirmDialog").TDialogLanguage;
 
 declare global {
   declare interface Window {
