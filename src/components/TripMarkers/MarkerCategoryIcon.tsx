@@ -4,6 +4,7 @@ import LandscapeIcon from "@mui/icons-material/Landscape";
 import ParkIcon from "@mui/icons-material/Park";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+
 import { EMarkerCategory } from "src/api/markers";
 
 type TProps = {

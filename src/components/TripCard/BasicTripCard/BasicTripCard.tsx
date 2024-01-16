@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 
 import cx from "classnames";
-import jp from "jsonpath";
 import { useSnackbar } from "notistack";
 
 import type { TAPITripCard } from "src/api/trips";

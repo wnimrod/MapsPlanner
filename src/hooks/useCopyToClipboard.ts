@@ -1,4 +1,5 @@
 import { useSnackbar } from "notistack";
+
 import { copyToClipboard } from "src/utils/utils";
 
 export default function useCopyToClipboard() {

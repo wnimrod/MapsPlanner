@@ -1,9 +1,11 @@
+import { FormattedMessage } from "react-intl";
+
 import { Grid, Typography } from "@mui/material";
+
 import cx from "classnames";
+
 import { EMarkerCategory } from "src/api/markers";
 import useSkeleton from "src/hooks/useSkeleton";
-
-import { FormattedMessage } from "react-intl";
 
 import MarkerCategoryIcon from "./MarkerCategoryIcon";
 import style from "./TripMarkers.module.scss";

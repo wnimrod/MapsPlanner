@@ -1,7 +1,8 @@
-import { useSnackbar } from "notistack";
-import * as AuthAPI from "src/api/auth";
-
 import { useIntl } from "react-intl";
+
+import { useSnackbar } from "notistack";
+
+import * as AuthAPI from "src/api/auth";
 
 import messages from "./messages";
 

@@ -1,3 +1,6 @@
+import { FormattedMessage } from "react-intl";
+import { generatePath } from "react-router-dom";
+
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -13,15 +16,13 @@ import {
   TableHead,
   TableRow
 } from "@mui/material";
+
 import { EAuditAction, TAPIAuditCard } from "src/api/audit";
 import useAuditLogs from "src/hooks/useAuditLogs";
 import useSkeleton from "src/hooks/useSkeleton";
 import { ERoute } from "src/routes";
 import { ETab } from "src/views/ProfilePage/types";
 import useParams from "src/views/ProfilePage/useParams";
-
-import { FormattedMessage } from "react-intl";
-import { generatePath } from "react-router-dom";
 
 import messages from "./messages";
 

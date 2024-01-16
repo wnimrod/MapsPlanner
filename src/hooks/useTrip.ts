@@ -1,7 +1,8 @@
+import useSWR from "swr";
+
 import { TAPIMarkerCreationRequest } from "src/api/markers";
 import * as markersAPI from "src/api/markers";
 import { TAPITripDetails, fetchTrip } from "src/api/trips";
-import useSWR from "swr";
 
 export default function useTrip(tripId?: number) {
   const fetchKey = typeof tripId !== "undefined" ? `trip-${tripId}` : null;

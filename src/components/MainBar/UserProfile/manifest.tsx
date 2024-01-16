@@ -1,5 +1,6 @@
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
+
 import type { TFilterableMenuManifest } from "src/hooks/useMenuManifest";
 import { AdminToggle, ThemeToggle } from "src/ui/molecules";
 

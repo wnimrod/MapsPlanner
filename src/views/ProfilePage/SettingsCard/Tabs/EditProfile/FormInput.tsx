@@ -1,7 +1,8 @@
-import { Box, TextField, TextFieldProps } from "@mui/material";
-import { useFormik } from "formik";
-
 import { useIntl } from "react-intl";
+
+import { Box, TextField, TextFieldProps } from "@mui/material";
+
+import { useFormik } from "formik";
 
 import messages from "./messages";
 

@@ -1,7 +1,7 @@
-import useCurrentUser from "src/hooks/useCurrentUser";
-
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
+
+import useCurrentUser from "src/hooks/useCurrentUser";
 
 export default function useEffectiveUserId() {
   const { id: userId } = useParams();

@@ -1,10 +1,3 @@
-import { useFormik } from "formik";
-import { useSnackbar } from "notistack";
-import { ALL_MARKER_CATEGORIES, EMarkerCategory, TAPIMarkerCreationRequest } from "src/api/markers";
-import { TAPITripCard } from "src/api/trips";
-import useTrip from "src/hooks/useTrip";
-import * as Yup from "yup";
-
 import { FormattedMessage, useIntl } from "react-intl";
 
 import {
@@ -19,6 +12,14 @@ import {
   TextField,
   Typography
 } from "@mui/material";
+
+import { useFormik } from "formik";
+import { useSnackbar } from "notistack";
+import * as Yup from "yup";
+
+import { ALL_MARKER_CATEGORIES, EMarkerCategory, TAPIMarkerCreationRequest } from "src/api/markers";
+import { TAPITripCard } from "src/api/trips";
+import useTrip from "src/hooks/useTrip";
 
 import MarkerCategoryIcon from "../../TripMarkers/MarkerCategoryIcon";
 import style from "./AddMarkerPopover.module.scss";

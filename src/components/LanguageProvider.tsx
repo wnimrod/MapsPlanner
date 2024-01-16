@@ -1,9 +1,10 @@
-import { TRootState } from "src/store/types";
-import { useAsyncMemo } from "use-async-memo";
-
 import { PropsWithChildren } from "react";
 import { IntlProvider } from "react-intl";
 import { useSelector } from "react-redux";
+
+import { useAsyncMemo } from "use-async-memo";
+
+import { TRootState } from "src/store/types";
 
 type TProps = PropsWithChildren;
 

@@ -1,6 +1,6 @@
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
-
 import { FormattedMessage, useIntl } from "react-intl";
+
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 
 import style from "../AddTripModal.module.scss";
 import messages from "../messages";

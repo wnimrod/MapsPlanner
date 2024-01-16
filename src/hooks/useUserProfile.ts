@@ -1,6 +1,7 @@
+import useSWR from "swr";
+
 import * as usersAPI from "src/api/users";
 import { TAPIUpdateUserRequest, TAPIUserProfile, fetchUserProfile } from "src/api/users";
-import useSWR from "swr";
 
 export default function useUserProfile(userId?: number) {
   const shouldFetch = typeof userId !== "undefined";

@@ -1,5 +1,6 @@
-import useParams_Hook from "src/hooks/useParams";
 import { number, object, string } from "yup";
+
+import useParams_Hook from "src/hooks/useParams";
 
 import { ETab } from "./types";
 

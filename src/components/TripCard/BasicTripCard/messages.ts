@@ -1,5 +1,3 @@
-import { MessageDescriptor } from "react-intl";
-
 import { injectMessageIds } from "src/utils/utils";
 
 import { ETripCardActions } from "../TripCard/types";

@@ -1,6 +1,6 @@
-import { TMenuItem } from "src/ui/molecules/Menu/MenuItem/types";
-
 import { useMemo } from "react";
+
+import { TMenuItem } from "src/ui/molecules/Menu/MenuItem/types";
 
 import useCurrentUser from "./useCurrentUser";
 

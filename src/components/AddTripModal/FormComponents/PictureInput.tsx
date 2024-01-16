@@ -1,7 +1,8 @@
-import { Button, TextField } from "@mui/material";
-import { handleFileSelected } from "src/hooks/useUploadFile";
-
 import { ChangeEvent } from "react";
+
+import { Button, TextField } from "@mui/material";
+
+import { handleFileSelected } from "src/hooks/useUploadFile";
 
 import { TCreateTripForm } from "../types";
 import { TCommonProps } from "./types";

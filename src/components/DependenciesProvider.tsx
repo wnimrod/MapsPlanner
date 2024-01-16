@@ -1,12 +1,12 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import useCurrentUser from "src/hooks/useCurrentUser";
 import useGoogleMaps from "src/hooks/useGoogleMaps";
 import { setIsAppReady } from "src/store/global";
 import { AppDispatch } from "src/store/store";
 import { TRootState } from "src/store/types";
 import AppLoading from "src/views/AppLoading/AppLoading";
-
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 type TProps = {
   Component: React.FC;

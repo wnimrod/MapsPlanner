@@ -1,10 +1,11 @@
+import { useSelector } from "react-redux";
+
+import useSWR from "swr";
+
 import { TAPITripCard } from "src/api/trips";
 import * as tripsAPI from "src/api/trips";
 import { TAPITripCreationRequest } from "src/api/trips";
 import { TRootState } from "src/store/types";
-import useSWR from "swr";
-
-import { useSelector } from "react-redux";
 
 import type { TBaseFetchOptions } from "./types";
 

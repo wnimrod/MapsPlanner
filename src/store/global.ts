@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
 import { toggleAdministratorMode } from "src/api/interceptors/administratorModeInterceptor";
 
 import { TGlobalState } from "./types";

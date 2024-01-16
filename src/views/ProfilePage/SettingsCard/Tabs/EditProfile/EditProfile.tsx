@@ -1,3 +1,5 @@
+import { FormattedMessage, useIntl } from "react-intl";
+
 import {
   Button,
   CircularProgress,
@@ -8,14 +10,14 @@ import {
   Radio,
   RadioGroup
 } from "@mui/material";
+
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
+
 import { EGender } from "src/api/users";
 import useSkeleton from "src/hooks/useSkeleton";
 import useUserProfile from "src/hooks/useUserProfile";
 import useParams from "src/views/ProfilePage/useParams";
-
-import { FormattedMessage, useIntl } from "react-intl";
 
 import FormInput from "./FormInput";
 import { createValidationSchema } from "./constants";

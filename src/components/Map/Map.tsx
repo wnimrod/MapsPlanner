@@ -1,12 +1,13 @@
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import { Position } from "google-map-react";
+import { useMemo, useState } from "react";
+
 import { PopoverPosition } from "@mui/material";
+
 import { TAPIMarker } from "src/api/markers";
 import { TAPITripDetails } from "src/api/trips";
 import useGeolocation from "src/hooks/useGeolocation";
 import { delay } from "src/utils/utils";
-
-import { GoogleMap, Marker } from "@react-google-maps/api";
-import { Position } from "google-map-react";
-import { useMemo, useState } from "react";
 
 import AddMarkerPopover from "./AddMarkerPopover/AddMarkerPopover";
 import InformationPopover from "./InformationPopover/InformationPopover";

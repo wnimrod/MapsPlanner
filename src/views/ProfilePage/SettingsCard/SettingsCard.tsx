@@ -1,8 +1,9 @@
-import { Box, Card, CardContent, Divider, Tab, Tabs } from "@mui/material";
-import { ERoute } from "src/routes";
-
 import { useIntl } from "react-intl";
 import { generatePath, useNavigate, useParams } from "react-router-dom";
+
+import { Box, Card, CardContent, Divider, Tab, Tabs } from "@mui/material";
+
+import { ERoute } from "src/routes";
 
 import { type ETab, tabs } from "../types";
 import style from "./SettingsCard.module.scss";

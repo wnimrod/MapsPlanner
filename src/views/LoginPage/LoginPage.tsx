@@ -1,13 +1,15 @@
-import MapIcon from "@mui/icons-material/Map";
-import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
-import GoogleLoginButton from "src/components/GoogleLoginButton";
-import useCurrentUser from "src/hooks/useCurrentUser";
-import { ERoute } from "src/routes";
-
 import { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import MapsPlannerIcon from "src/assets/mapsplanner-logo.svg?react";
+
+import MapIcon from "@mui/icons-material/Map";
+import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
+
+import GoogleLoginButton from "src/components/GoogleLoginButton";
+
+import useCurrentUser from "src/hooks/useCurrentUser";
+import { ERoute } from "src/routes";
 
 import style from "./LoginPage.module.scss";
 import messages from "./messages";

@@ -1,7 +1,7 @@
-import * as yup from "yup";
-
 import { useMemo } from "react";
 import { useParams as useParams_Native } from "react-router-dom";
+
+import * as yup from "yup";
 
 export default function useParams(schema: yup.Schema) {
   /**

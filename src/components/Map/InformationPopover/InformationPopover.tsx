@@ -1,3 +1,6 @@
+import { useRef, useState } from "react";
+import { useIntl } from "react-intl";
+
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -10,13 +13,12 @@ import {
   PopoverProps,
   Typography
 } from "@mui/material";
+
 import { useSnackbar } from "notistack";
+
 import { TAPIMarker } from "src/api/markers";
 import useMarker from "src/hooks/useMarker";
 import useSkeleton from "src/hooks/useSkeleton";
-
-import { useRef, useState } from "react";
-import { useIntl } from "react-intl";
 
 import style from "./InformationPopover.module.scss";
 import messages from "./messages";

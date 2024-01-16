@@ -1,18 +1,20 @@
+import React from "react";
+import { useEffect, useRef } from "react";
+import { FormattedMessage } from "react-intl";
+import { generatePath, useNavigate } from "react-router-dom";
+
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MapIcon from "@mui/icons-material/Map";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { Avatar, Badge, Button, Card, Divider, Grid, Typography } from "@mui/material";
+
 import cx from "classnames";
+
 import useCopyToClipboard from "src/hooks/useCopyToClipboard";
 import useSkeleton from "src/hooks/useSkeleton";
 import { handleFileSelected } from "src/hooks/useUploadFile";
 import useUserProfile from "src/hooks/useUserProfile";
 import { ERoute } from "src/routes";
-
-import React from "react";
-import { useEffect, useRef } from "react";
-import { FormattedMessage } from "react-intl";
-import { generatePath, useNavigate } from "react-router-dom";
 
 import useEffectiveUserId from "../useEffectiveUserId";
 import useParams from "../useParams";

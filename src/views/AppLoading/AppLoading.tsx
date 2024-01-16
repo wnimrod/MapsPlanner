@@ -1,7 +1,8 @@
-import { Backdrop, Box, LinearProgress, Typography } from "@mui/material";
-import { TRootState } from "src/store/types";
-
 import { useSelector } from "react-redux";
+
+import { Backdrop, Box, LinearProgress, Typography } from "@mui/material";
+
+import { TRootState } from "src/store/types";
 
 import style from "./AppLoading.module.scss";
 
