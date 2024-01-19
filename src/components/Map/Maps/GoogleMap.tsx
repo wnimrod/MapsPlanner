@@ -1,4 +1,4 @@
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap as Map, Marker } from "@react-google-maps/api";
 import { Position } from "google-map-react";
 import { useMemo, useState } from "react";
 
@@ -9,8 +9,8 @@ import { TAPITripDetails } from "src/api/trips";
 import useGeolocation from "src/hooks/useGeolocation";
 import { delay } from "src/utils/utils";
 
-import AddMarkerPopover from "./AddMarkerPopover/AddMarkerPopover";
-import InformationPopover from "./InformationPopover/InformationPopover";
+import AddMarkerPopover from "../AddMarkerPopover/AddMarkerPopover";
+import InformationPopover from "../InformationPopover/InformationPopover";
 import style from "./Map.module.scss";
 
 type TProps = {
@@ -29,7 +29,7 @@ type TCreationPopup = {
   coords: Position;
 };
 
-export default function Map({ trip, center: explicitCenter, zoom = 15 }: TProps) {
+export default function GoogleMap({ trip, center: explicitCenter, zoom = 15 }: TProps) {
   const { markers } = trip;
 
   const [isMapLoaded, setIsMapLoaded] = useState(false);
@@ -79,7 +79,7 @@ export default function Map({ trip, center: explicitCenter, zoom = 15 }: TProps)
 
   return (
     <>
-      <GoogleMap
+      <Map
         id="google-map"
         mapContainerClassName={style.mapContainer}
         zoom={explicitCenter ? 17 : zoom}
@@ -103,7 +103,7 @@ export default function Map({ trip, center: explicitCenter, zoom = 15 }: TProps)
               />
             );
           })}
-      </GoogleMap>
+      </Map>
       {markerInfo && (
         <InformationPopover
           marker={markerInfo.marker}

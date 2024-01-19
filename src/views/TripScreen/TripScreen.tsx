@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { CircularProgress, Grid, Typography } from "@mui/material";
 
-import Map from "src/components/Map/Map";
+import { OpenStreetMap as Map } from "src/components/Map";
 import TripCard from "src/components/TripCard/TripCard/TripCard";
 import { tripCardActionManifest } from "src/components/TripCard/TripCard/manifest";
 import TripMarkers from "src/components/TripMarkers/TripMarkers";
