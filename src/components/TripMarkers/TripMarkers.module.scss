@@ -13,28 +13,7 @@ html {
     &::-webkit-scrollbar {
       width: 0;
     }
-
-    .expanded {
-      margin: 0 !important;
-      background-color: var(--expanded-marker-group-background-color);
-    }
-    
-    .button {
-      justify-content: flex-start !important;
-      text-transform: initial !important;
-      padding: 6px var(--spacer) !important;
-    }
-    
-    .header {
-      & p {
-        font-weight: bold !important;
-      }
-    
-      &.selected > * {
-        color: var(--mui-palette-primary-dark);
-      }
-    }
-    
+        
     .missing-markers {
       display: flex !important;
       flex-direction: column !important;

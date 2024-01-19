@@ -33,7 +33,9 @@ export default function AddTripModal({ isOpen, onClose }: TProps) {
   const { formatMessage } = useIntl();
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().min(3, "Common, this one really short ...").required("Please put it a name.")
+    name: Yup.string()
+      .min(3, "Come-on, this one really short ...")
+      .required("Please put it a name.")
   });
 
   const form = useFormik<TCreateTripForm>({

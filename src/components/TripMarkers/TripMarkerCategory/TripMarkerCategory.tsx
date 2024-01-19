@@ -2,12 +2,13 @@ import { useState } from "react";
 
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 
+import { type TTripMarkerItemProps, TripMarkerItem } from "src/components/TripMarkers";
+
 import { EMarkerCategory, TAPIMarker } from "src/api/markers";
 
+import TripMarkerHeader from "../TripMarkerHeader/TripMarkerHeader";
 import MarkerGeneratorButton from "./MarkerGeneratorButton";
-import TripMarkersBody, { TTripMarkerBodyProps } from "./TripMarkerBody";
-import TripMarkerHeader from "./TripMarkerHeader";
-import style from "./TripMarkers.module.scss";
+import style from "./TripMarkerCategory.module.scss";
 
 type TProps = {
   category: EMarkerCategory;
@@ -16,7 +17,7 @@ type TProps = {
   markers: TAPIMarker[]; // Marker IDs
   isSelected: boolean;
   onAccordionExpansion: (category: EMarkerCategory, expanded: boolean) => void;
-  onMarkerSelected: TTripMarkerBodyProps["handleMarkerSelected"];
+  onMarkerSelected: TTripMarkerItemProps["handleMarkerSelected"];
 };
 
 export default function TripMarkerCategory({
@@ -61,7 +62,7 @@ export default function TripMarkerCategory({
               sx={{ mb: 1, textWrap: "nowrap" }}
             />
             {markers.map((marker: TAPIMarker) => (
-              <TripMarkersBody
+              <TripMarkerItem
                 key={marker.id}
                 marker={marker}
                 isSelected={marker.id === selectedMarker?.id}

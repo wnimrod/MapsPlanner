@@ -6,10 +6,10 @@ import cx from "classnames";
 
 import { EMarkerCategory } from "src/api/markers";
 import useSkeleton from "src/hooks/useSkeleton";
+import MarkerCategoryIcon from "src/ui/atoms/MarkerCategoryIcon/MarkerCategoryIcon";
 
-import MarkerCategoryIcon from "./MarkerCategoryIcon";
-import style from "./TripMarkers.module.scss";
-import messages from "./messages";
+import messages from "../messages";
+import style from "./TripMarkerHeader.module.scss";
 
 type TProps = {
   category: EMarkerCategory;

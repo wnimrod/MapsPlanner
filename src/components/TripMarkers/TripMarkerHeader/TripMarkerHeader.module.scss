@@ -1,0 +1,9 @@
+.header {
+    & p {
+      font-weight: bold !important;
+    }
+  
+    &.selected > * {
+      color: var(--mui-palette-primary-dark);
+    }
+  }

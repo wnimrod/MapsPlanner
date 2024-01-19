@@ -2,15 +2,15 @@ import { Button, Typography } from "@mui/material";
 
 import { TAPIMarker } from "src/api/markers";
 
-import style from "./TripMarkers.module.scss";
+import style from "./TripMarkerItem.module.scss";
 
-export type TTripMarkerBodyProps = {
+export type TTripMarkerItemProps = {
   marker: TAPIMarker;
   isSelected: boolean;
   handleMarkerSelected: (marker: TAPIMarker) => void;
 };
 
-export default function TripMarkersBody(props: TTripMarkerBodyProps) {
+export default function TripMarkerItem(props: TTripMarkerItemProps) {
   const { marker, isSelected, handleMarkerSelected } = props;
 
   return (
@@ -19,7 +19,7 @@ export default function TripMarkersBody(props: TTripMarkerBodyProps) {
       fullWidth
       variant={isSelected ? "contained" : "text"}
       onClick={() => handleMarkerSelected(marker)}
-      className={style.button}
+      className={style.item}
     >
       <Typography variant="body1">{marker.title}</Typography>
     </Button>

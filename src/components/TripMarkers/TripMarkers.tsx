@@ -6,7 +6,7 @@ import { ALL_MARKER_CATEGORIES, EMarkerCategory, TAPIMarker } from "src/api/mark
 import { TAPITripDetails } from "src/api/trips";
 import useSearchParam, { EGlobalSearchParams } from "src/hooks/useSearchParam";
 
-import TripMarkerCategory from "./TripMarkerCategory";
+import TripMarkerCategory from "./TripMarkerCategory/TripMarkerCategory";
 import style from "./TripMarkers.module.scss";
 
 type TProps = {

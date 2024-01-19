@@ -20,8 +20,8 @@ import * as Yup from "yup";
 import { ALL_MARKER_CATEGORIES, EMarkerCategory, TAPIMarkerCreationRequest } from "src/api/markers";
 import { TAPITripCard } from "src/api/trips";
 import useTrip from "src/hooks/useTrip";
+import MarkerCategoryIcon from "src/ui/atoms/MarkerCategoryIcon/MarkerCategoryIcon";
 
-import MarkerCategoryIcon from "../../TripMarkers/MarkerCategoryIcon";
 import style from "./AddMarkerPopover.module.scss";
 import messages from "./messages";
 

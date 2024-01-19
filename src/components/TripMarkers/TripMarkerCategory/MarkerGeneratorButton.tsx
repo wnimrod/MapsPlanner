@@ -9,7 +9,7 @@ import { useSnackbar } from "notistack";
 import { EMarkerCategory } from "src/api/markers";
 import useTrip from "src/hooks/useTrip";
 
-import message from "./messages";
+import message from "../messages";
 
 type TProps = {
   tripId: number;
