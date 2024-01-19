@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 
 import { CircularProgress, Grid, Typography } from "@mui/material";
 
-import { OpenStreetMap as Map } from "src/components/Map";
+import { Map } from "src/components/Map";
+import { EMapProvider } from "src/components/Map/Maps/types";
 import TripCard from "src/components/TripCard/TripCard/TripCard";
 import { tripCardActionManifest } from "src/components/TripCard/TripCard/manifest";
 import TripMarkers from "src/components/TripMarkers/TripMarkers";
@@ -39,7 +40,7 @@ export default function TripScreen() {
 
       <Grid item md={9.5} className={style.mapContainer}>
         {trip ? (
-          <Map trip={trip} center={center} />
+          <Map provider={EMapProvider.OpenStreetMap} trip={trip} center={center} />
         ) : (
           <>
             <CircularProgress size={144} />

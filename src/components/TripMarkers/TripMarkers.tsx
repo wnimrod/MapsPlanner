@@ -66,6 +66,7 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
     <div className={style.markersContainer}>
       {tripGroups.map(([category, markers]) => (
         <TripMarkerCategory
+          key={`marker-group-${trip?.id}-${category}`}
           category={category}
           isLoading={isLoading}
           isSelected={category === selectedCategory}
