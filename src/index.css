@@ -2,7 +2,7 @@
 
 :root {
   --spacer: 1rem;
-  --top-bar-height: 64px;
+  --top-bar-height: 72px;
 
   /* z-indices */
   --backdrop-z-index: 5000;

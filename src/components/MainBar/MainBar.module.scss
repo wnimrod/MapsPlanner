@@ -1,27 +1,34 @@
-.container {
-  transition: max-width 650ms ease-in-out;
-  height: var(--main-bar-height);
+.app-bar {
+  box-shadow: unset;
+  .container {
+    transition: max-width 650ms ease-in-out;
+    height: var(--top-bar-height);
+    
+    .toolbar {
+      height: var(--top-bar-height);
+    }
+    .label-container {
+      flex-grow: 1;
+      text-align: left;
 
-  .label-container {
-    flex-grow: 1;
-    text-align: left;
+      .label {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: var(--spacer);
 
-    .label {
-      width: fit-content;
-      display: flex;
-      align-items: center;
-      gap: var(--spacer);
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
 
-      &:hover {
-        cursor: pointer;
+    .search-bar {
+      color: white !important;
+      & input {
+        margin: calc(-0.5 * var(--spacer)) !important;
       }
     }
   }
 
-  .search-bar {
-    color: white !important;
-    & input {
-      margin: calc(-0.5 * var(--spacer)) !important;
-    }
-  }
 }

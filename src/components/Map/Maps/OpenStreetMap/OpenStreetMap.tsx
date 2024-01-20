@@ -1,16 +1,12 @@
 import { useEffect, useRef } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 
-import {
-  LeafletEventHandlerFnMap,
-  divIcon as LeafletIcon,
-  Map as LeafletMap,
-  LeafletMouseEvent
-} from "leaflet";
+import { GeocodingControl } from "@maptiler/geocoding-control/leaflet";
+import "@maptiler/geocoding-control/style.css";
+import { LeafletEventHandlerFnMap, Map as LeafletMap, LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 import { TAPIMarker } from "src/api/markers";
-import MarkerCategoryIcon from "src/ui/atoms/MarkerCategoryIcon/MarkerCategoryIcon";
 
 import style from "../Map.module.scss";
 import { TMapProviderProps } from "../types";
@@ -26,12 +22,17 @@ export default function Map({
 
   useEffect(() => {
     const map = mapRef.current;
-    map?.on("contextmenu", (event: LeafletMouseEvent) =>
+
+    if (!map) return;
+
+    map.on("contextmenu", (event: LeafletMouseEvent) =>
       onContextMenu(event.originalEvent, event.latlng)
     );
 
+    map.addControl(new GeocodingControl({ apiKey: import.meta.env.MAPTILER_API_KEY }));
+
     return () => {
-      map?.off("contextmenu");
+      map.off("contextmenu");
     };
   }, [mapRef.current]);
 

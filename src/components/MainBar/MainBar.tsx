@@ -27,9 +27,9 @@ export default function MainBar() {
   const route = getCurrentRoute();
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" classes={{ root: style.appBar }}>
       <Container className={style.container} maxWidth={isFullScreenPage ? false : "lg"}>
-        <Toolbar>
+        <Toolbar classes={{ root: style.toolbar }}>
           <Typography className={style.labelContainer} variant="h6">
             <div className={style.label} onClick={() => navigate(ERoute.Home)}>
               <MapIcon />
