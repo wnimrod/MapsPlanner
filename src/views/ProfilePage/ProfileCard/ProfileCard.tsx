@@ -30,7 +30,7 @@ export default function ProfileCard() {
   const navigate = useNavigate();
 
   const { userProfile, isLoading, editProfile } = useUserProfile(effectiveUserId);
-  const { profilePicture, fullname, registerDate, totalTrips, totalMarkers } = userProfile || {};
+  const { profilePicture, fullName, registerDate, totalTrips, totalMarkers } = userProfile || {};
 
   const withSkeleton = useSkeleton({ isLoading });
 
@@ -77,7 +77,7 @@ export default function ProfileCard() {
               classes={{ root: style.badge }}
               badgeContent={<PhotoCameraIcon classes={{ root: style.camera }} />}
             >
-              <Avatar classes={{ root: style.avatar }} src={profilePicture} alt={fullname} />
+              <Avatar classes={{ root: style.avatar }} src={profilePicture} alt={fullName} />
             </Badge>,
             1,
             {
@@ -87,7 +87,7 @@ export default function ProfileCard() {
           )}
         </Grid>
         <Grid item>
-          <Typography variant="h6">{withSkeleton(fullname)}</Typography>
+          <Typography variant="h6">{withSkeleton(fullName)}</Typography>
         </Grid>
         <Grid item>
           <Divider />

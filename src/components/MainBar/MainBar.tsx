@@ -10,6 +10,7 @@ import useSearchParams, { EGlobalSearchParams } from "src/hooks/useSearchParams"
 import { ERoute, getCurrentRoute, useIsFullScreenRoute } from "src/routes";
 
 import style from "./MainBar.module.scss";
+import Search from "./Search/Search";
 import UserProfile from "./UserProfile/UserProfile";
 import messages from "./messages";
 
@@ -19,10 +20,6 @@ export default function MainBar() {
   const navigate = useNavigate();
   const isFullScreenPage = useIsFullScreenRoute();
   const { isLoggedIn } = useCurrentUser();
-
-  const { searchParams, handleSearchParamChange } = useSearchParams({
-    [EGlobalSearchParams.Search]: ""
-  });
 
   const route = getCurrentRoute();
 
@@ -37,23 +34,13 @@ export default function MainBar() {
             </div>
           </Typography>
           {isLoggedIn && (
-            <TextField
+            <Search
+              classes={{ autocomplete: { root: style.search } }}
               placeholder={formatMessage(
                 !!route && route in messages.search
                   ? messages.search[route]
                   : messages.search.default
               )}
-              value={searchParams.get(EGlobalSearchParams.Search)}
-              name={EGlobalSearchParams.Search}
-              onChange={handleSearchParamChange}
-              classes={{ root: style.searchBar }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start" sx={{ marginRight: 2 }}>
-                    <SearchIcon />
-                  </InputAdornment>
-                )
-              }}
             />
           )}
           <UserProfile />

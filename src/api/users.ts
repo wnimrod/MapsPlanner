@@ -19,7 +19,7 @@ export enum EGender {
 
 export type TAPIUserProfile = {
   registerDate: Date;
-  fullname: string;
+  fullName: string;
   totalTrips: number;
   totalMarkers: number;
   gender: EGender;
@@ -56,5 +56,10 @@ export const fetchUserProfile = async (userId: number) => {
 
 export const updateUser = async (userId: number, data: TAPIUpdateUserRequest) => {
   const result = await api.patch<TAPIUserProfile>(`${API_PREFIX}/${userId}`, data);
+  return unwrapAxiosResult(result);
+};
+
+export const searchUser = async (search: string) => {
+  const result = await api.get<TAPIUser[]>(`${API_PREFIX}/`, { params: { search } });
   return unwrapAxiosResult(result);
 };

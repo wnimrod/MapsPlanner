@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    gap: calc(.5 * var(--spacer));
+    align-items: center;
+    font-weight: bold;
+    margin: calc(0.5 * var(--spacer));
+}
+
+.items {
+    padding-inline-start: unset;
+
+    & li:hover {
+        background-color: var(--mui-palette-grey-800);
+    }
+}

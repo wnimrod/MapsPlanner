@@ -5,7 +5,7 @@ const scope = "components.MainBar";
 
 export default injectMessageIds(scope, {
   search: {
-    default: "Search ...",
+    default: "Search Globally ...",
     [ERoute.UserProfile]: "Search Users ...",
     [ERoute.Trip]: "Search on this trip ..."
   }

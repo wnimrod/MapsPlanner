@@ -60,3 +60,8 @@ export async function deleteTrip(tripId: number) {
   const result = await api.delete(`/trips/${tripId}/`);
   return unwrapAxiosResult(result);
 }
+
+export const searchTrip = async (search: string) => {
+  const result = await api.get<TAPITripCard[]>(`${API_PREFIX}/`, { params: { search } });
+  return unwrapAxiosResult(result);
+};

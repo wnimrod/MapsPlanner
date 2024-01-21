@@ -6,6 +6,11 @@
     
     .toolbar {
       height: var(--top-bar-height);
+
+      .search { 
+        width: 300px;
+        margin-right: var(--spacer);
+      }
     }
     .label-container {
       flex-grow: 1;
