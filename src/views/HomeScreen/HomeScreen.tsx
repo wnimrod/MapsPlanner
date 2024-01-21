@@ -7,7 +7,7 @@ import AddTripCard from "src/components/TripCard/AddTripCard/AddTripCard";
 import TripCard from "src/components/TripCard/TripCard/TripCard";
 import { ACTION_DELETE } from "src/components/TripCard/TripCard/manifest";
 
-import { TAPITripCard } from "src/api/trips";
+import { TAPITripCard } from "src/api/types";
 import useSearchParam, { EGlobalSearchParams } from "src/hooks/useSearchParam";
 import { useTrips } from "src/hooks/useTrips";
 import { generateEntityMocks } from "src/utils/utils";

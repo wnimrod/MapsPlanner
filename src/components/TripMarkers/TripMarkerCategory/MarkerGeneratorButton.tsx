@@ -6,7 +6,7 @@ import { Button, ButtonProps, LinearProgress, Typography } from "@mui/material";
 
 import { useSnackbar } from "notistack";
 
-import { EMarkerCategory } from "src/api/markers";
+import { EMarkerCategory } from "src/api/types";
 import useTrip from "src/hooks/useTrip";
 
 import message from "../messages";

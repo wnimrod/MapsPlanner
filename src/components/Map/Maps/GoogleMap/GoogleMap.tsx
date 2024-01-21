@@ -1,7 +1,7 @@
 import { GoogleMap as Map, Marker } from "@react-google-maps/api";
 import { useState } from "react";
 
-import { TAPIMarker } from "src/api/markers";
+import { TAPIMarker } from "src/api/types";
 import { delay } from "src/utils/utils";
 
 import style from "../Map.module.scss";

@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 
 import { groupBy } from "lodash";
 
-import { ALL_MARKER_CATEGORIES, EMarkerCategory, TAPIMarker } from "src/api/markers";
-import { TAPITripDetails } from "src/api/trips";
+import { ALL_MARKER_CATEGORIES } from "src/api/markers/markers";
+import { EMarkerCategory, TAPIMarker, TAPITripDetails } from "src/api/types";
 import useSearchParam, { EGlobalSearchParams } from "src/hooks/useSearchParam";
 
 import TripMarkerCategory from "./TripMarkerCategory/TripMarkerCategory";

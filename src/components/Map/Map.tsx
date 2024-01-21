@@ -2,7 +2,7 @@ import { Suspense, useCallback, useMemo, useState } from "react";
 
 import { PopoverPosition } from "@mui/material";
 
-import { TAPIMarker } from "src/api/markers";
+import { TAPIMarker } from "src/api/types";
 import useGeolocation from "src/hooks/useGeolocation";
 
 import AddMarkerPopover from "./AddMarkerPopover/AddMarkerPopover";

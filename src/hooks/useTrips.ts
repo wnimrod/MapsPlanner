@@ -2,15 +2,14 @@ import { useSelector } from "react-redux";
 
 import useSWR from "swr";
 
-import { TAPITripCard } from "src/api/trips";
-import * as tripsAPI from "src/api/trips";
-import { TAPITripCreationRequest } from "src/api/trips";
+import * as tripsAPI from "src/api/trips/trips";
+import { TAPITripCard, TAPITripCreationRequest, TAPITripFilters } from "src/api/types";
 import { TRootState } from "src/store/types";
 
 import type { TBaseFetchOptions } from "./types";
 
 type TOptions = TBaseFetchOptions & {
-  filters?: tripsAPI.TAPITripFilters;
+  filters?: TAPITripFilters;
 };
 
 export function useTrips({ shouldFetch = true, filters }: TOptions = {}) {

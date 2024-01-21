@@ -1,4 +1,4 @@
-import { injectMessageIds } from "src/utils/utils";
+import { injectMessageIds } from "src/utils/injectMessageIds";
 
 import { EUserMenuEntry } from "./types";
 

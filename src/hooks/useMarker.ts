@@ -1,7 +1,7 @@
 import useSWR from "swr";
 
-import * as markersAPI from "src/api/markers";
-import { TAPIMarker, TTripUpdateableFields } from "src/api/markers";
+import * as markersAPI from "src/api/markers/markers";
+import { TAPIMarker, TTripUpdateableFields } from "src/api/types";
 
 import useTrip from "./useTrip";
 

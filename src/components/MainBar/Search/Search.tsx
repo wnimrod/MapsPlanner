@@ -6,7 +6,6 @@ import { generatePath, useNavigate } from "react-router-dom";
 import {
   Autocomplete,
   AutocompleteClasses,
-  AutocompleteProps,
   CircularProgress,
   TextField,
   TextFieldClasses
@@ -14,16 +13,15 @@ import {
 
 import { useAsyncMemo } from "use-async-memo";
 
-import { TAPITripCard, searchTrip } from "src/api/trips";
-import { TAPIUser, searchUser } from "src/api/users";
 import useSearchParams, { EGlobalSearchParams } from "src/hooks/useSearchParams";
-import { ERoute } from "src/routes";
 
 import SearchGroup from "./SearchGroup/SearchGroup";
+import { SCOPE_SEARCHERS, SCOPE_TO_PATH_MAPPER } from "./constants";
 import messages from "./messages";
 import { ESearchScope, TSearchOption } from "./types";
 
 type TProps = {
+  asyncSearch?: boolean;
   scopes?: ESearchScope.All | ESearchScope[];
   placeholder?: string;
   classes?: Partial<{
@@ -32,18 +30,12 @@ type TProps = {
   }>;
 };
 
-const SCOPE_SEARCHERS: [ESearchScope, (search: string) => Promise<TAPITripCard[] | TAPIUser[]>][] =
-  [
-    [ESearchScope.Trips, searchTrip],
-    [ESearchScope.Users, searchUser]
-  ];
-
-const SCOPE_TO_PATH_MAPPER: Partial<Record<ESearchScope, ERoute>> = {
-  [ESearchScope.Trips]: ERoute.Trip,
-  [ESearchScope.Users]: ERoute.UserProfile
-};
-
-export default function Search({ scopes = ESearchScope.All, placeholder, classes = {} }: TProps) {
+export default function Search({
+  asyncSearch = true,
+  scopes = ESearchScope.All,
+  placeholder,
+  classes = {}
+}: TProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -63,36 +55,43 @@ export default function Search({ scopes = ESearchScope.All, placeholder, classes
     }
   }, [scopes]);
 
+  const performSearch = async () => {
+    const results = await Promise.all(
+      scopeSearchers.map(([scope, searcher]) =>
+        searcher(query).then((results) =>
+          results.map(({ id, name, fullName }) => ({ id, name: name || fullName, scope }))
+        )
+      )
+    );
+
+    return results.reduce((acc, nextGroup) => [...acc, ...nextGroup], []);
+  };
+
   const options = useAsyncMemo(
     async () => {
-      if (query.length < 3) {
+      if (!asyncSearch) {
+        return null;
+      } else if (query.length < 3) {
         return options;
       }
 
       try {
         setIsLoading(true);
-        const results = await Promise.all(
-          scopeSearchers.map(([scope, searcher]) =>
-            searcher(query).then((results) =>
-              results.map(({ id, name, fullName }) => ({ id, name: name || fullName, scope }))
-            )
-          )
-        );
-
-        return results.reduce((acc, nextGroup) => [...acc, ...nextGroup], []);
+        const results = await performSearch();
+        return results;
       } finally {
         setIsLoading(false);
       }
     },
 
-    [query, scopeSearchers],
+    [asyncSearch, query, scopeSearchers],
     []
   ) as TSearchOption[];
 
-  function handleSearchItemSelected(
-    event: React.SyntheticEvent<Element, Event>,
+  const handleSearchItemSelected = (
+    _: React.SyntheticEvent<Element, Event>,
     selection: TSearchOption | null
-  ) {
+  ) => {
     if (selection && SCOPE_TO_PATH_MAPPER[selection.scope]) {
       return navigate(
         generatePath(SCOPE_TO_PATH_MAPPER[selection.scope]!, {
@@ -101,11 +100,11 @@ export default function Search({ scopes = ESearchScope.All, placeholder, classes
         })
       );
     }
-  }
+  };
 
   return (
     <Autocomplete
-      open={isOpen}
+      open={asyncSearch && isOpen}
       onOpen={() => setIsOpen(true)}
       onClose={() => setIsOpen(false)}
       options={options}

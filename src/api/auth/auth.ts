@@ -1,12 +1,7 @@
-import api, { unwrapAxiosResult } from "./axios";
+import api, { unwrapAxiosResult } from "../axios";
+import { TAuthProvider, TAuthResponse } from "./types";
 
 const API_PREFIX = "/auth";
-
-type TAuthProvider = "google";
-
-type TAuthResponse = {
-  url: string;
-};
 
 export const getAuthCallback = async (authProvider: TAuthProvider) => {
   const response = await api.get<TAuthResponse>(`${API_PREFIX}/${authProvider}`);

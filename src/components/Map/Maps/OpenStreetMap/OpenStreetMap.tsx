@@ -6,7 +6,7 @@ import "@maptiler/geocoding-control/style.css";
 import { LeafletEventHandlerFnMap, Map as LeafletMap, LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-import { TAPIMarker } from "src/api/markers";
+import { TAPIMarker } from "src/api/types";
 
 import style from "../Map.module.scss";
 import { TMapProviderProps } from "../types";

@@ -16,7 +16,7 @@ import {
 
 import { useSnackbar } from "notistack";
 
-import { TAPIMarker } from "src/api/markers";
+import { TAPIMarker } from "src/api/types";
 import useMarker from "src/hooks/useMarker";
 import useSkeleton from "src/hooks/useSkeleton";
 

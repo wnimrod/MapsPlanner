@@ -1,7 +1,7 @@
 import useSWR from "swr";
 
-import * as usersAPI from "src/api/users";
-import { TAPIUpdateUserRequest, TAPIUserProfile, fetchUserProfile } from "src/api/users";
+import { TAPIUpdateUserRequest, TAPIUserProfile } from "src/api/types";
+import * as usersAPI from "src/api/users/users";
 
 export default function useUserProfile(userId?: number) {
   const shouldFetch = typeof userId !== "undefined";
@@ -12,7 +12,7 @@ export default function useUserProfile(userId?: number) {
     error,
     mutate
   } = useSWR<TAPIUserProfile>(shouldFetch ? `user-profile-${userId}` : null, () =>
-    fetchUserProfile(userId!)
+    usersAPI.fetchUserProfile(userId!)
   );
 
   const editProfile = async (payload: TAPIUpdateUserRequest) => {

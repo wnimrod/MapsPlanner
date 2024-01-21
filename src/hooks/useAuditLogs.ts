@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 
 import useSWR from "swr";
 
-import { TAPIAuditCard, TAPIAuditFilter } from "src/api/audit";
-import * as auditLogsAPI from "src/api/audit";
+import * as auditLogsAPI from "src/api/audit/audit";
+import { TAPIAuditCard, TAPIAuditFilter } from "src/api/types";
 import { TRootState } from "src/store/types";
 
 import type { TBaseFetchOptions } from "./types";

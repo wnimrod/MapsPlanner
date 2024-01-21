@@ -8,7 +8,7 @@ import { Avatar, Badge, IconButton, Tooltip } from "@mui/material";
 
 import { enqueueSnackbar } from "notistack";
 
-import { logout } from "src/api/auth";
+import { logout } from "src/api/auth/auth";
 import useCurrentUser from "src/hooks/useCurrentUser";
 import useMenuManifest from "src/hooks/useMenuManifest";
 import { ERoute } from "src/routes";

@@ -1,5 +1,5 @@
-import type { TAPIMarker } from "src/api/markers";
-import type { TAPITripDetails } from "src/api/trips";
+import type { TAPIMarker } from "src/api/types";
+import type { TAPITripDetails } from "src/api/types";
 
 export enum EMapProvider {
   GoogleMaps,

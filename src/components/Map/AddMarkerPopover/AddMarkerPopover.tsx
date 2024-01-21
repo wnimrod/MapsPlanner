@@ -17,8 +17,8 @@ import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
 import * as Yup from "yup";
 
-import { ALL_MARKER_CATEGORIES, EMarkerCategory, TAPIMarkerCreationRequest } from "src/api/markers";
-import { TAPITripCard } from "src/api/trips";
+import { ALL_MARKER_CATEGORIES } from "src/api/markers/markers";
+import { EMarkerCategory, TAPIMarkerCreationRequest, TAPITripCard } from "src/api/types";
 import useTrip from "src/hooks/useTrip";
 import MarkerCategoryIcon from "src/ui/atoms/MarkerCategoryIcon/MarkerCategoryIcon";
 

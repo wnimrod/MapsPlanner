@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { TAPITripCard } from "src/api/trips";
+import { TAPITripCard } from "src/api/types";
 import useCurrentUser, { TCurrentUserLoggedIn } from "src/hooks/useCurrentUser";
 
 import BasicTripCard, { TBasicTripCardProps } from "../BasicTripCard/BasicTripCard";

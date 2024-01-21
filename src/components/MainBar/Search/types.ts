@@ -1,5 +1,6 @@
 export enum ESearchScope {
   All,
+  Off,
   Users,
   Trips,
   Audit,

@@ -1,5 +1,5 @@
-import { EAuditAction } from "src/api/audit";
-import { injectMessageIds } from "src/utils/utils";
+import { EAuditAction } from "src/api/types";
+import { injectMessageIds } from "src/utils/injectMessageIds";
 
 const scope = "viewsProfilePage.SettingsCard.Tabs.ActivityLog";
 

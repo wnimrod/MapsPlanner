@@ -4,7 +4,7 @@ import { Grid, Typography } from "@mui/material";
 
 import cx from "classnames";
 
-import { EMarkerCategory } from "src/api/markers";
+import { EMarkerCategory } from "src/api/types";
 import useSkeleton from "src/hooks/useSkeleton";
 import MarkerCategoryIcon from "src/ui/atoms/MarkerCategoryIcon/MarkerCategoryIcon";
 

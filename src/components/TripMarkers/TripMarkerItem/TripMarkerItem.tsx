@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 
-import { TAPIMarker } from "src/api/markers";
+import { TAPIMarker } from "src/api/types";
 
 import style from "./TripMarkerItem.module.scss";
 

@@ -1,31 +1,5 @@
-import api, { unwrapAxiosResult } from "./axios";
-import { TAPIMarker } from "./markers";
-import { TBaseAPIFilter } from "./types";
-
-export type TAPITripCard = {
-  id: number;
-  name: string;
-  description: string;
-  picture: string;
-  creationDate: string;
-  userId: number;
-};
-
-export type TAPITripCreationRequest = {
-  name: string;
-  description?: string;
-  picture: string; // As url or base64
-};
-
-export type TAPITripDetails = {
-  markers: TAPIMarker[];
-} & TAPITripCard;
-
-export type TAPITripFilters = TBaseAPIFilter &
-  Partial<{
-    creationDate: string;
-    name: string;
-  }>;
+import api, { unwrapAxiosResult } from "../axios";
+import { TAPITripCard, TAPITripCreationRequest, TAPITripDetails, TAPITripFilters } from "./types";
 
 const API_PREFIX = "/trips";
 
@@ -61,7 +35,7 @@ export async function deleteTrip(tripId: number) {
   return unwrapAxiosResult(result);
 }
 
-export const searchTrip = async (search: string) => {
+export async function searchTrip(search: string) {
   const result = await api.get<TAPITripCard[]>(`${API_PREFIX}/`, { params: { search } });
   return unwrapAxiosResult(result);
-};
+}

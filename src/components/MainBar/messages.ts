@@ -1,5 +1,5 @@
 import { ERoute } from "src/routes";
-import { injectMessageIds } from "src/utils/utils";
+import { injectMessageIds } from "src/utils/injectMessageIds";
 
 const scope = "components.MainBar";
 

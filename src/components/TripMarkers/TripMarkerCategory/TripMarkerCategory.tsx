@@ -4,7 +4,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 
 import { type TTripMarkerItemProps, TripMarkerItem } from "src/components/TripMarkers";
 
-import { EMarkerCategory, TAPIMarker } from "src/api/markers";
+import { EMarkerCategory, TAPIMarker } from "src/api/types";
 
 import TripMarkerHeader from "../TripMarkerHeader/TripMarkerHeader";
 import MarkerGeneratorButton from "./MarkerGeneratorButton";

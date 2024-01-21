@@ -1,6 +1,6 @@
 import { generatePath, useNavigate } from "react-router-dom";
 
-import { TAPITripCard } from "src/api/trips";
+import { TAPITripCard } from "src/api/types";
 import { ERoute } from "src/routes";
 
 import BasicTripCard, { TBasicTripCardProps } from "../BasicTripCard/BasicTripCard";

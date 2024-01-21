@@ -14,7 +14,7 @@ import {
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
 
-import { EGender } from "src/api/users";
+import { EGender } from "src/api/types";
 import useSkeleton from "src/hooks/useSkeleton";
 import useUserProfile from "src/hooks/useUserProfile";
 import useParams from "src/views/ProfilePage/useParams";

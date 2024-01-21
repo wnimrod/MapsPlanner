@@ -10,7 +10,7 @@ import TripCard from "src/components/TripCard/TripCard/TripCard";
 import { tripCardActionManifest } from "src/components/TripCard/TripCard/manifest";
 import TripMarkers from "src/components/TripMarkers/TripMarkers";
 
-import { TAPIMarker } from "src/api/markers";
+import { TAPIMarker } from "src/api/types";
 import useTrip from "src/hooks/useTrip";
 
 import style from "./TripScreen.module.scss";

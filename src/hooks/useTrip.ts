@@ -1,8 +1,12 @@
 import useSWR from "swr";
 
-import { TAPIMarkerCreationRequest } from "src/api/markers";
-import * as markersAPI from "src/api/markers";
-import { TAPITripDetails, fetchTrip } from "src/api/trips";
+import * as markersAPI from "src/api/markers/markers";
+import { fetchTrip } from "src/api/trips/trips";
+import {
+  TAPIMarkerCreationRequest,
+  TAPIMarkerGenerationRequest,
+  TAPITripDetails
+} from "src/api/types";
 
 export default function useTrip(tripId?: number) {
   const fetchKey = typeof tripId !== "undefined" ? `trip-${tripId}` : null;
@@ -27,9 +31,7 @@ export default function useTrip(tripId?: number) {
     return newMarker;
   };
 
-  const generateMarkers = async (
-    markerGenerationRequest: markersAPI.TAPIMarkerGenerationRequest
-  ) => {
+  const generateMarkers = async (markerGenerationRequest: TAPIMarkerGenerationRequest) => {
     if (markerGenerationRequest.tripId !== tripId) {
       throw new Error("Mismatch between marker.trip_id and trip.id");
     }

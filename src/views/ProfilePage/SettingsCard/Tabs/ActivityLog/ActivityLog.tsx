@@ -17,7 +17,7 @@ import {
   TableRow
 } from "@mui/material";
 
-import { EAuditAction, TAPIAuditCard } from "src/api/audit";
+import { EAuditAction, TAPIAuditCard } from "src/api/types";
 import useAuditLogs from "src/hooks/useAuditLogs";
 import useSkeleton from "src/hooks/useSkeleton";
 import { ERoute } from "src/routes";

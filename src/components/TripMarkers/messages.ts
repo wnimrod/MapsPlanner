@@ -1,5 +1,5 @@
-import { EMarkerCategory } from "src/api/markers";
-import { injectMessageIds } from "src/utils/utils";
+import { EMarkerCategory } from "src/api/types";
+import { injectMessageIds } from "src/utils/injectMessageIds";
 
 const scope = "components.TripMarkers";
 

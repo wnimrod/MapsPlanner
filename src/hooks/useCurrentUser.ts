@@ -1,7 +1,7 @@
 import useSWR from "swr";
 
 import type { TAPIUser } from "src/api/types";
-import { fetchCurrentUser } from "src/api/users";
+import { fetchCurrentUser } from "src/api/users/users";
 
 import { TBaseFetchOptions } from "./types";
 

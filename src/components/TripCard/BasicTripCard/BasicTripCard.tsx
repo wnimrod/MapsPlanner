@@ -14,7 +14,7 @@ import {
 import cx from "classnames";
 import { useSnackbar } from "notistack";
 
-import type { TAPITripCard } from "src/api/trips";
+import type { TAPITripCard } from "src/api/types";
 import useContextMenu from "src/hooks/useContextMenu";
 import useSkeleton from "src/hooks/useSkeleton";
 import { useTrips } from "src/hooks/useTrips";
