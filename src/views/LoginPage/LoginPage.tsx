@@ -18,9 +18,6 @@ export default function LoginPage() {
   const { user } = useCurrentUser();
   const navigate = useNavigate();
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
   useEffect(() => {
     if (user?.isLoggedIn) {
       navigate(ERoute.Home);
@@ -28,7 +25,7 @@ export default function LoginPage() {
   }, [user?.isLoggedIn]);
 
   return (
-    <Grid container maxWidth="lg" classes={{ root: style.container }} columns={isMobile ? 1 : 2}>
+    <Grid container maxWidth="sm" classes={{ root: style.container }} columns={1}>
       <Grid item xs={1} classes={{ root: style.appIcon }}>
         <MapsPlannerIcon />
       </Grid>

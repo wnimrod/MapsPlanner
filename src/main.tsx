@@ -15,7 +15,7 @@ import store from "src/store/store";
 import App from "./App.tsx";
 import DependenciesProvider from "./components/DependenciesProvider.tsx";
 import LanguageProvider from "./components/LanguageProvider.tsx";
-import "./index.css";
+import "./index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

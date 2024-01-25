@@ -24,6 +24,7 @@ import { ERoute } from "src/routes";
 import { ETab } from "src/views/ProfilePage/types";
 import useParams from "src/views/ProfilePage/useParams";
 
+import style from "./ActivityLog.module.scss";
 import messages from "./messages";
 
 export default function ActivityLog() {
@@ -102,7 +103,7 @@ export default function ActivityLog() {
             ))}
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody classes={{ root: style.logs }}>
           {auditLogs?.map((auditLog) => (
             <>
               <TableRow>
