@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import useCurrentUser from "src/hooks/useCurrentUser";
-import useGoogleMaps from "src/hooks/useGoogleMaps";
 import { setIsAppReady } from "src/store/global";
 import { AppDispatch } from "src/store/store";
 import { TRootState } from "src/store/types";
@@ -18,9 +17,8 @@ export default function DependenciesProvider({ Component }: TProps) {
    */
 
   const { isLoaded: isUserLoaded } = useCurrentUser();
-  const { isLoaded: isMappesLoaded } = useGoogleMaps();
 
-  const dependencies = [isUserLoaded, isMappesLoaded];
+  const dependencies = [isUserLoaded];
   const dispatch: AppDispatch = useDispatch();
 
   const isAppReady: boolean = useSelector((state: TRootState) => state.global.isAppReady);
