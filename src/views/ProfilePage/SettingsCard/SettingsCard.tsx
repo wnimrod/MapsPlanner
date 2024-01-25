@@ -23,14 +23,14 @@ export default function SettingsCard() {
 
   return (
     <Card variant="outlined" classes={{ root: style.container }}>
-      <CardContent>
+      <CardContent classes={{ root: style.container }}>
         <Tabs value={tabs.indexOf(selectedTab as ETab)} onChange={handleTabChanged}>
           {tabs.map((key) => (
             <Tab key={`tab-${key}`} label={formatMessage(messages.tabs[key.toLowerCase()])} />
           ))}
         </Tabs>
         <Divider />
-        <Box mt={3}>
+        <Box paddingTop={3} height="100%">
           <TabContent />
         </Box>
       </CardContent>

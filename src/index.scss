@@ -16,6 +16,7 @@ body {
 }
 
 #root {
+  overflow: auto;
   background-color: var(--root-background);
   min-height: 100vh;
 }

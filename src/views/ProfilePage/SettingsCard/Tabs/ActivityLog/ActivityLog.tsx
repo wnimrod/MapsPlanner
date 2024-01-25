@@ -94,7 +94,7 @@ export default function ActivityLog() {
   };
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} classes={{ root: style.table }}>
       <Table>
         <TableHead>
           <TableRow>
@@ -105,13 +105,11 @@ export default function ActivityLog() {
         </TableHead>
         <TableBody classes={{ root: style.logs }}>
           {auditLogs?.map((auditLog) => (
-            <>
-              <TableRow>
-                {fields.map((field) => (
-                  <TableCell>{withSkeleton(renderCell(auditLog, field))}</TableCell>
-                ))}
-              </TableRow>
-            </>
+            <TableRow>
+              {fields.map((field) => (
+                <TableCell>{withSkeleton(renderCell(auditLog, field))}</TableCell>
+              ))}
+            </TableRow>
           ))}
         </TableBody>
       </Table>

@@ -69,7 +69,7 @@ export default function TripMarkers({ trip, onMarkerSelected }: TProps) {
           key={`marker-group-${trip?.id}-${category}`}
           category={category}
           isLoading={isLoading}
-          isSelected={category === selectedCategory}
+          isSelected={(searchQuery && markers?.length > 0) || category === selectedCategory}
           markers={markers as TAPIMarker[]}
           onAccordionExpansion={handleAccordionExpansion}
           onMarkerSelected={handleMarkerSelected}

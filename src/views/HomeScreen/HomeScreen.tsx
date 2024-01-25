@@ -37,13 +37,11 @@ export default function HomeScreen() {
         <ImageListItem key="trip-add">
           <AddTripCard isLoading={isLoading} onCardSelected={() => setIsAddTripModalOpen(true)} />
         </ImageListItem>
-        {[...displayableTrips, ...displayableTrips, ...displayableTrips, ...displayableTrips].map(
-          (trip: TAPITripCard) => (
-            <ImageListItem key={`trip-card-${trip.id}`}>
-              <TripCard isLoading={isLoading} trip={trip} actions={[ACTION_DELETE]} />
-            </ImageListItem>
-          )
-        )}
+        {displayableTrips.map((trip: TAPITripCard) => (
+          <ImageListItem key={`trip-card-${trip.id}`}>
+            <TripCard isLoading={isLoading} trip={trip} actions={[ACTION_DELETE]} />
+          </ImageListItem>
+        ))}
       </ImageList>
       <AddTripModal isOpen={isAddTripModalOpen} onClose={() => setIsAddTripModalOpen(false)} />
     </>
