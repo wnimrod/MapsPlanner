@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import MapsPlannerIcon from "src/assets/mapsplanner-logo.svg?react";
 
 import MapIcon from "@mui/icons-material/Map";
-import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 import GoogleLoginButton from "src/components/GoogleLoginButton";
 

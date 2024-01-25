@@ -13,6 +13,7 @@ import {
 
 import { useAsyncMemo } from "use-async-memo";
 
+import { TAPITripCard, TAPIUserProfile } from "src/api/types";
 import useSearchParams, { EGlobalSearchParams } from "src/hooks/useSearchParams";
 
 import SearchGroup from "./SearchGroup/SearchGroup";
@@ -59,7 +60,11 @@ export default function Search({
     const results = await Promise.all(
       scopeSearchers.map(([scope, searcher]) =>
         searcher(query).then((results) =>
-          results.map(({ id, name, fullName }) => ({ id, name: name || fullName, scope }))
+          results.map((result) => ({
+            id: result,
+            name: (result as TAPITripCard)?.name || (result as TAPIUserProfile)?.fullName,
+            scope
+          }))
         )
       )
     );
