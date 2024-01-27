@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+alias locale_folder_checksum="find src/lang -type f -exec md5sum {} \; | md5sum"
+
+before_localize_checksum=$(locale_folder_checksum)
+pnpm run localize --quiet
+after_localize_checksum=$(locale_folder_checksum)
+
+if [ "${before_localize_checksum}" != "${after_localize_checksum}" ]; then 
+    echo "Missing translation are generated and the commit content changed. Please commit again."
+    exit 1
+fi;

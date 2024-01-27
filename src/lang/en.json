@@ -96,5 +96,9 @@
   "views.ProfilePage.SettingsCard.Tabs.EditProfile.submit": "Save",
   "views.ProfilePage.SettingsCard.Tabs.EditProfile.editSuccess": "Profile Changes submitted.",
   "views.ProfilePage.SettingsCard.Tabs.EditProfile.editFailed": "Failed to submit changes. Please try again.",
+  "views.ResourceNotFoundPage.header": "{resourceType} Not Found.",
+  "views.ResourceNotFoundPage.subtitle": "We could not find this {resourceType}, everywhere we searched.",
+  "views.ResourceNotFoundPage.errors.show": "Show errors",
+  "views.ResourceNotFoundPage.errors.hide": "Hide errors",
   "views.TripScreen.mapLoading": "Map Is Loading ..."
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BrokenRobotIcon from "src/assets/broken-robot.svg?react";
 
 import { Error, KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
