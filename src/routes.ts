@@ -1,24 +1,71 @@
+import { useMemo } from "react";
+
 export enum ERoute {
   Home = "/",
   Login = "/login",
   Trip = "/trips/:id",
-  UserProfile = "/user/:id?/:tab?"
+  UserProfile = "/user/:id?/:tab?",
+  Error = "/error"
 }
+
+type TRouteManifest = {
+  isFullscreen: boolean;
+  requireAuthentication: boolean;
+  withMainBar: boolean;
+};
+
+const routesManifest: Record<ERoute, TRouteManifest> = {
+  [ERoute.Home]: {
+    isFullscreen: false,
+    requireAuthentication: true,
+    withMainBar: true
+  },
+  [ERoute.Login]: {
+    isFullscreen: false,
+    requireAuthentication: false,
+    withMainBar: false
+  },
+  [ERoute.Trip]: {
+    isFullscreen: true,
+    requireAuthentication: true,
+    withMainBar: true
+  },
+  [ERoute.UserProfile]: {
+    isFullscreen: false,
+    requireAuthentication: true,
+    withMainBar: true
+  },
+  [ERoute.Error]: {
+    isFullscreen: false,
+    requireAuthentication: false,
+    withMainBar: false
+  }
+};
 
 const ROUTES = Object.values(ERoute);
 
-const FULL_SCREEN_ROUTES = [ERoute.Trip];
-
-export const getCurrentRoute = () => {
+export const getCurrentRoute = (path: string): ERoute | undefined => {
   const pageMatcher = /^\/([a-zA-Z]*)/;
-  const match = window.location.pathname.match(pageMatcher);
+  const match = path.match(pageMatcher);
 
-  if (!match) return null;
+  if (!match) return undefined;
 
   return ROUTES.find((route) => route.toLowerCase().startsWith(match[0]));
 };
 
+export const useCurrentRoute = () => {
+  const pathname = window.location.pathname;
+
+  return useMemo(() => {
+    const route = getCurrentRoute(pathname);
+    return {
+      route,
+      manifest: route && routesManifest[route]
+    };
+  }, [pathname]);
+};
+
 export const useIsFullScreenRoute = () => {
-  const currentRoute = getCurrentRoute();
-  return currentRoute ? FULL_SCREEN_ROUTES.includes(currentRoute) : false;
+  const { manifest } = useCurrentRoute();
+  return Boolean(manifest?.isFullscreen);
 };

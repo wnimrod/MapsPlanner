@@ -10,7 +10,7 @@
     "lint": "tsc --skipLibCheck --noEmit && eslint . --ext ts,tsx --quiet",
     "lint:fix": "tsc --skipLibCheck --noEmit && eslint . --ext ts,tsx --quiet --fix",
     "preview": "vite preview",
-    "build-messages": "formatjs extract --ignore=\"src/**/*.d.ts\" --out-file \"src/lang/en.json\" --id-interpolation-pattern '[sha512:contenthash:base64:6]' \"src/**/messages.ts\" --format simple"
+    "dev-external": "vite --host"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

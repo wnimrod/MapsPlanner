@@ -25,23 +25,25 @@ export default function LoginPage() {
   }, [user?.isLoggedIn]);
 
   return (
-    <Grid container maxWidth="sm" classes={{ root: style.container }} columns={1}>
-      <Grid item xs={1} classes={{ root: style.appIcon }}>
-        <MapsPlannerIcon />
-      </Grid>
-      <Grid item xs={1} classes={{ root: style.loginForm }}>
-        <Typography variant="h4" color="common.black" className={style.header}>
-          <FormattedMessage {...messages.header} />
-        </Typography>
-        <Typography variant="subtitle1" color="common.black">
-          <FormattedMessage {...messages.subtitle} />
-        </Typography>
-        <Box margin={2}>
-          <MapIcon fontSize="large" />
-        </Box>
+    <div className={style.container}>
+      <Grid container maxWidth={450} classes={{ root: style.loginContainer }} columns={1}>
+        <Grid item xs={1} classes={{ root: style.appIcon }}>
+          <MapsPlannerIcon />
+        </Grid>
+        <Grid item xs={1} classes={{ root: style.loginForm }}>
+          <Typography variant="h4" color="common.black" className={style.header}>
+            <FormattedMessage {...messages.header} />
+          </Typography>
+          <Typography variant="subtitle1" color="common.black">
+            <FormattedMessage {...messages.subtitle} />
+          </Typography>
+          <Box margin={2}>
+            <MapIcon fontSize="large" />
+          </Box>
 
-        <GoogleLoginButton variant="outlined" size="large" />
+          <GoogleLoginButton variant="outlined" size="large" />
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 }

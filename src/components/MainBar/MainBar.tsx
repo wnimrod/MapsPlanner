@@ -5,7 +5,7 @@ import MapIcon from "@mui/icons-material/Map";
 import { AppBar, Container, Toolbar, Typography } from "@mui/material";
 
 import useCurrentUser from "src/hooks/useCurrentUser";
-import { ERoute, getCurrentRoute, useIsFullScreenRoute } from "src/routes";
+import { ERoute, useCurrentRoute } from "src/routes";
 
 import style from "./MainBar.module.scss";
 import Search from "./Search/Search";
@@ -16,14 +16,15 @@ export default function MainBar() {
   const { formatMessage } = useIntl();
 
   const navigate = useNavigate();
-  const isFullScreenPage = useIsFullScreenRoute();
+  const { route, manifest: routeManifest } = useCurrentRoute();
+
   const { isLoggedIn } = useCurrentUser();
 
-  const route = getCurrentRoute();
+  if (!routeManifest?.withMainBar) return null;
 
   return (
     <AppBar position="sticky" classes={{ root: style.appBar }}>
-      <Container className={style.container} maxWidth={isFullScreenPage ? false : "lg"}>
+      <Container className={style.container} maxWidth={routeManifest?.isFullscreen ? false : "lg"}>
         <Toolbar classes={{ root: style.toolbar }}>
           <Typography className={style.labelContainer} variant="h6">
             <div className={style.label} onClick={() => navigate(ERoute.Home)}>

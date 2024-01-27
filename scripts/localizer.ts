@@ -4,9 +4,31 @@ import { glob } from "glob";
 const messagesSearchPattern = `${process.cwd()}/src/**/messages.ts`;
 const dumpFileLocation = `${process.cwd()}/src/lang/en.json`;
 
+// Parse Args
+const args = process.argv.slice(2);
+const parsedArgs = {
+  quite: false
+};
+
+for (const i in args) {
+  const arg = args[i];
+  switch (arg) {
+    case "-q":
+    case "--quiet":
+      parsedArgs.quite = true;
+      break;
+  }
+}
+
+const log = (...args: any[]) => {
+  if (!parsedArgs.quite) {
+    console.log(...args);
+  }
+};
+
 const handleMessagesFile = async (path: string) => {
   try {
-    console.log("Proccessing file: ", path);
+    log("Proccessing file: ", path);
     const { default: messages } = await import(path);
     return extractMessages(messages);
   } catch (err) {
@@ -30,7 +52,7 @@ const extractMessages = (messages: object) => {
 };
 
 glob(messagesSearchPattern, {}).then(async (paths) => {
-  console.log("Preparing messages ...");
+  log("Preparing messages ...");
   const flatMessagesParts = await Promise.all(
     paths.sort((a, b) => a.localeCompare(b)).map(handleMessagesFile)
   );
@@ -43,7 +65,7 @@ glob(messagesSearchPattern, {}).then(async (paths) => {
     {}
   );
 
-  console.log("Writing file ...");
+  log("Writing file ...");
   writeFileSync(dumpFileLocation, JSON.stringify(unitedMessages, null, 2));
-  console.log("Done. Written file: ", dumpFileLocation);
+  log("Done. Written file: ", dumpFileLocation);
 });

@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { Box, Container } from "@mui/material";
 
-import { ERoute, useIsFullScreenRoute } from "src/routes.ts";
+import { ERoute, useCurrentRoute, useIsFullScreenRoute } from "src/routes.ts";
 
 import style from "./App.module.scss";
 import MainBar from "./components/MainBar/MainBar";
@@ -15,6 +15,7 @@ import { TRootState } from "./store/types";
 import ActionConfirmDialog, {
   TActionConfirmDialogRef
 } from "./ui/molecules/ActionConfirmDialog/ActionConfirmDialog";
+import ErrorPage from "./views/ErrorPage/ErrorPage";
 import HomeScreen from "./views/HomeScreen/HomeScreen";
 import LoginPage from "./views/LoginPage/LoginPage";
 import ProfilePage from "./views/ProfilePage/ProfilePage";
@@ -25,14 +26,14 @@ function App() {
   const isFullScreenPage = useIsFullScreenRoute();
 
   const { user } = useCurrentUser();
-
+  const { manifest: routeManifest } = useCurrentRoute();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
   const confirmDialogDialogRef = useRef<TActionConfirmDialogRef | null>(null);
 
   useEffect(() => {
-    if (isAppReady && user?.isLoggedIn === false) {
+    if (isAppReady && routeManifest?.requireAuthentication && user?.isLoggedIn === false) {
       navigate(ERoute.Login);
     } else if (user?.isLoggedIn && user.isAdministrator) {
       dispatch(setAdministratorMode(true));
@@ -58,6 +59,7 @@ function App() {
           <Route path={ERoute.Login} Component={LoginPage} />
           <Route path={ERoute.Trip} Component={TripScreen} />
           <Route path={ERoute.UserProfile} Component={ProfilePage} />
+          <Route path={ERoute.Error} Component={ErrorPage} />
         </Routes>
       </Container>
 

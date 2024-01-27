@@ -1,0 +1,53 @@
+@import "src/_mixins.scss";
+@import "src/_consts.scss";
+
+.root {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    height: fit-content;
+    align-items: center;
+    color: var(--mui-palette-common-onBackground);
+
+    @include media-breakdown-down($mui-breakdown-md) {
+      align-content: center;
+    }
+
+    .text {
+      @include media-breakdown-down($mui-breakdown-md) {
+        text-align: center;
+      }
+
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+
+      .header {
+        font-weight: bold;
+      }
+
+      .toggle-errors {
+        display: inline-flex;
+        color: var(--mui-palette-error-light);
+        align-items: center;
+        margin-left: 5px;
+      }
+    }
+
+    .icon {
+      display: flex;
+      justify-content: center;
+
+      svg {
+        max-width: 24rem;
+        max-height: 24rem;
+        height: max-content;
+        width: max-content;
+        fill: var(--mui-palette-common-onBackground);
+        stroke: var(--mui-palette-common-onBackground);
+      }
+    }
+  }
+}
