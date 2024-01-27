@@ -5,7 +5,8 @@ export enum ERoute {
   Login = "/login",
   Trip = "/trips/:id",
   UserProfile = "/user/:id?/:tab?",
-  Error = "/error"
+  Error = "/error",
+  NotFound = "/404"
 }
 
 type TRouteManifest = {
@@ -39,6 +40,11 @@ const routesManifest: Record<ERoute, TRouteManifest> = {
     isFullscreen: false,
     requireAuthentication: false,
     withMainBar: false
+  },
+  [ERoute.NotFound]: {
+    isFullscreen: false,
+    requireAuthentication: true,
+    withMainBar: true
   }
 };
 

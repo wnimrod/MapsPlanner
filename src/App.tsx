@@ -1,8 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import { Box, Container } from "@mui/material";
+
+import axios from "axios";
+import { SWRConfig } from "swr";
 
 import { ERoute, useCurrentRoute, useIsFullScreenRoute } from "src/routes.ts";
 
@@ -19,6 +22,7 @@ import ErrorPage from "./views/ErrorPage/ErrorPage";
 import HomeScreen from "./views/HomeScreen/HomeScreen";
 import LoginPage from "./views/LoginPage/LoginPage";
 import ProfilePage from "./views/ProfilePage/ProfilePage";
+import ResourceNotFoundPage from "./views/ResourceNotFoundPage/ResourceNotFoundPage";
 import TripScreen from "./views/TripScreen/TripScreen";
 
 function App() {
@@ -46,6 +50,15 @@ function App() {
     }
   }, [confirmDialogDialogRef.current]);
 
+  const handleResourceNotFound = (err: any) => {
+    if (axios.isAxiosError(err) && err.response?.status === 404) {
+      navigate(ERoute.NotFound, {
+        state: { resourceType: undefined, errors: [err.response.data.detail] },
+        replace: true
+      });
+    }
+  };
+
   return (
     <Box className={style.container}>
       <MainBar />
@@ -54,13 +67,17 @@ function App() {
         sx={{ padding: isFullScreenPage ? "0 !important" : undefined }}
         className={style.inner}
       >
-        <Routes>
-          <Route path={ERoute.Home} Component={HomeScreen} />
-          <Route path={ERoute.Login} Component={LoginPage} />
-          <Route path={ERoute.Trip} Component={TripScreen} />
-          <Route path={ERoute.UserProfile} Component={ProfilePage} />
-          <Route path={ERoute.Error} Component={ErrorPage} />
-        </Routes>
+        <SWRConfig value={{ onError: handleResourceNotFound }}>
+          <Routes>
+            <Route path={ERoute.Home} Component={HomeScreen} />
+            <Route path={ERoute.Login} Component={LoginPage} />
+            <Route path={ERoute.Trip} Component={TripScreen} />
+            <Route path={ERoute.UserProfile} Component={ProfilePage} />
+            <Route path={ERoute.Error} Component={ErrorPage} />
+            <Route path={ERoute.NotFound} Component={ResourceNotFoundPage} />
+            <Route path="*" element={<Navigate to={ERoute.Home} />} />
+          </Routes>
+        </SWRConfig>
       </Container>
 
       {/* Global Scope utilities */}

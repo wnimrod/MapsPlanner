@@ -1,13 +1,14 @@
 .app-bar {
   box-shadow: unset;
+  flex-basis: var(--top-bar-height);
   .container {
     transition: max-width 650ms ease-in-out;
     height: var(--top-bar-height);
-    
+
     .toolbar {
       height: var(--top-bar-height);
 
-      .search { 
+      .search {
         width: 300px;
         margin-right: var(--spacer);
       }
@@ -35,5 +36,4 @@
       }
     }
   }
-
 }

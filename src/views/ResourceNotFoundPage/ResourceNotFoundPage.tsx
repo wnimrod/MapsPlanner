@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import BrokenRobotIcon from "src/assets/broken-robot.svg?react";
+import { useLocation, useNavigate } from "react-router-dom";
+import ResourceNotFoundIcon from "src/assets/404.svg?react";
 
 import { Error, KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
 import {
@@ -16,10 +16,11 @@ import {
 
 import { ERoute } from "src/routes";
 
-import style from "./ErrorPage.module.scss";
+import style from "./ResourceNotFoundPage.module.scss";
 import messages from "./messages";
 
 type TErrorState = {
+  resourceType: string;
   errors: string[];
 };
 
@@ -29,7 +30,7 @@ export default function ErrorPage(props: TProps) {
   const [isErrorsShown, setIsErrorsShown] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { errors = [] } = (state as TErrorState) || props || {};
+  const { resourceType = "resource", errors = [] } = (state as TErrorState) || props || {};
 
   useEffect(() => {
     if (errors?.length === 0) {
@@ -45,18 +46,21 @@ export default function ErrorPage(props: TProps) {
     <div className={style.root}>
       <Grid container maxWidth="md" spacing={3} classes={{ root: style.container }}>
         <Grid item md={6} xs={12} classes={{ root: style.icon }}>
-          <BrokenRobotIcon />
+          <ResourceNotFoundIcon />
         </Grid>
         <Grid item md={6} xs={12} classes={{ root: style.text }}>
           <Grid container columns={2}>
             <Grid item>
               <Typography variant="h2" classes={{ h2: style.header }}>
-                <FormattedMessage {...messages.header} />
+                <FormattedMessage {...messages.header} values={{ resourceType }} />
               </Typography>
             </Grid>
             <Grid item width="100%">
               <Typography variant="subtitle1">
-                <FormattedMessage {...messages.subtitle} values={{ errorCount: errors?.length }} />
+                <FormattedMessage
+                  {...messages.subtitle}
+                  values={{ errorCount: errors?.length, resourceType }}
+                />
                 <div
                   onClick={() => setIsErrorsShown(!isErrorsShown)}
                   className={style.toggleErrors}

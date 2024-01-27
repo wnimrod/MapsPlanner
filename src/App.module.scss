@@ -3,9 +3,11 @@
 
 .container {
   height: 100vh;
-
+  display: flex;
+  flex-direction: column;
   .inner {
     height: calc(100vh - var(--top-bar-height));
+    flex: 1 0 auto;
   }
 }
 
