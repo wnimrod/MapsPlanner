@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: maps-planner
+    image: maps_planner
+    env_file:
+      - .env.development
+    command: bash -c "pnpm run dev-external --host --port=5173"
+    build:
+      dockerfile: ./deployment/Dockerfile
+      context: .
+      target: base
+    volumes:
+      - ./src:/app/src
+    ports:
+    - 5173:5173
